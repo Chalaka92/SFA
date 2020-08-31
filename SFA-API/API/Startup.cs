@@ -38,7 +38,7 @@ namespace API
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                //opt.UseLazyLoadingProxies();
+                opt.UseLazyLoadingProxies();
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
 
@@ -49,7 +49,7 @@ namespace API
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                //opt.UseLazyLoadingProxies();
+                opt.UseLazyLoadingProxies();
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
@@ -82,10 +82,10 @@ namespace API
           .SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddControllers();
 
-            var builder = services.AddIdentityCore<AppUser>();
-            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-            identityBuilder.AddEntityFrameworkStores<DataContext>();
-            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            services.AddIdentityCore<AppUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<DataContext>()
+                .AddSignInManager<SignInManager<AppUser>>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

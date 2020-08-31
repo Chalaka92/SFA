@@ -23,6 +23,7 @@ namespace Application.User
             public string Username { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
+            public int RoleId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -64,6 +65,7 @@ namespace Application.User
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
+                await _userManager.AddToRoleAsync(user, ((AccountRole)request.RoleId).ToString());
 
                 if (result.Succeeded)
                 {

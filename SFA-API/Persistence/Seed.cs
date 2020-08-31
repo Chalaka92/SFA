@@ -3,13 +3,35 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Persistence
 {
     public class Seed
     {
-        public static async Task SeedDataAsync(DataContext context, UserManager<AppUser> userManager)
+        public static async Task SeedDataAsync(DataContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            if (!await roleManager.RoleExistsAsync("AreaManager"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("AreaManager"));
+            }
+            if (!await roleManager.RoleExistsAsync("StoreManager"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("StoreManager"));
+            }
+            if (!await roleManager.RoleExistsAsync("ShopOwner"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("ShopOwner"));
+            }
+            if (!await roleManager.RoleExistsAsync("SalesRep"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("SalesRep"));
+            }
+
             if (!userManager.Users.Any())
             {
                 var users = new List<AppUser>
@@ -17,19 +39,19 @@ namespace Persistence
                     new AppUser
                     {
                         DisplayName = "Chalaka",
-                        UserName = "Chalaka",
+                        UserName = "ChalakaRathnayake",
                         Email = "chalaka@test.com"
                     },
                     new AppUser
                     {
                         DisplayName = "Supun",
-                        UserName = "Supun",
+                        UserName = "SupunSanjeewa",
                         Email = "supun@test.com"
                     },
                     new AppUser
                     {
                         DisplayName = "Isuru",
-                        UserName = "Isuru",
+                        UserName = "IsuruSampath",
                         Email = "isuru@test.com"
                     },
                 };
@@ -37,6 +59,7 @@ namespace Persistence
                 foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
+                    await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
 
