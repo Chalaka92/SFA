@@ -34,6 +34,7 @@ namespace Application.User
                 RuleFor(x => x.Username).NotEmpty();
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Password).Password();
+                RuleFor(x => x.RoleId).GreaterThan(0);
             }
         }
 
@@ -69,12 +70,14 @@ namespace Application.User
 
                 if (result.Succeeded)
                 {
+                    var userRoles = _userManager.GetRolesAsync(user);
                     return new User
                     {
                         DisplayName = user.DisplayName,
                         Token = _jwtGenerator.CreateToken(user),
                         Username = user.UserName,
-                        Image = null
+                        Image = null,
+                        Roles = userRoles.Result
                     };
                 }
 

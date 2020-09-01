@@ -12,17 +12,29 @@ namespace Persistence
         }
 
         public DbSet<Value> Values { get; set; }
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<Route> Routes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            // builder.Entity<Value>()
-            // .HasData(
-            //     new Value { Id = 1, Name = "Value 101" },
-            //     new Value { Id = 2, Name = "Value 102" },
-            //     new Value { Id = 3, Name = "Value 103" }
-            //     );
+            builder.Entity<District>()
+                .HasOne(u => u.Province)
+                .WithMany(a => a.Districts)
+                .HasForeignKey(u => u.ProvinceId);
+
+            builder.Entity<Area>()
+            .HasOne(u => u.District)
+            .WithMany(a => a.Areas)
+            .HasForeignKey(u => u.DistrictId);
+
+            builder.Entity<Route>()
+           .HasOne(u => u.Area)
+           .WithMany(a => a.Routes)
+           .HasForeignKey(u => u.AreaId);
         }
     }
 }
