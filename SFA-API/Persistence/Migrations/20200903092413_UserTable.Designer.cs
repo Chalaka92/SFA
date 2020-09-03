@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200903092413_UserTable")]
+    partial class UserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,84 +197,6 @@ namespace Persistence.Migrations
                     b.ToTable("Routes");
                 });
 
-            modelBuilder.Entity("Domain.Shop", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("ArrearsAmount")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("RouteId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ShopCategoryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ShopCode")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ShopOwnerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Shops");
-                });
-
-            modelBuilder.Entity("Domain.ShopAddress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address1")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Address2")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Address3")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("DistrictId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("LocationLatitude")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LocationLongitude")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ProvinceId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ShopId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopId");
-
-                    b.ToTable("ShopAddresses");
-                });
-
             modelBuilder.Entity("Domain.ShopCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -294,44 +218,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ShopCategories");
-                });
-
-            modelBuilder.Entity("Domain.ShopContact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ContactNo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ShopId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopId");
-
-                    b.ToTable("ShopContacts");
-                });
-
-            modelBuilder.Entity("Domain.ShopEmail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ShopId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopId");
-
-                    b.ToTable("ShopEmails");
                 });
 
             modelBuilder.Entity("Domain.Status", b =>
@@ -645,33 +531,6 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Area", "Area")
                         .WithMany("Routes")
                         .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.ShopAddress", b =>
-                {
-                    b.HasOne("Domain.Shop", "Shop")
-                        .WithMany("ShopAddresses")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.ShopContact", b =>
-                {
-                    b.HasOne("Domain.Shop", "Shop")
-                        .WithMany("ShopContacts")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.ShopEmail", b =>
-                {
-                    b.HasOne("Domain.Shop", "Shop")
-                        .WithMany("ShopEmails")
-                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -8,9 +8,9 @@ namespace Domain
         public string Name { get; set; }
         public string RouteCode { get; set; }
         public string StartLatitude { get; set; }
-        public string Startlongitude { get; set; }
+        public string StartLongitude { get; set; }
         public string EndLatitude { get; set; }
-        public string Endlongitude { get; set; }
+        public string EndLongitude { get; set; }
         public string Comment { get; set; }
         public virtual Area Area { get; set; }
     }

@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,7 +8,7 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Provinces
+namespace Application.ShopCategories
 {
     public class Create
     {
@@ -14,6 +16,9 @@ namespace Application.Provinces
         {
             public int Id { get; set; }
             public string Name { get; set; }
+            public string Description { get; set; }
+            public string ShopCategoryCode { get; set; }
+            public decimal MaximumDebtAmount { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -21,6 +26,7 @@ namespace Application.Provinces
             public CommandValidator()
             {
                 RuleFor(x => x.Name).NotEmpty();
+                RuleFor(x => x.Description).NotEmpty();
             }
         }
 
@@ -36,9 +42,12 @@ namespace Application.Provinces
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var province = _mapper.Map<Command, Province>(request);
+                var shopCategory = _mapper.Map<Command, ShopCategory>(request);
 
-                await _context.Provinces.AddAsync(province);
+                shopCategory.ShopCategoryCode = "cat_" + request.Name.Split(' ').Select(s => s[0]);
+
+                await _context.ShopCategories.AddAsync(shopCategory);
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

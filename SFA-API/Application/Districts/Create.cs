@@ -39,7 +39,7 @@ namespace Application.Districts
             {
                 var district = _mapper.Map<Command, District>(request);
 
-                _context.Districts.Add(district);
+                await _context.Districts.AddAsync(district);
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

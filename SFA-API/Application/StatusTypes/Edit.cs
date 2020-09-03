@@ -1,14 +1,15 @@
+using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Domain;
+using Application.Errors;
 using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Provinces
+namespace Application.StatusTypes
 {
-    public class Create
+    public class Edit
     {
         public class Command : IRequest
         {
@@ -27,23 +28,24 @@ namespace Application.Provinces
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
-            private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            public Handler(DataContext context)
             {
-                _mapper = mapper;
                 _context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var province = _mapper.Map<Command, Province>(request);
+                var statusType = await _context.StatusTypes.FindAsync(request.Id);
 
-                await _context.Provinces.AddAsync(province);
+                if (statusType == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { statusType = "Not Found" });
+
+                statusType.Name = request.Name ?? statusType.Name;
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;
-
-                throw new System.Exception("Problem saving changes");
+                throw new Exception("Problem saving changes");
             }
         }
     }

@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,7 +8,7 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Provinces
+namespace Application.StatusTypes
 {
     public class Create
     {
@@ -36,9 +38,10 @@ namespace Application.Provinces
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var province = _mapper.Map<Command, Province>(request);
+                var statusType = _mapper.Map<Command, StatusType>(request);
 
-                await _context.Provinces.AddAsync(province);
+                await _context.StatusTypes.AddAsync(statusType);
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

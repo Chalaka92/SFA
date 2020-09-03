@@ -20,9 +20,9 @@ namespace Application.Routes
             public string Name { get; set; }
             public string RouteCode { get; set; }
             public string StartLatitude { get; set; }
-            public string Startlongitude { get; set; }
+            public string StartLongitude { get; set; }
             public string EndLatitude { get; set; }
-            public string Endlongitude { get; set; }
+            public string EndLongitude { get; set; }
             public string Comment { get; set; }
         }
 
@@ -32,8 +32,8 @@ namespace Application.Routes
             {
                 RuleFor(x => x.Name).NotEmpty();
                 RuleFor(x => x.StartLatitude).NotEmpty();
-                RuleFor(x => x.Startlongitude).NotEmpty();
-                RuleFor(x => x.Endlongitude).NotEmpty();
+                RuleFor(x => x.StartLongitude).NotEmpty();
+                RuleFor(x => x.EndLongitude).NotEmpty();
                 RuleFor(x => x.EndLatitude).NotEmpty();
             }
         }
@@ -51,13 +51,13 @@ namespace Application.Routes
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var route = _mapper.Map<Command, Route>(request);
-                var area = _context.Areas.FindAsync(request.AreaId).Result;
+                var area = await _context.Areas.FindAsync(request.AreaId);
 
                 var routeCode = "rtu" + area.AreaCode + "001";
 
                 if (_context.Routes.Any())
                 {
-                    routeCode = "rtu" + area.AreaCode + (_context.Routes.Max(x => Convert.ToInt32(x.RouteCode.Substring(x.RouteCode.Length - 3, 3))) + 1).ToString("D3");
+                    routeCode = "rtu" + area.AreaCode + (_context.Routes.AsEnumerable().Max(x => Convert.ToInt32(x.RouteCode.Substring(x.RouteCode.Length - 3, 3))) + 1).ToString("D3");
                 }
                 route.RouteCode = routeCode;
 

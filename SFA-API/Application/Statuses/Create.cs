@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,13 +8,14 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Provinces
+namespace Application.Statuses
 {
     public class Create
     {
         public class Command : IRequest
         {
             public int Id { get; set; }
+            public int StatusTypeId { get; set; }
             public string Name { get; set; }
         }
 
@@ -21,6 +24,7 @@ namespace Application.Provinces
             public CommandValidator()
             {
                 RuleFor(x => x.Name).NotEmpty();
+                RuleFor(x => x.StatusTypeId).GreaterThan(0);
             }
         }
 
@@ -36,9 +40,10 @@ namespace Application.Provinces
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var province = _mapper.Map<Command, Province>(request);
+                var status = _mapper.Map<Command, Status>(request);
 
-                await _context.Provinces.AddAsync(province);
+                await _context.Statuses.AddAsync(status);
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

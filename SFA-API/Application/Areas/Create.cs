@@ -45,11 +45,11 @@ namespace Application.Areas
 
                 if (_context.Areas.Any())
                 {
-                    areaCode = (_context.Areas.Max(x => Convert.ToInt32(x.AreaCode)) + 1).ToString("D4");
+                    areaCode = (_context.Areas.AsEnumerable().Max(x => Convert.ToInt32(x.AreaCode)) + 1).ToString("D4");
                 }
                 area.AreaCode = areaCode;
 
-                _context.Areas.Add(area);
+                await _context.Areas.AddAsync(area);
 
                 var success = await _context.SaveChangesAsync() > 0;
 

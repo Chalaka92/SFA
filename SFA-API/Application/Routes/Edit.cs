@@ -18,9 +18,9 @@ namespace Application.Routes
             public int StoreCount { get; set; }
             public string Name { get; set; }
             public string StartLatitude { get; set; }
-            public string Startlongitude { get; set; }
+            public string StartLongitude { get; set; }
             public string EndLatitude { get; set; }
-            public string Endlongitude { get; set; }
+            public string EndLongitude { get; set; }
             public string Comment { get; set; }
         }
 
@@ -51,9 +51,9 @@ namespace Application.Routes
                 route.AreaId = request.AreaId == 0 ? route.AreaId : request.AreaId;
                 route.StoreCount = request.StoreCount == 0 ? route.StoreCount : request.StoreCount;
                 route.StartLatitude = request.StartLatitude ?? route.StartLatitude;
-                route.Startlongitude = request.Startlongitude ?? route.Startlongitude;
+                route.StartLongitude = request.StartLongitude ?? route.StartLongitude;
                 route.EndLatitude = request.EndLatitude ?? route.EndLatitude;
-                route.Endlongitude = request.Endlongitude ?? route.Endlongitude;
+                route.EndLongitude = request.EndLongitude ?? route.EndLongitude;
                 route.Comment = request.Comment ?? route.Comment;
 
                 var success = await _context.SaveChangesAsync() > 0;
