@@ -17,7 +17,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<ValueDto>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });

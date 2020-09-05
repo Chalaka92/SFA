@@ -1,14 +1,13 @@
 using AutoMapper;
 using Domain;
 
-namespace Application.Areas
+namespace Application.UserSpecificDetails
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<Create.Command, Area>();
-            CreateMap<Area, AreaDto>();
+            CreateMap<Create.Command, UserSpecificDetail>();
         }
     }
 }

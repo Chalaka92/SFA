@@ -1,23 +1,29 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain;
-using Microsoft.AspNetCore.Mvc;
-using Application.UserDetails;
-using Microsoft.AspNetCore.Authorization;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Application.UserSpecificDetails;
 
 namespace API.Controllers
 {
-    public class UserDetailController : BaseController
+    public class UserSpecificController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<UserDetail>>> List()
+        public async Task<ActionResult<List<UserSpecificDetail>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserDetail>> Details(int id)
+        [HttpGet("ListByLoggedUser/{id}")]
+        public async Task<ActionResult<List<UserSpecificDetail>>> ListByDistrictId()
+        {
+            return await Mediator.Send(new List.Query());
+        }
+
+        [HttpGet("Details/{id}")]
+        public async Task<ActionResult<UserSpecificDetail>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }

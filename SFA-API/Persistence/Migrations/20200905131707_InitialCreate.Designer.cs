@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200903162203_ShopTable")]
-    partial class ShopTable
+    [Migration("20200905131707_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,56 +21,56 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT")
+
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("TEXT")
+
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("TEXT")
+
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("UserName")
-                        .HasColumnType("TEXT")
+
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -89,16 +89,16 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("AreaCode")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("DistrictId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -111,13 +111,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("ProvinceId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -130,13 +130,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -147,10 +147,10 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -161,34 +161,34 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<int>("AreaId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Comment")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("EndLatitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("EndLongitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("RouteCode")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("StartLatitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("StartLongitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("StoreCount")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -201,37 +201,37 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<decimal>("ArrearsAmount")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Comment")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("RouteId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<int>("ShopCategoryId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("ShopCode")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("ShopOwnerId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<int>("StatusId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -242,31 +242,31 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Address1")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Address2")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Address3")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("DistrictId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("LocationLatitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("LocationLongitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("ProvinceId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<int>("ShopId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -279,19 +279,19 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<decimal>("MaximumDebtAmount")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("ShopCategoryCode")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -302,13 +302,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("ContactNo")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("ShopId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -321,13 +321,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("ShopId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -340,13 +340,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("StatusTypeId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -359,10 +359,10 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -373,31 +373,31 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Address1")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Address2")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Address3")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("DistrictId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("LocationLatitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("LocationLongitude")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("ProvinceId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -410,13 +410,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("ContactNo")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -429,34 +429,37 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<DateTime>("Birthday")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                        ;
+
+                    b.Property<string>("LoggedUserId")
+                        ;
 
                     b.Property<string>("MiddleName")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("NIC")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("UserCode")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -467,13 +470,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.HasKey("Id");
 
@@ -482,14 +485,43 @@ namespace Persistence.Migrations
                     b.ToTable("UserEmails");
                 });
 
+            modelBuilder.Entity("Domain.UserSpecificDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        ;
+
+                    b.Property<int>("AssignedAreaId")
+                        ;
+
+                    b.Property<string>("AssignedDays")
+                        ;
+
+                    b.Property<int>("AssignedRouteId")
+                        ;
+
+                    b.Property<int>("AssignedStoreId")
+                        ;
+
+                    b.Property<int>("RoleId")
+                        ;
+
+                    b.Property<int>("UserId")
+                        ;
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserSpecificDetails");
+                });
+
             modelBuilder.Entity("Domain.Value", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -499,18 +531,18 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
+
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("TEXT")
+
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -526,17 +558,17 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -549,17 +581,17 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        ;
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("Id");
 
@@ -571,17 +603,17 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -593,10 +625,10 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("UserId", "RoleId");
 
@@ -608,16 +640,16 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        ;
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 

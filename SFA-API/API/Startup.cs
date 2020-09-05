@@ -18,7 +18,6 @@ using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using AutoMapper;
@@ -79,7 +78,7 @@ namespace API
                 opt.Filters.Add(new AuthorizeFilter(policy));
             })
           .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<Create>())
-          .SetCompatibilityVersion(CompatibilityVersion.Latest);
+          .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers();
 
             services.AddIdentityCore<AppUser>()
@@ -117,17 +116,27 @@ namespace API
             {
                 // app.UseDeveloperExceptionPage();
             }
-            app.UseCors("CorsPolicy");
-
-            app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            else
             {
-                endpoints.MapControllers();
-            });
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                // app.UseHsts();
+            }
+
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opt => opt.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseCors("CorsPolicy");
+            app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                    endpoints.MapFallbackToController("Index", "Fallback");
+                });
         }
     }
 }

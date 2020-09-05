@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 using Domain;
 
@@ -8,6 +9,7 @@ namespace Application.Districts
         public MappingProfile()
         {
             CreateMap<Create.Command, District>();
+            CreateMap<District, DistrictDto>();
         }
     }
 }

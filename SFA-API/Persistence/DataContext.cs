@@ -28,6 +28,7 @@ namespace Persistence
         public DbSet<ShopAddress> ShopAddresses { get; set; }
         public DbSet<ShopEmail> ShopEmails { get; set; }
         public DbSet<ShopContact> ShopContacts { get; set; }
+        public DbSet<UserSpecificDetail> UserSpecificDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

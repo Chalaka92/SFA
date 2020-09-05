@@ -8,6 +8,7 @@ using Domain;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Shops
@@ -68,7 +69,7 @@ namespace Application.Shops
 
                 var shopCode = "shp" + route.RouteCode + "01";
 
-                if (_context.Shops.Any())
+                if (await _context.Shops.AnyAsync())
                 {
                     shopCode = "shp" + route.RouteCode +
                      (_context.Shops.AsEnumerable()

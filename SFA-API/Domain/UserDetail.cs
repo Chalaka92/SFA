@@ -15,6 +15,7 @@ namespace Domain
         public string NIC { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+        public string LoggedUserId { get; set; }
         public virtual ICollection<UserAddress> UserAddresses { get; set; }
         public virtual ICollection<UserEmail> UserEmails { get; set; }
         public virtual ICollection<UserContact> UserContacts { get; set; }

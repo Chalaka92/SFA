@@ -6,6 +6,7 @@ using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Routes
@@ -55,7 +56,7 @@ namespace Application.Routes
 
                 var routeCode = "rtu" + area.AreaCode + "001";
 
-                if (_context.Routes.Any())
+                if (await _context.Routes.AnyAsync())
                 {
                     routeCode = "rtu" + area.AreaCode + (_context.Routes.AsEnumerable().Max(x => Convert.ToInt32(x.RouteCode.Substring(x.RouteCode.Length - 3, 3))) + 1).ToString("D3");
                 }

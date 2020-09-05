@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Application.Areas;
 using Domain;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -11,20 +10,19 @@ namespace API.Controllers
     public class AreaController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Area>>> List()
+        public async Task<ActionResult<List<AreaDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("ListByDistrictId/{id}")]
-        public async Task<ActionResult<List<Area>>> ListByDistrictId()
+        public async Task<ActionResult<List<AreaDto>>> ListByDistrictId()
         {
-            return await Mediator.Send(new List.Query());
+            return await Mediator.Send(new ListByDistrictId.Query());
         }
 
         [HttpGet("Details/{id}")]
-        [Authorize]
-        public async Task<ActionResult<Area>> Details(int id)
+        public async Task<ActionResult<AreaDto>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }

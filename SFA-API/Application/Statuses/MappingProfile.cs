@@ -8,6 +8,7 @@ namespace Application.Statuses
         public MappingProfile()
         {
             CreateMap<Create.Command, Status>();
+            CreateMap<Status, StatusDto>();
         }
     }
 }

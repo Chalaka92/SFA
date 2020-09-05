@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.User;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +26,12 @@ namespace API.Controllers
         public async Task<ActionResult<User>> CurrentUser()
         {
             return await Mediator.Send(new CurrentUser.Query());
+        }
+
+        [HttpGet("GetUserRoles")]
+        public async Task<ActionResult<List<UserRole>>> GetUserRoles()
+        {
+            return await Mediator.Send(new GetUserRoles.Query());
         }
     }
 }

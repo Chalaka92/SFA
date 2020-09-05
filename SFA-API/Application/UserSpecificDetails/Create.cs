@@ -6,26 +6,33 @@ using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Areas
+namespace Application.UserSpecificDetails
 {
     public class Create
     {
         public class Command : IRequest
         {
             public int Id { get; set; }
-            public int DistrictId { get; set; }
-            public string Name { get; set; }
-            public string AreaCode { get; set; }
+            public int UserId { get; set; }
+            public int RoleId { get; set; }
+            public int AssignedAreaId { get; set; }
+            public int AssignedRouteId { get; set; }
+            public int AssignedStoreId { get; set; }
+            public string AssignedDays { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Name).NotEmpty();
+                RuleFor(x => x.UserId).GreaterThan(0);
+                RuleFor(x => x.RoleId).GreaterThan(0);
+                RuleFor(x => x.AssignedAreaId).GreaterThan(0);
+                RuleFor(x => x.AssignedRouteId).GreaterThan(0);
+                RuleFor(x => x.AssignedStoreId).GreaterThan(0);
+                RuleFor(x => x.AssignedDays).NotEmpty();
             }
         }
 
@@ -41,16 +48,9 @@ namespace Application.Areas
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var area = _mapper.Map<Command, Area>(request);
-                var areaCode = "0001";
+                var userSpecificDetail = _mapper.Map<Command, UserSpecificDetail>(request);
 
-                if (await _context.Areas.AnyAsync())
-                {
-                    areaCode = (_context.Areas.AsEnumerable().Max(x => Convert.ToInt32(x.AreaCode)) + 1).ToString("D4");
-                }
-                area.AreaCode = areaCode;
-
-                await _context.Areas.AddAsync(area);
+                await _context.UserSpecificDetails.AddAsync(userSpecificDetail);
 
                 var success = await _context.SaveChangesAsync() > 0;
 

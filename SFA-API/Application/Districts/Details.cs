@@ -11,12 +11,12 @@ namespace Application.Districts
 {
     public class Details
     {
-        public class Query : IRequest<District>
+        public class Query : IRequest<DistrictDto>
         {
             public int Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, District>
+        public class Handler : IRequestHandler<Query, DistrictDto>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -27,14 +27,16 @@ namespace Application.Districts
 
             }
 
-            public async Task<District> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<DistrictDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var district = await _context.Districts.FindAsync(request.Id);
 
                 if (district == null)
                     throw new RestException(HttpStatusCode.NotFound, new { district = "Not Found" });
 
-                return district;
+                var returnDistrict = _mapper.Map<District, DistrictDto>(district);
+
+                return returnDistrict;
             }
         }
     }

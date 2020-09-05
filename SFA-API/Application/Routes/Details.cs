@@ -11,12 +11,12 @@ namespace Application.Routes
 {
     public class Details
     {
-        public class Query : IRequest<Route>
+        public class Query : IRequest<RouteDto>
         {
             public int Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Route>
+        public class Handler : IRequestHandler<Query, RouteDto>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -27,14 +27,16 @@ namespace Application.Routes
 
             }
 
-            public async Task<Route> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<RouteDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var route = await _context.Routes.FindAsync(request.Id);
 
                 if (route == null)
                     throw new RestException(HttpStatusCode.NotFound, new { route = "Not Found" });
 
-                return route;
+                var returnRoute = _mapper.Map<Route, RouteDto>(route);
+
+                return returnRoute;
             }
         }
     }

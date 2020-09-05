@@ -11,14 +11,13 @@ namespace API.Controllers
     public class StatusController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Status>>> List()
+        public async Task<ActionResult<List<StatusDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        [Authorize]
-        public async Task<ActionResult<Status>> Details(int id)
+        public async Task<ActionResult<StatusDto>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }

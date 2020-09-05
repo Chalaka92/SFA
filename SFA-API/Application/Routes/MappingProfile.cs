@@ -8,6 +8,7 @@ namespace Application.Routes
         public MappingProfile()
         {
             CreateMap<Create.Command, Route>();
+            CreateMap<Route, RouteDto>();
         }
     }
 }

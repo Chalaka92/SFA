@@ -24,6 +24,7 @@ namespace Application.User
             public string Email { get; set; }
             public string Password { get; set; }
             public int RoleId { get; set; }
+            public int UserId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -35,6 +36,7 @@ namespace Application.User
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Password).Password();
                 RuleFor(x => x.RoleId).GreaterThan(0);
+                RuleFor(x => x.UserId).GreaterThan(0);
             }
         }
 
@@ -68,16 +70,22 @@ namespace Application.User
                 var result = await _userManager.CreateAsync(user, request.Password);
                 await _userManager.AddToRoleAsync(user, ((AccountRole)request.RoleId).ToString());
 
+                var userDetails = await _context.UserDetails.FindAsync(request.UserId);
+
+                userDetails.LoggedUserId = user.Id;
+
+                var success = await _context.SaveChangesAsync() > 0;
+
                 if (result.Succeeded)
                 {
-                    var userRoles = _userManager.GetRolesAsync(user);
+                    var userRoles = await _userManager.GetRolesAsync(user);
                     return new User
                     {
                         DisplayName = user.DisplayName,
                         Token = _jwtGenerator.CreateToken(user),
                         Username = user.UserName,
                         Image = null,
-                        Roles = userRoles.Result
+                        Roles = userRoles
                     };
                 }
 

@@ -11,20 +11,19 @@ namespace API.Controllers
     public class RouteController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Route>>> List()
+        public async Task<ActionResult<List<RouteDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
-        [HttpGet("ListByRouteId/{id}")]
-        public async Task<ActionResult<List<Route>>> ListByDistrictId()
+        [HttpGet("ListByAreatId/{id}")]
+        public async Task<ActionResult<List<RouteDto>>> ListByAreatId()
         {
-            return await Mediator.Send(new List.Query());
+            return await Mediator.Send(new ListByAreatId.Query());
         }
 
         [HttpGet("Details/{id}")]
-        [Authorize]
-        public async Task<ActionResult<Route>> Details(int id)
+        public async Task<ActionResult<RouteDto>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }

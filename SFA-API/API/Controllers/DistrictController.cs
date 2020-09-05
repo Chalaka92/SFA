@@ -11,20 +11,19 @@ namespace API.Controllers
     public class DistrictController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<District>>> List()
+        public async Task<ActionResult<List<DistrictDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
-        [HttpGet("ListByProvinceId/{id}")]
-        public async Task<ActionResult<List<District>>> ListByProvinceId()
+        [HttpGet("ListByProvinceId/{provinceId}")]
+        public async Task<ActionResult<List<DistrictDto>>> ListByProvinceId(int provinceId)
         {
-            return await Mediator.Send(new List.Query());
+            return await Mediator.Send(new ListByProvinceId.Query { ProvinceId = provinceId });
         }
 
         [HttpGet("Details/{id}")]
-        [Authorize]
-        public async Task<ActionResult<District>> Details(int id)
+        public async Task<ActionResult<DistrictDto>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }
