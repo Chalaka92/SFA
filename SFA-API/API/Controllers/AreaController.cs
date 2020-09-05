@@ -15,10 +15,10 @@ namespace API.Controllers
             return await Mediator.Send(new List.Query());
         }
 
-        [HttpGet("ListByDistrictId/{id}")]
-        public async Task<ActionResult<List<AreaDto>>> ListByDistrictId()
+        [HttpGet("ListByDistrictId/{districtId}")]
+        public async Task<ActionResult<List<AreaDto>>> ListByDistrictId(int districtId)
         {
-            return await Mediator.Send(new ListByDistrictId.Query());
+            return await Mediator.Send(new ListByDistrictId.Query { DistrictId = districtId });
         }
 
         [HttpGet("Details/{id}")]

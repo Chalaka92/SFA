@@ -16,10 +16,10 @@ namespace API.Controllers
             return await Mediator.Send(new List.Query());
         }
 
-        [HttpGet("ListByLoggedUser/{id}")]
-        public async Task<ActionResult<List<UserSpecificDetail>>> ListByDistrictId()
+        [HttpGet("ListByLoggedUser/{loginEmail}")]
+        public async Task<ActionResult<List<UserSpecificDetail>>> ListByLoggedUser(string loginEmail)
         {
-            return await Mediator.Send(new List.Query());
+            return await Mediator.Send(new ListByLoggedUser.Query { LoginEmail = loginEmail });
         }
 
         [HttpGet("Details/{id}")]
