@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Domain;
+using Application.Areas;
 
 namespace Application.Districts
 {
@@ -8,6 +8,6 @@ namespace Application.Districts
         public int Id { get; set; }
         public int ProvinceId { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Area> Areas { get; set; }
+        public virtual ICollection<AreaDto> Areas { get; set; }
     }
 }

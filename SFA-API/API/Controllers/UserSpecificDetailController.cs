@@ -8,7 +8,7 @@ using Application.UserSpecificDetails;
 
 namespace API.Controllers
 {
-    public class UserSpecificController : BaseController
+    public class UserSpecificDetailController : BaseController
     {
         [HttpGet]
         public async Task<ActionResult<List<UserSpecificDetail>>> List()

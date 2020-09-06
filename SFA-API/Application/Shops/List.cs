@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,20 +11,24 @@ namespace Application.Shops
 {
     public class List
     {
-        public class Query : IRequest<List<Shop>> { }
+        public class Query : IRequest<List<ShopDto>> { }
 
-        public class Handler : IRequestHandler<Query, List<Shop>>
+        public class Handler : IRequestHandler<Query, List<ShopDto>>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IMapper _mapper;
+            public Handler(DataContext context, IMapper mapper)
             {
+                _mapper = mapper;
                 _context = context;
             }
 
-            public async Task<List<Shop>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<ShopDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var shops = await _context.Shops.ToListAsync();
-                return shops;
+                var returnShops = _mapper.Map<List<Shop>, List<ShopDto>>(shops);
+
+                return returnShops;
             }
         }
 

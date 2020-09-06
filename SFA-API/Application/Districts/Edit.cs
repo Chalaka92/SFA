@@ -42,6 +42,7 @@ namespace Application.Districts
                     throw new RestException(HttpStatusCode.NotFound, new { district = "Not Found" });
 
                 district.Name = request.Name ?? district.Name;
+                district.ProvinceId = request.ProvinceId;
 
                 var success = await _context.SaveChangesAsync() > 0;
 

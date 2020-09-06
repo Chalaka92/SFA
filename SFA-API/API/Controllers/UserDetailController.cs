@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Application.UserDetails;
-using Microsoft.AspNetCore.Authorization;
 using MediatR;
 
 namespace API.Controllers
@@ -11,13 +10,13 @@ namespace API.Controllers
     public class UserDetailController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<UserDetail>>> List()
+        public async Task<ActionResult<List<UserDetailDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDetail>> Details(int id)
+        public async Task<ActionResult<UserDetailDto>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }

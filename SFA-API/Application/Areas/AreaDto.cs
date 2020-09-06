@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Domain;
+using Application.Routes;
 
 namespace Application.Areas
 {
@@ -9,6 +9,6 @@ namespace Application.Areas
         public int DistrictId { get; set; }
         public string Name { get; set; }
         public string AreaCode { get; set; }
-        public virtual ICollection<Route> Routes { get; set; }
+        public virtual ICollection<RouteDto> Routes { get; set; }
     }
 }

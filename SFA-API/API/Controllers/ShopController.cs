@@ -11,13 +11,13 @@ namespace API.Controllers
     public class shopController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Shop>>> List()
+        public async Task<ActionResult<List<ShopDto>>> List()
         {
             return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Shop>> Details(int id)
+        public async Task<ActionResult<ShopDto>> Details(int id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }

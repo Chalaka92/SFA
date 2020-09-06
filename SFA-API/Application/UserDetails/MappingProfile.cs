@@ -8,6 +8,10 @@ namespace Application.UserDetails
         public MappingProfile()
         {
             CreateMap<Create.Command, UserDetail>();
+            CreateMap<UserDetail, UserDetailDto>();
+            CreateMap<UserAddress, UserAddressDto>();
+            CreateMap<UserContact, UserContactDto>();
+            CreateMap<UserEmail, UserEmailDto>();
         }
     }
 }

@@ -8,6 +8,10 @@ namespace Application.Shops
         public MappingProfile()
         {
             CreateMap<Create.Command, Shop>();
+            CreateMap<Shop, ShopDto>();
+            CreateMap<ShopContact, ShopContactDto>();
+            CreateMap<ShopEmail, ShopEmailDto>();
+            CreateMap<ShopAddress, ShopAddressDto>();
         }
     }
 }

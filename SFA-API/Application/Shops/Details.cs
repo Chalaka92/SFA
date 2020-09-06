@@ -11,12 +11,12 @@ namespace Application.Shops
 {
     public class Details
     {
-        public class Query : IRequest<Shop>
+        public class Query : IRequest<ShopDto>
         {
             public int Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Shop>
+        public class Handler : IRequestHandler<Query, ShopDto>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -27,14 +27,16 @@ namespace Application.Shops
 
             }
 
-            public async Task<Shop> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ShopDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var shop = await _context.Shops.FindAsync(request.Id);
 
                 if (shop == null)
                     throw new RestException(HttpStatusCode.NotFound, new { shop = "Not Found" });
 
-                return shop;
+                var returnShop = _mapper.Map<Shop, ShopDto>(shop);
+
+                return returnShop;
             }
         }
     }

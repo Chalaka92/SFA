@@ -11,12 +11,12 @@ namespace Application.UserDetails
 {
     public class Details
     {
-        public class Query : IRequest<UserDetail>
+        public class Query : IRequest<UserDetailDto>
         {
             public int Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, UserDetail>
+        public class Handler : IRequestHandler<Query, UserDetailDto>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -27,14 +27,16 @@ namespace Application.UserDetails
 
             }
 
-            public async Task<UserDetail> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<UserDetailDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 var userDetail = await _context.UserDetails.FindAsync(request.Id);
 
                 if (userDetail == null)
                     throw new RestException(HttpStatusCode.NotFound, new { userDetail = "Not Found" });
 
-                return userDetail;
+                var returnUserDetail = _mapper.Map<UserDetail, UserDetailDto>(userDetail);
+
+                return returnUserDetail;
             }
         }
     }
