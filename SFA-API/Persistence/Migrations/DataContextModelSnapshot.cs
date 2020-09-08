@@ -19,56 +19,56 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("AccessFailedCount")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("DisplayName")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("LockoutEnabled")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
-
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -87,16 +87,16 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("AreaCode")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DistrictId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -109,13 +109,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProvinceId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -124,17 +124,245 @@ namespace Persistence.Migrations
                     b.ToTable("Districts");
                 });
 
+            modelBuilder.Entity("Domain.FreeIssue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExtraQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FreeIssueCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCustomer")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsShopOwner")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MinimumQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FreeIssues");
+                });
+
+            modelBuilder.Entity("Domain.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ItemCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("Domain.ItemBatch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ItemBatchCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemStatusId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ManufactureDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("MaxRetailPrice")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("ItemStatusId")
+                        .IsUnique();
+
+                    b.ToTable("ItemBatches");
+                });
+
+            modelBuilder.Entity("Domain.ItemCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ItemCategoryCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemCategories");
+                });
+
+            modelBuilder.Entity("Domain.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("CanceledDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CanceledReason")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CanceledUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("CompletedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EditedUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCancel")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsEdit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSync")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OrderCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OrderedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SalesRepId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ShopId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("SyncedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SalesRepId");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Domain.OrderItemBatch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("CompanyDiscountRate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CompanyProfitAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CustomerFreeIssueQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSpecialDiscountHave")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemBatchId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OrderItembatchCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("SellingToShopOwnerAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ShopOwnerDiscountRate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ShopOwnerFreeIssueQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("ShopOwnerProfitAmount")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemBatchId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItemBatches");
+                });
+
             modelBuilder.Entity("Domain.PaymentType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -145,48 +373,65 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Provinces");
                 });
 
+            modelBuilder.Entity("Domain.ReturnType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReturnTypes");
+                });
+
             modelBuilder.Entity("Domain.Route", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("AreaId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Comment")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("EndLatitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("EndLongitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RouteCode")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("StartLatitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("StartLongitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("StoreCount")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -195,43 +440,103 @@ namespace Persistence.Migrations
                     b.ToTable("Routes");
                 });
 
+            modelBuilder.Entity("Domain.SalesRep", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AssignedAreaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AssignedStoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SalesRepCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("SalesReps");
+                });
+
+            modelBuilder.Entity("Domain.SalesRepItemBatch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemBatchId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SalesRepId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemBatchId");
+
+                    b.HasIndex("SalesRepId");
+
+                    b.ToTable("SalesRepItemBatches");
+                });
+
             modelBuilder.Entity("Domain.Shop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("ArrearsAmount")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Comment")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedBy")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("RouteId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ShopCategoryId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ShopCode")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ShopOwnerId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("StatusId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RouteId");
+
+                    b.HasIndex("ShopCategoryId");
+
+                    b.HasIndex("ShopOwnerId")
+                        .IsUnique();
+
+                    b.HasIndex("StatusId")
+                        .IsUnique();
 
                     b.ToTable("Shops");
                 });
@@ -240,31 +545,31 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Address1")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Address2")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Address3")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DistrictId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LocationLatitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LocationLongitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProvinceId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ShopId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -277,19 +582,19 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("MaximumDebtAmount")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ShopCategoryCode")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -300,13 +605,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ContactNo")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ShopId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -319,13 +624,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ShopId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -334,17 +639,41 @@ namespace Persistence.Migrations
                     b.ToTable("ShopEmails");
                 });
 
+            modelBuilder.Entity("Domain.ShopItemBatch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemBatchId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ShopId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemBatchId");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("ShopItemBatches");
+                });
+
             modelBuilder.Entity("Domain.Status", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("StatusTypeId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -357,45 +686,222 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("StatusTypes");
                 });
 
+            modelBuilder.Entity("Domain.Store", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RouteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StoreCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreManagerId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RouteId");
+
+                    b.HasIndex("StoreManagerId")
+                        .IsUnique();
+
+                    b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("Domain.StoreAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address3")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LocationLatitude")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LocationLongitude")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("StoreAddresses");
+                });
+
+            modelBuilder.Entity("Domain.StoreContact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ContactNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("StoreContacts");
+                });
+
+            modelBuilder.Entity("Domain.StoreEmail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("StoreEmails");
+                });
+
+            modelBuilder.Entity("Domain.StoreItemBatch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemBatchId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemBatchId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("StoreItemBatches");
+                });
+
+            modelBuilder.Entity("Domain.Target", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CommisionAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CommisionRate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TargetCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("TimeEndTo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TimePeriod")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("TimeStartFrom")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId")
+                        .IsUnique();
+
+                    b.ToTable("Targets");
+                });
+
             modelBuilder.Entity("Domain.UserAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Address1")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Address2")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Address3")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DistrictId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LocationLatitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LocationLongitude")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProvinceId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -408,13 +914,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ContactNo")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -427,37 +933,37 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Birthday")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedBy")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LoggedUserId")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("MiddleName")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NIC")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("RoleId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserCode")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -468,13 +974,13 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -487,25 +993,25 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("AssignedAreaId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("AssignedDays")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("AssignedRouteId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("AssignedStoreId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RoleId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -516,10 +1022,10 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -529,18 +1035,18 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -556,17 +1062,17 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -579,17 +1085,17 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        ;
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -601,17 +1107,17 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -623,10 +1129,10 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -638,16 +1144,16 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
-                        ;
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -672,11 +1178,116 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Item", b =>
+                {
+                    b.HasOne("Domain.ItemCategory", "ItemCategory")
+                        .WithMany("Items")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.ItemBatch", b =>
+                {
+                    b.HasOne("Domain.Item", "Item")
+                        .WithMany("ItemBatches")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Status", "Status")
+                        .WithOne("ItemBatch")
+                        .HasForeignKey("Domain.ItemBatch", "ItemStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Order", b =>
+                {
+                    b.HasOne("Domain.SalesRep", "SalesRep")
+                        .WithMany("Orders")
+                        .HasForeignKey("SalesRepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Shop", "Shop")
+                        .WithMany("Orders")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.OrderItemBatch", b =>
+                {
+                    b.HasOne("Domain.ItemBatch", "ItemBatch")
+                        .WithMany("OrderItemBatches")
+                        .HasForeignKey("ItemBatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Order", "Order")
+                        .WithMany("OrderItemBatches")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Route", b =>
                 {
                     b.HasOne("Domain.Area", "Area")
                         .WithMany("Routes")
                         .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.SalesRep", b =>
+                {
+                    b.HasOne("Domain.UserDetail", "UserDetail")
+                        .WithOne("SalesRep")
+                        .HasForeignKey("Domain.SalesRep", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.SalesRepItemBatch", b =>
+                {
+                    b.HasOne("Domain.ItemBatch", "ItemBatch")
+                        .WithMany("SalesRepItemBatches")
+                        .HasForeignKey("ItemBatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.SalesRep", "SalesRep")
+                        .WithMany("SalesRepItemBatches")
+                        .HasForeignKey("SalesRepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Shop", b =>
+                {
+                    b.HasOne("Domain.Route", "Route")
+                        .WithMany("Shops")
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.ShopCategory", "ShopCategory")
+                        .WithMany("Shops")
+                        .HasForeignKey("ShopCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.UserDetail", "UserDetail")
+                        .WithOne("Shop")
+                        .HasForeignKey("Domain.Shop", "ShopOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Status", "Status")
+                        .WithOne("Shop")
+                        .HasForeignKey("Domain.Shop", "StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -708,11 +1319,92 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.ShopItemBatch", b =>
+                {
+                    b.HasOne("Domain.ItemBatch", "ItemBatch")
+                        .WithMany("ShopItemBatches")
+                        .HasForeignKey("ItemBatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Shop", "Shop")
+                        .WithMany("ShopItemBatches")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Status", b =>
                 {
                     b.HasOne("Domain.StatusType", "StatusType")
                         .WithMany("Statuses")
                         .HasForeignKey("StatusTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Store", b =>
+                {
+                    b.HasOne("Domain.Route", "Route")
+                        .WithMany("Stores")
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.UserDetail", "UserDetail")
+                        .WithOne("Store")
+                        .HasForeignKey("Domain.Store", "StoreManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.StoreAddress", b =>
+                {
+                    b.HasOne("Domain.Store", "Store")
+                        .WithMany("StoreAddresses")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.StoreContact", b =>
+                {
+                    b.HasOne("Domain.Store", "Store")
+                        .WithMany("StoreContacts")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.StoreEmail", b =>
+                {
+                    b.HasOne("Domain.Store", "Store")
+                        .WithMany("StoreEmails")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.StoreItemBatch", b =>
+                {
+                    b.HasOne("Domain.ItemBatch", "ItemBatch")
+                        .WithMany("StoreItemBatches")
+                        .HasForeignKey("ItemBatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Store", "Store")
+                        .WithMany("StoreItemBatches")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Target", b =>
+                {
+                    b.HasOne("Domain.Item", "Item")
+                        .WithOne("Target")
+                        .HasForeignKey("Domain.Target", "ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

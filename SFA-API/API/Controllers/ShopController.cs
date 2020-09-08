@@ -1,14 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Application.Shops;
-using Microsoft.AspNetCore.Authorization;
 using MediatR;
 
 namespace API.Controllers
 {
-    public class shopController : BaseController
+    public class ShopController : BaseController
     {
         [HttpGet]
         public async Task<ActionResult<List<ShopDto>>> List()

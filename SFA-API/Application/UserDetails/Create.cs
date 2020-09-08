@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.User;
 using AutoMapper;
 using Domain;
 using FluentValidation;
@@ -100,6 +101,19 @@ namespace Application.UserDetails
                     x.UserId = userDetail.Id;
                     await _context.UserContacts.AddAsync(x);
                 });
+
+                //Add to Sales Rep
+                if (((AccountRole)request.RoleId).ToString() == "SalesRep")
+                {
+                    var salesRep = new SalesRep
+                    {
+                        UserId = userDetail.Id,
+                        SalesRepCode = "sr" + userDetail.UserCode,
+
+                    };
+                    await _context.SalesReps.AddAsync(salesRep);
+                }
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

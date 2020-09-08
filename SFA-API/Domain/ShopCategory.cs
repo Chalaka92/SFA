@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Domain
 {
     public class ShopCategory
@@ -7,5 +9,6 @@ namespace Domain
         public string Description { get; set; }
         public string ShopCategoryCode { get; set; }
         public decimal MaximumDebtAmount { get; set; }
+        public virtual List<Shop> Shops { get; set; }
     }
 }

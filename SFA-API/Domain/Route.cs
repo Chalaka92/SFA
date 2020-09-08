@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Domain
 {
     public class Route
@@ -13,5 +15,7 @@ namespace Domain
         public string EndLongitude { get; set; }
         public string Comment { get; set; }
         public virtual Area Area { get; set; }
+        public virtual ICollection<Shop> Shops { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
     }
 }

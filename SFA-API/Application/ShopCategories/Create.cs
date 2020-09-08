@@ -6,6 +6,7 @@ using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.ShopCategories
@@ -44,7 +45,14 @@ namespace Application.ShopCategories
             {
                 var shopCategory = _mapper.Map<Command, ShopCategory>(request);
 
-                shopCategory.ShopCategoryCode = "cat_" + request.Name.Split(' ').Select(s => s[0]);
+                var shopCategoryCode = "scat_" + "01";
+
+                if (await _context.ShopCategories.AnyAsync())
+                {
+                    shopCategoryCode = "scat_" + (_context.ShopCategories.AsEnumerable()
+                        .Max(x => Convert.ToInt32(x.ShopCategoryCode.Substring(x.ShopCategoryCode.Length - 2, 2))) + 1);
+                }
+                shopCategory.ShopCategoryCode = shopCategoryCode;
 
                 await _context.ShopCategories.AddAsync(shopCategory);
 

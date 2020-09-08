@@ -58,7 +58,8 @@ namespace Application.Routes
 
                 if (await _context.Routes.AnyAsync())
                 {
-                    routeCode = "rtu" + area.AreaCode + (_context.Routes.AsEnumerable().Max(x => Convert.ToInt32(x.RouteCode.Substring(x.RouteCode.Length - 3, 3))) + 1).ToString("D3");
+                    routeCode = "rtu" + area.AreaCode + (_context.Routes.AsEnumerable().Where(x => x.RouteCode.Substring(0, x.RouteCode.Length - 4) == "rtu" + area.AreaCode)
+                        .Max(x => Convert.ToInt32(x.RouteCode.Substring(x.RouteCode.Length - 3, 3))) + 1).ToString("D3");
                 }
                 route.RouteCode = routeCode;
 
