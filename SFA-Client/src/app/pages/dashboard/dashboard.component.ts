@@ -125,7 +125,6 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {
-    this.getAllValues();
     /**
      * Edge wrong drawing fix
      * Navigate anywhere and on Promise right back
@@ -139,10 +138,6 @@ export class DashboardComponent implements OnInit {
         DashboardComponent.isInitialLoad = false;
       }
     }
-  }
-
-  getAllValues() {
-    this.userService.getAllValues();
   }
 
   col(colAmount: number) {

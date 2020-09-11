@@ -12,11 +12,54 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    loadChildren: () =>
-      import('./pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
-      ),
-    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+        pathMatch: 'full',
+      },
+      {
+        path: 'apps/dashboard',
+        loadChildren: () =>
+          import('./pages/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'routes/route',
+        loadChildren: () =>
+          import('./pages/routes/route/route.module').then(
+            (m) => m.RouteModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'routes/area',
+        loadChildren: () =>
+          import('./pages/routes/area/area.module').then((m) => m.AreaModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'routes/district',
+        loadChildren: () =>
+          import('./pages/routes/district/district.module').then(
+            (m) => m.DistrictModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'routes/province',
+        loadChildren: () =>
+          import('./pages/routes/province/province.module').then(
+            (m) => m.ProvinceModule
+          ),
+        canActivate: [AuthGuard],
+      },
+    ],
   },
 ];
 

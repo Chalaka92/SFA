@@ -32,14 +32,7 @@ $paddings: (
   -xl: $padding-xl,
 );
 
-$icon-sizes: (
-  -xs: 14px,
-  -sm: 18px,
-  -md: 20px,
-  '': 24px,
-  -lg: 28px,
-  -xl: 32px
-);
+$icon-sizes: (-xs: 14px, -sm: 18px, -md: 20px, '': 24px, -lg: 28px, -xl: 32px);
 
 /**
   Card
@@ -83,7 +76,7 @@ $sidenav-z-index: 700;
 $blink-scrollbar-width: 12px;
 
 // Page Layout
-$page-layout-height: 200px;
+$page-layout-height: 145px;
 $page-layout-toolbar-height: $toolbar-height;
 
 /**

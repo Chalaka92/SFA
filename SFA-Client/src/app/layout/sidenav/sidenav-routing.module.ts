@@ -9,20 +9,6 @@ const routes: Routes = [
     path: '',
     component: SidenavComponent,
   },
-  {
-    path: '',
-    component: LayoutComponent,
-    children: [
-      {
-        path: 'apps/dashboard',
-        loadChildren: () =>
-          import('../../pages/dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
-          ),
-        canActivate: [AuthGuard],
-      },
-    ],
-  },
 ];
 
 @NgModule({

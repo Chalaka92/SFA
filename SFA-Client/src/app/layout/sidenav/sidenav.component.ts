@@ -42,7 +42,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
     private authenticationService: AuthService
   ) {
     this.username = this.authenticationService.currentUserValue.displayName;
-    this.addNavItems();
   }
 
   ngOnInit() {
@@ -70,22 +69,4 @@ export class SidenavComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
-
-  addNavItems() {
-    this.sidenavService.addItems([
-      {
-        name: 'APPS',
-        position: 5,
-        type: 'subheading',
-        customClass: 'first-subheading',
-      },
-      {
-        name: 'Dashboard',
-        routeOrFunction: '/apps/dashboard',
-        icon: 'dashboard',
-        position: 10,
-        pathMatchExact: true,
-      },
-    ]);
-  }
 }

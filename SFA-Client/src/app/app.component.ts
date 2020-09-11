@@ -8,6 +8,7 @@ import { Platform } from '@angular/cdk/platform';
 import { SplashScreenService } from '../@fury/services/splash-screen.service';
 import { User } from './_models/user';
 import { AuthService } from './_services/auth.service';
+import { SidenavService } from './layout/sidenav/sidenav.service';
 
 @Component({
   selector: 'fury-root',
@@ -25,7 +26,8 @@ export class AppComponent {
     private route: ActivatedRoute,
     private splashScreenService: SplashScreenService,
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthService,
+    private sidenavService: SidenavService
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -48,5 +50,51 @@ export class AppComponent {
     if (this.platform.BLINK) {
       this.renderer.addClass(this.document.body, 'is-blink');
     }
+    this.addNavItems();
+  }
+
+  addNavItems() {
+    this.sidenavService.addItems([
+      {
+        name: 'APPS',
+        position: 5,
+        type: 'subheading',
+        customClass: 'first-subheading',
+      },
+      {
+        name: 'Dashboard',
+        routeOrFunction: '/apps/dashboard',
+        icon: 'dashboard',
+        position: 10,
+        pathMatchExact: true,
+      },
+      {
+        name: 'Routes',
+        icon: 'map',
+        position: 15,
+        subItems: [
+          {
+            name: 'Route',
+            routeOrFunction: '/routes/route',
+            position: 10,
+          },
+          {
+            name: 'Area',
+            routeOrFunction: '/routes/area',
+            position: 15,
+          },
+          {
+            name: 'District',
+            routeOrFunction: '/routes/district',
+            position: 20,
+          },
+          {
+            name: 'Province',
+            routeOrFunction: '/routes/province',
+            position: 25,
+          },
+        ],
+      },
+    ]);
   }
 }
