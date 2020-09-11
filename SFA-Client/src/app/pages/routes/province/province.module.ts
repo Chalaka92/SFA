@@ -6,9 +6,9 @@ import { ProvinceComponent } from './province.component';
 import { MaterialModule } from 'src/@fury/shared/material-components.module';
 import { FurySharedModule } from 'src/@fury/fury-shared.module';
 import { ListModule } from 'src/@fury/shared/list/list.module';
-import { ProvinceCreateUpdateComponent } from './province-create-update/province-create-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbsModule } from 'src/@fury/shared/breadcrumbs/breadcrumbs.module';
+import { ProvinceCreateUpdateModule } from './province-create-update/province-create-update.module';
 
 @NgModule({
   declarations: [ProvinceComponent],
@@ -18,9 +18,9 @@ import { BreadcrumbsModule } from 'src/@fury/shared/breadcrumbs/breadcrumbs.modu
     MaterialModule,
     FurySharedModule,
     ListModule,
-    ProvinceCreateUpdateComponent,
     ReactiveFormsModule,
     BreadcrumbsModule,
+    ProvinceCreateUpdateModule,
   ],
 })
 export class ProvinceModule {}
