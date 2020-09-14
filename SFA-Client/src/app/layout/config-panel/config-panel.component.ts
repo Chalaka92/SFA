@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme, ThemeService } from '../../../@fury/services/theme.service';
+import { Theme, ThemeService } from '../../../@sfa/services/theme.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -7,7 +7,7 @@ import { SidenavService } from '../sidenav/sidenav.service';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'fury-config-panel',
+  selector: 'sfa-config-panel',
   templateUrl: './config-panel.component.html',
   styleUrls: ['./config-panel.component.scss']
 })

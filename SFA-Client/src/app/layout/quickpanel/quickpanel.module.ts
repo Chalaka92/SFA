@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '../../../@fury/shared/material-components.module';
-import { ScrollbarModule } from '../../../@fury/shared/scrollbar/scrollbar.module';
+import { MaterialModule } from '../../../@sfa/shared/material-components.module';
+import { ScrollbarModule } from '../../../@sfa/shared/scrollbar/scrollbar.module';
 import { QuickpanelComponent } from './quickpanel.component';
 
 @NgModule({

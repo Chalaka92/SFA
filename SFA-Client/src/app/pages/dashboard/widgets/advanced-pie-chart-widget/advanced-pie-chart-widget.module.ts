@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FuryCardModule } from '../../../../../@fury/shared/card/card.module';
-import { LoadingOverlayModule } from '../../../../../@fury/shared/loading-overlay/loading-overlay.module';
-import { MaterialModule } from '../../../../../@fury/shared/material-components.module';
-import { ScrollbarModule } from '../../../../../@fury/shared/scrollbar/scrollbar.module';
+import { SFACardModule } from '../../../../../@sfa/shared/card/card.module';
+import { LoadingOverlayModule } from '../../../../../@sfa/shared/loading-overlay/loading-overlay.module';
+import { MaterialModule } from '../../../../../@sfa/shared/material-components.module';
+import { ScrollbarModule } from '../../../../../@sfa/shared/scrollbar/scrollbar.module';
 import { AdvancedPieChartWidgetComponent } from './advanced-pie-chart-widget.component';
 import { ChartsModule } from 'ng2-charts';
 
@@ -13,7 +13,7 @@ import { ChartsModule } from 'ng2-charts';
     MaterialModule,
 
     // Core
-    FuryCardModule,
+    SFACardModule,
     LoadingOverlayModule,
     ScrollbarModule,
     ChartsModule

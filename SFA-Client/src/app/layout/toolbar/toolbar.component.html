@@ -1,6 +1,6 @@
 <div class="toolbar" fxLayout="row" fxLayoutAlign="space-between">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <fury-toolbar-sidenav-mobile-toggle (openSidenav)="openSidenav.emit()"></fury-toolbar-sidenav-mobile-toggle>
+    <sfa-toolbar-sidenav-mobile-toggle (openSidenav)="openSidenav.emit()"></sfa-toolbar-sidenav-mobile-toggle>
 
     <div [fxShow.gt-sm]="topNavigation$ | async" [fxShow.xs]="false" [routerLink]="['/']" class="toolbar-logo" fxShow>
       <svg viewBox="0 0 138.16 70.27" xmlns="http://www.w3.org/2000/svg"><title>Logo</title>
@@ -11,21 +11,21 @@
       </svg>
     </div>
 
-    <fury-toolbar-search-bar fxFlex="500px" fxHide fxShow.gt-md></fury-toolbar-search-bar>
+    <sfa-toolbar-search-bar fxFlex="500px" fxHide fxShow.gt-md></sfa-toolbar-search-bar>
   </div>
 
   <div fxLayout="row">
 
-    <fury-toolbar-fullscreen-toggle class="toolbar-button"></fury-toolbar-fullscreen-toggle>
+    <sfa-toolbar-fullscreen-toggle class="toolbar-button"></sfa-toolbar-fullscreen-toggle>
 
-    <fury-toolbar-search fxHide fxShow.gt-sm fxHide.gt-md class="toolbar-button"></fury-toolbar-search>
+    <sfa-toolbar-search fxHide fxShow.gt-sm fxHide.gt-md class="toolbar-button"></sfa-toolbar-search>
 
-    <fury-toolbar-notifications class="toolbar-button"></fury-toolbar-notifications>
+    <sfa-toolbar-notifications class="toolbar-button"></sfa-toolbar-notifications>
 
-    <fury-toolbar-user class="toolbar-button"></fury-toolbar-user>
+    <sfa-toolbar-user class="toolbar-button"></sfa-toolbar-user>
 
-    <fury-toolbar-quickpanel-toggle (openQuickPanel)="openQuickPanel.emit()"
-                                    class="toolbar-button"></fury-toolbar-quickpanel-toggle>
+    <sfa-toolbar-quickpanel-toggle (openQuickPanel)="openQuickPanel.emit()"
+                                    class="toolbar-button"></sfa-toolbar-quickpanel-toggle>
   </div>
 </div>
 

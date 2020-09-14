@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../environments/environment';
-import { PendingInterceptorModule } from '../@fury/shared/loading-indicator/pending-interceptor.module';
+import { PendingInterceptorModule } from '../@sfa/shared/loading-indicator/pending-interceptor.module';
 import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormFieldDefaultOptions,
@@ -19,6 +19,7 @@ import {
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { fakeBackendProvider } from './_helpers/fake-backend';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import { fakeBackendProvider } from './_helpers/fake-backend';
     BrowserAnimationsModule,
     HttpClientModule,
 
-    // Fury Core Modules
+    // SFA Core Modules
     AppRoutingModule,
 
     // Layout Module (Sidenav, Toolbar, Quickpanel, Content)

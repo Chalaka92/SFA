@@ -1,16 +1,16 @@
 <div class="menu" fxHide fxLayout="row" fxShow.gt-sm>
   <div *ngFor="let item of sidenavItems$ | async; let index = index;">
     <ng-container *ngIf="index < showMoreButtonAfterIndex && item.type !== 'subheading'">
-      <fury-navigation-item *ngIf="!item.subItems || item.subItems.length === 0"
+      <sfa-navigation-item *ngIf="!item.subItems || item.subItems.length === 0"
                             [currentlyOpen]="currentlyOpen$ | async"
                             (handleClick)="handleClick($event)"
-                            [item]="item"></fury-navigation-item>
+                            [item]="item"></sfa-navigation-item>
 
-      <fury-navigation-item *ngIf="item.subItems && item.subItems.length > 0"
+      <sfa-navigation-item *ngIf="item.subItems && item.subItems.length > 0"
                             [currentlyOpen]="currentlyOpen$ | async"
                             [item]="item"
                             [matMenuTriggerData]="{ item: item }"
-                            [matMenuTriggerFor]="dropdown"></fury-navigation-item>
+                            [matMenuTriggerFor]="dropdown"></sfa-navigation-item>
     </ng-container>
 
     <div *ngIf="index == showMoreButtonAfterIndex"

@@ -14,11 +14,11 @@ import {
 import { RecentSalesWidgetOptions } from './widgets/recent-sales-widget/recent-sales-widget-options.interface';
 import { SalesSummaryWidgetOptions } from './widgets/sales-summary-widget/sales-summary-widget-options.interface';
 import { DashboardService } from './dashboard.service';
-import { ChartWidgetOptions } from '../../../@fury/shared/chart-widget/chart-widget-options.interface';
+import { ChartWidgetOptions } from '../../../@sfa/shared/chart-widget/chart-widget-options.interface';
 import { UserService } from '@app/_services/user.service';
 
 @Component({
-  selector: 'fury-dashboard',
+  selector: 'sfa-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })

@@ -8,7 +8,7 @@ import { SidenavItem } from './sidenav-item.interface';
 import isFunction from 'lodash-es/isFunction';
 
 @Component({
-  selector: 'fury-sidenav-item',
+  selector: 'sfa-sidenav-item',
   templateUrl: './sidenav-item.component.html',
   styleUrls: ['./sidenav-item.component.scss'],
   animations: [

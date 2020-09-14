@@ -118,13 +118,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "fury",
+      "sfa",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "fury",
+      "sfa",
       "kebab-case"
     ],
     "no-output-on-prefix": true,

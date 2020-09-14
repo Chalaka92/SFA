@@ -13,13 +13,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { ListColumn } from 'src/@fury/shared/list/list-column.model';
+import { ListColumn } from 'src/@sfa/shared/list/list-column.model';
 import { ProvinceCreateUpdateComponent } from './province-create-update/province-create-update.component';
-import { fadeInUpAnimation } from 'src/@fury/animations/fade-in-up.animation';
-import { fadeInRightAnimation } from 'src/@fury/animations/fade-in-right.animation';
+import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
+import { fadeInRightAnimation } from 'src/@sfa/animations/fade-in-right.animation';
+import { ConfirmDialogComponent } from '@app/common/confirm-dialog/confirm-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'fury-province',
+  selector: 'sfa-province',
   templateUrl: './province.component.html',
   styleUrls: ['./province.component.scss'],
   animations: [fadeInUpAnimation, fadeInRightAnimation],
@@ -33,7 +35,6 @@ export class ProvinceComponent implements OnInit, OnDestroy {
     { name: 'Name', property: 'name', visible: true, isModelProperty: true },
     { name: 'Actions', property: 'actions', visible: true },
   ] as ListColumn[];
-  pageSize = 10;
   dataSource: MatTableDataSource<Province> | null;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -41,7 +42,8 @@ export class ProvinceComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private provinceService: ProvinceService
+    private provinceService: ProvinceService,
+    private snackbar: MatSnackBar
   ) {}
 
   get visibleColumns() {
@@ -83,7 +85,11 @@ export class ProvinceComponent implements OnInit, OnDestroy {
           this.provinceService
             .createProvince(province)
             .subscribe((response) => {
-              console.log(response);
+              this.getAllProvinces();
+              this.snackbar.open('Creation Successful', 'x', {
+                duration: 3000,
+                panelClass: 'notif-success',
+              });
             });
           this.provinces.unshift(new Province(province));
         }
@@ -105,25 +111,23 @@ export class ProvinceComponent implements OnInit, OnDestroy {
           this.provinceService
             .updateProvince(province.id, province)
             .subscribe((response) => {
-              console.log(response);
+              this.getAllProvinces();
+              this.snackbar.open('Update Successful', 'x', {
+                duration: 3000,
+                panelClass: 'notif-success',
+              });
             });
-          const index = this.provinces.findIndex(
-            (existingProvince) => existingProvince.id === province.id
-          );
-          this.provinces[index] = new Province(province);
         }
       });
   }
 
   deleteProvince(province) {
     this.provinceService.deleteProvince(province.id).subscribe((response) => {
-      console.log(response);
-      this.provinces.splice(
-        this.provinces.findIndex(
-          (existingProvince) => existingProvince.id === province.id
-        ),
-        1
-      );
+      this.getAllProvinces();
+      this.snackbar.open('Deletion Successful', 'x', {
+        duration: 3000,
+        panelClass: 'notif-success',
+      });
     });
   }
 
@@ -134,6 +138,24 @@ export class ProvinceComponent implements OnInit, OnDestroy {
     value = value.trim();
     value = value.toLowerCase();
     this.dataSource.filter = value;
+  }
+
+  confirmDialog(province): void {
+    const message = `Are you sure you want to delete this?`;
+
+    const dialogData = { title: 'Confirm Action', message: message };
+
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        maxWidth: '400px',
+        data: dialogData,
+      })
+      .afterClosed()
+      .subscribe((dialogResult) => {
+        if (dialogResult) {
+          this.deleteProvince(province);
+        }
+      });
   }
 
   ngOnDestroy() {}

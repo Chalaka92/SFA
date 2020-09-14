@@ -1,31 +1,31 @@
-<fury-card
+<sfa-card
   [style.background]="options.background"
   [style.color]="options.color"
 >
-  <fury-card-header class="header">
-    <fury-card-header-heading [style.color]="options.color">{{
+  <sfa-card-header class="header">
+    <sfa-card-header-heading [style.color]="options.color">{{
       options.title
-    }}</fury-card-header-heading>
-    <fury-card-header-subheading
+    }}</sfa-card-header-heading>
+    <sfa-card-header-subheading
       [style.color]="options.color"
       class="subheading"
     >
       <mat-icon *ngIf="options.gain >= 0">arrow_upward</mat-icon>
       <mat-icon *ngIf="options.gain < 0">arrow_downward</mat-icon>
       {{ options.gain }}% {{ options.subTitle }}
-    </fury-card-header-subheading>
+    </sfa-card-header-subheading>
 
-    <fury-card-header-actions>
+    <sfa-card-header-actions>
       <button (click)="reload()" mat-icon-button>
         <mat-icon>refresh</mat-icon>
       </button>
       <button [matMenuTriggerFor]="menu" mat-icon-button>
         <mat-icon>more_vert</mat-icon>
       </button>
-    </fury-card-header-actions>
-  </fury-card-header>
+    </sfa-card-header-actions>
+  </sfa-card-header>
 
-  <fury-card-content class="card-content">
+  <sfa-card-content class="card-content">
     <canvas
       *ngIf="data"
       [datasets]="data.datasets"
@@ -36,10 +36,10 @@
       chartType="bar"
     >
     </canvas>
-  </fury-card-content>
+  </sfa-card-content>
 
-  <fury-loading-overlay [isLoading]="isLoading"></fury-loading-overlay>
-</fury-card>
+  <sfa-loading-overlay [isLoading]="isLoading"></sfa-loading-overlay>
+</sfa-card>
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item>

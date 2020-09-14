@@ -3,28 +3,28 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <mat-dialog-content>
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-      <mat-form-field fxFlex>
+      <mat-form-field fxFlex appearance="standard">
         <mat-label>Name</mat-label>
-        <input type="text" formControlName="name" matInput />
+        <input type="text" formControlName="name" matInput required />
       </mat-form-field>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
     <button
       *ngIf="isCreateMode()"
-      mat-raised-button
+      mat-button
       [disabled]="!form.valid"
       color="primary"
     >
-      CREATE PROVINCE
+      CREATE
     </button>
     <button
       *ngIf="isUpdateMode()"
-      mat-raised-button
-      [disabled]="!form.valid"
+      mat-button
+      [disabled]="!form.valid || form.pristine"
       color="primary"
     >
-      UPDATE PROVINCE
+      UPDATE
     </button>
   </mat-dialog-actions>
 </form>

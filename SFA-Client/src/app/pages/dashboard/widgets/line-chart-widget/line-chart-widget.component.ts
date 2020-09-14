@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import defaultsDeep from 'lodash-es/defaultsDeep';
-import { defaultChartOptions } from '../../../../../@fury/shared/chart-widget/chart-widget-defaults';
-import { ChartWidgetOptions } from '../../../../../@fury/shared/chart-widget/chart-widget-options.interface';
+import { defaultChartOptions } from '../../../../../@sfa/shared/chart-widget/chart-widget-defaults';
+import { ChartWidgetOptions } from '../../../../../@sfa/shared/chart-widget/chart-widget-options.interface';
 
 @Component({
-  selector: 'fury-line-chart-widget',
+  selector: 'sfa-line-chart-widget',
   templateUrl: './line-chart-widget.component.html',
   styleUrls: ['./line-chart-widget.component.scss']
 })

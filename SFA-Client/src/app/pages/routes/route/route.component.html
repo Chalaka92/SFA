@@ -1,14 +1,14 @@
-<fury-page-layout mode="card">
-  <fury-page-layout-header>
-    <fury-breadcrumbs
+<sfa-page-layout mode="card">
+  <sfa-page-layout-header>
+    <sfa-breadcrumbs
       [@fadeInRight]
       [crumbs]="['Routes']"
       current="Route"
-    ></fury-breadcrumbs>
-  </fury-page-layout-header>
+    ></sfa-breadcrumbs>
+  </sfa-page-layout-header>
 
-  <fury-page-layout-content [@fadeInUp]>
-    <fury-list
+  <sfa-page-layout-content [@fadeInUp]>
+    <sfa-list
       name="Customers"
       [columns]="columns"
       (filterChange)="onFilterChange($event)"
@@ -111,6 +111,6 @@
       </table>
 
       <mat-paginator class="paginator" [pageSize]="pageSize"></mat-paginator>
-    </fury-list>
-  </fury-page-layout-content>
-</fury-page-layout>
+    </sfa-list>
+  </sfa-page-layout-content>
+</sfa-page-layout>

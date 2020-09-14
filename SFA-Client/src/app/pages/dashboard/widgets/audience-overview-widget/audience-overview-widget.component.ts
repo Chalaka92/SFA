@@ -4,11 +4,11 @@ import * as Chart from 'chart.js';
 import { ChartData, ChartOptions } from 'chart.js';
 import defaultsDeep from 'lodash-es/defaultsDeep';
 import { BehaviorSubject } from 'rxjs';
-import { defaultChartOptions } from '../../../../../@fury/shared/chart-widget/chart-widget-defaults';
+import { defaultChartOptions } from '../../../../../@sfa/shared/chart-widget/chart-widget-defaults';
 import { AudienceOverviewWidgetOptions } from './audience-overview-widget-options.interface';
 
 @Component({
-  selector: 'fury-audience-overview-widget',
+  selector: 'sfa-audience-overview-widget',
   templateUrl: './audience-overview-widget.component.html',
   styleUrls: ['./audience-overview-widget.component.scss']
 })

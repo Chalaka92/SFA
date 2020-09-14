@@ -1,37 +1,37 @@
 <div class="config-panel">
-  <fury-title class="heading">
+  <sfa-title class="heading">
     <mat-icon>settings</mat-icon>
     <span>Configuration</span>
-  </fury-title>
+  </sfa-title>
 
   <div class="section">
     <h5 class="subheading">THEME STYLE</h5>
 
     <div class="styles">
-      <div (click)="setActiveTheme('fury-default')" class="style" matRipple>
+      <div (click)="setActiveTheme('sfa-default')" class="style" matRipple>
         <div class="color default">
-          <mat-icon *ngIf="(activeTheme$ | async) === 'fury-default'">check</mat-icon>
+          <mat-icon *ngIf="(activeTheme$ | async) === 'sfa-default'">check</mat-icon>
         </div>
         <div class="style-name">Default</div>
       </div>
 
-      <div (click)="setActiveTheme('fury-light')" class="style" matRipple>
+      <div (click)="setActiveTheme('sfa-light')" class="style" matRipple>
         <div class="color light">
-          <mat-icon *ngIf="(activeTheme$ | async) === 'fury-light'">check</mat-icon>
+          <mat-icon *ngIf="(activeTheme$ | async) === 'sfa-light'">check</mat-icon>
         </div>
         <div class="style-name">Light</div>
       </div>
 
-      <div (click)="setActiveTheme('fury-dark')" class="style" matRipple>
+      <div (click)="setActiveTheme('sfa-dark')" class="style" matRipple>
         <div class="color dark">
-          <mat-icon *ngIf="(activeTheme$ | async) === 'fury-dark'">check</mat-icon>
+          <mat-icon *ngIf="(activeTheme$ | async) === 'sfa-dark'">check</mat-icon>
         </div>
         <div class="style-name">Dark</div>
       </div>
 
-      <div (click)="setActiveTheme('fury-flat')" class="style" matRipple>
+      <div (click)="setActiveTheme('sfa-flat')" class="style" matRipple>
         <div class="color flat">
-          <mat-icon *ngIf="(activeTheme$ | async) === 'fury-flat'">check</mat-icon>
+          <mat-icon *ngIf="(activeTheme$ | async) === 'sfa-flat'">check</mat-icon>
         </div>
         <div class="style-name">Flat</div>
       </div>

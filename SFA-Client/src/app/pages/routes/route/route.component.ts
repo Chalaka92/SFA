@@ -6,10 +6,10 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { fadeInUpAnimation } from 'src/@fury/animations/fade-in-up.animation';
-import { fadeInRightAnimation } from '../../../../@fury/animations/fade-in-right.animation';
+import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
+import { fadeInRightAnimation } from '../../../../@sfa/animations/fade-in-right.animation';
 import { ReplaySubject, Observable, of } from 'rxjs';
-import { ListColumn } from '../../../../@fury/shared/list/list-column.model';
+import { ListColumn } from '../../../../@sfa/shared/list/list-column.model';
 import { Customer } from './customer-create-update/customer.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -20,7 +20,7 @@ import { filter } from 'rxjs/operators';
 import { CustomerCreateUpdateComponent } from './customer-create-update/customer-create-update.component';
 
 @Component({
-  selector: 'fury-route',
+  selector: 'sfa-route',
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.scss'],
   animations: [fadeInUpAnimation, fadeInRightAnimation],

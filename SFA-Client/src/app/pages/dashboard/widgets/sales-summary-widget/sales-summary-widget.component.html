@@ -1,6 +1,6 @@
-<fury-card>
-  <fury-card-header>
-    <fury-card-header-heading>
+<sfa-card>
+  <sfa-card-header>
+    <sfa-card-header-heading>
       {{ options.title }}
 
       <!-- <div class="gain" [class.increase]="options.gain >= 0" [class.decrease]="options.gain < 0" fxLayout="row"
@@ -9,22 +9,22 @@
         <mat-icon *ngIf="options.gain >= 0">trending_up</mat-icon>
         <mat-icon *ngIf="options.gain < 0">trending_down</mat-icon>
       </div>-->
-    </fury-card-header-heading>
-    <fury-card-header-subheading>
+    </sfa-card-header-heading>
+    <sfa-card-header-subheading>
       {{ options.subTitle }}
-    </fury-card-header-subheading>
+    </sfa-card-header-subheading>
 
-    <fury-card-header-actions>
+    <sfa-card-header-actions>
       <button mat-icon-button (click)="reload()">
         <mat-icon>refresh</mat-icon>
       </button>
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
-    </fury-card-header-actions>
-  </fury-card-header>
+    </sfa-card-header-actions>
+  </sfa-card-header>
 
-  <fury-card-content class="card-content">
+  <sfa-card-content class="card-content">
     <div class="sections" fxLayout="row" fxLayoutAlign="start center">
       <div class="section" fxFlex="grow">
         <div class="label">Monthly Sales</div>
@@ -52,10 +52,10 @@
               chartType="line">
       </canvas>
     </div>
-  </fury-card-content>
+  </sfa-card-content>
 
-  <fury-loading-overlay [isLoading]="isLoading"></fury-loading-overlay>
-</fury-card>
+  <sfa-loading-overlay [isLoading]="isLoading"></sfa-loading-overlay>
+</sfa-card>
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item>

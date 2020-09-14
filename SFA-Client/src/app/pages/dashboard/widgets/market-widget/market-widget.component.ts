@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'fury-market-widget',
+  selector: 'sfa-market-widget',
   templateUrl: './market-widget.component.html',
   styleUrls: ['./market-widget.component.scss']
 })

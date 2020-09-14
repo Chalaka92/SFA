@@ -1,11 +1,11 @@
-<fury-loading-indicator></fury-loading-indicator>
-<fury-backdrop #backdrop="furyBackdrop"></fury-backdrop>
-<fury-config-panel-toggle (openConfig)="openConfigPanel()"></fury-config-panel-toggle>
+<sfa-loading-indicator></sfa-loading-indicator>
+<sfa-backdrop #backdrop="sfaBackdrop"></sfa-backdrop>
+<sfa-config-panel-toggle (openConfig)="openConfigPanel()"></sfa-config-panel-toggle>
 
 <!-- QUICKPANEL -->
-<fury-sidebar #configPanel="furySidebar" [backdrop]="backdrop" [invisibleBackdrop]="true" position="right">
-  <fury-config-panel></fury-config-panel>
-</fury-sidebar>
+<sfa-sidebar #configPanel="sfaSidebar" [backdrop]="backdrop" [invisibleBackdrop]="true" position="right">
+  <sfa-config-panel></sfa-config-panel>
+</sfa-sidebar>
 <!-- END QUICKPANEL -->
 
 <div class="container" fxLayout="column">
@@ -21,13 +21,13 @@
                  [mode]="sidenavMode$ | async"
                  [opened]="sidenavOpen$ | async"
                  *ngIf="sideNavigation$ | async"
-                 class="fury-collapsable-sidenav">
-      <fury-sidenav [collapsed]="sidenavCollapsed$ | async" [expanded]="sidenavExpanded$ | async"></fury-sidenav>
+                 class="sfa-collapsable-sidenav">
+      <sfa-sidenav [collapsed]="sidenavCollapsed$ | async" [expanded]="sidenavExpanded$ | async"></sfa-sidenav>
     </mat-sidenav>
     <!-- END SIDENAV -->
 
     <mat-sidenav [(opened)]="quickPanelOpen" mode="over" position="end">
-      <fury-quickpanel></fury-quickpanel>
+      <sfa-quickpanel></sfa-quickpanel>
     </mat-sidenav>
 
     <mat-sidenav-content class="content-container" fxLayout="column">
@@ -68,22 +68,22 @@
 
 <ng-template #toolbar>
   <!-- TOOLBAR -->
-  <fury-toolbar (openQuickPanel)="openQuickPanel()"
+  <sfa-toolbar (openQuickPanel)="openQuickPanel()"
                 [hasNavigation]="topNavigation$ | async"
                 (openSidenav)="openSidenav()"
                 *ngIf="toolbarVisible$ | async"
-                fxFlex="none"></fury-toolbar>
+                fxFlex="none"></sfa-toolbar>
   <!-- END TOOLBAR -->
 
   <!-- NAVIGATION -->
-  <fury-navigation *ngIf="topNavigation$ | async"
-                   fxFlex="none"></fury-navigation>
+  <sfa-navigation *ngIf="topNavigation$ | async"
+                   fxFlex="none"></sfa-navigation>
   <!-- END NAVIGATION -->
 </ng-template>
 
 <ng-template #footer>
   <!-- FOOTER -->
-  <fury-footer fxFlex="none"></fury-footer>
+  <sfa-footer fxFlex="none"></sfa-footer>
   <!-- END FOOTER -->
 </ng-template>
 

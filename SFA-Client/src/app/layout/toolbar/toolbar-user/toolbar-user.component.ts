@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
-  selector: 'fury-toolbar-user',
+  selector: 'sfa-toolbar-user',
   templateUrl: './toolbar-user.component.html',
   styleUrls: ['./toolbar-user.component.scss'],
 })

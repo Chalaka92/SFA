@@ -1,0 +1,22 @@
+<div mat-dialog-title>
+  <mat-icon style="vertical-align: middle" color="{{ icolor }}">{{
+    icon
+  }}</mat-icon
+  >&nbsp;
+  <span style="vertical-align: middle">{{ title }}</span>
+</div>
+<form>
+  <mat-dialog-content>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-label> {{ message }}</mat-label>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button type="button" mat-button color="primary" (click)="onDismiss()">
+      NO
+    </button>
+    <button type="button" mat-button color="warn" (click)="onConfirm()">
+      YES
+    </button>
+  </mat-dialog-actions>
+</form>

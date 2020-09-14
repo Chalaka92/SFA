@@ -1,13 +1,13 @@
-# Fury - Angular 10+ Material Design Admin Template
+# SFA - Angular 10+ Material Design Admin Template
 ## Introduction
 
-Fury is a creative material design admin template built with Angular 8+ and the Angular-CLI. It extends the Material Design components built by the Angular 8+ team and it offers you everything you need to get started with your next CRM, CMS or dashboard based project.
+SFA is a creative material design admin template built with Angular 8+ and the Angular-CLI. It extends the Material Design components built by the Angular 8+ team and it offers you everything you need to get started with your next CRM, CMS or dashboard based project.
 
 Support is available through email, ThemeForest comments or chat. If you purchased the theme and love it, consider giving it a 5-star rating here on ThemeForest. It really helps pushing out more updates and adding more great features.
 
 ## Table of Contents
 
-   * [Fury - Angular 10+ Material Design Admin Template](#fury---angular-6+-material-design-admin-template)
+   * [SFA - Angular 10+ Material Design Admin Template](#sfa---angular-6+-material-design-admin-template)
       * [Introduction](#introduction)
       * [Getting Started](#getting-started)
          * [Folder Structure](#folder-structure)

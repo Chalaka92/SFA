@@ -1,14 +1,14 @@
-<fury-page-layout mode="card">
-  <fury-page-layout-header>
-    <fury-breadcrumbs
+<sfa-page-layout mode="card">
+  <sfa-page-layout-header>
+    <sfa-breadcrumbs
       [@fadeInRight]
       [crumbs]="['Provinces']"
       current="Province"
-    ></fury-breadcrumbs>
-  </fury-page-layout-header>
+    ></sfa-breadcrumbs>
+  </sfa-page-layout-header>
 
-  <fury-page-layout-content [@fadeInUp]>
-    <fury-list
+  <sfa-page-layout-content [@fadeInUp]>
+    <sfa-list
       name="Provinces"
       [columns]="columns"
       (filterChange)="onFilterChange($event)"
@@ -28,30 +28,6 @@
       <table [dataSource]="dataSource" mat-table matSort>
         <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="checkbox">
-          <th *matHeaderCellDef class="actions-cell" mat-header-cell>
-            <mat-checkbox
-              color="primary"
-              (click)="$event.stopPropagation()"
-            ></mat-checkbox>
-          </th>
-          <td *matCellDef="let row" class="actions-cell" mat-cell>
-            <mat-checkbox
-              color="primary"
-              (click)="$event.stopPropagation()"
-            ></mat-checkbox>
-          </td>
-        </ng-container>
-
-        <!-- Image Column -->
-        <ng-container matColumnDef="image">
-          <th *matHeaderCellDef class="image-cell" mat-header-cell></th>
-          <td *matCellDef="let row" class="image-cell" mat-cell>
-            <img src="http://i.pravatar.cc/30?u={{ row.name }}" />
-          </td>
-        </ng-container>
 
         <!-- fullName Column -->
         <ng-container *ngFor="let column of columns">
@@ -78,39 +54,35 @@
           ></th>
           <td *matCellDef="let row" class="actions-cell" mat-cell>
             <button
-              type="button"
+              id="edit_{{ row.id }}"
+              matTooltip="Edit"
+              (click)="updateProvince(row); $event.stopPropagation()"
               mat-icon-button
-              [matMenuTriggerFor]="actionsMenu"
-              (click)="$event.stopPropagation()"
             >
-              <mat-icon>more_horiz</mat-icon>
+              <mat-icon color="primary">edit</mat-icon>
             </button>
-
-            <mat-menu
-              #actionsMenu="matMenu"
-              yPosition="below"
-              xPosition="before"
+            <button
+              id="delete_{{ row.id }}"
+              matTooltip="Delete"
+              (click)="confirmDialog(row); $event.stopPropagation()"
+              mat-icon-button
             >
-              <button (click)="updateProvince(row)" mat-menu-item>
-                <span>Modify</span>
-              </button>
-              <button (click)="deleteProvince(row)" mat-menu-item>
-                <span>Delete</span>
-              </button>
-            </mat-menu>
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
           </td>
         </ng-container>
-
         <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
         <tr
-          (click)="updateProvince(row)"
           *matRowDef="let row; columns: visibleColumns"
           class="clickable route-animations-elements"
           mat-row
         ></tr>
       </table>
 
-      <mat-paginator class="paginator" [pageSize]="pageSize"></mat-paginator>
-    </fury-list>
-  </fury-page-layout-content>
-</fury-page-layout>
+      <mat-paginator
+        class="paginator"
+        [pageSizeOptions]="[10, 15, 20, 50, 100]"
+      ></mat-paginator>
+    </sfa-list>
+  </sfa-page-layout-content>
+</sfa-page-layout>

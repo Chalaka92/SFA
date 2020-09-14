@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { BlankRoutingModule } from './blank-routing.module';
 import { BlankComponent } from './blank.component';
-import { FurySharedModule } from '../../../@fury/fury-shared.module';
+import { SfaSharedModule } from '../../../@sfa/sfa-shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     BlankRoutingModule,
-    FurySharedModule
+    SfaSharedModule
   ],
   declarations: [BlankComponent]
 })

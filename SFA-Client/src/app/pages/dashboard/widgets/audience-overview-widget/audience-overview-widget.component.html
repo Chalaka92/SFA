@@ -1,4 +1,4 @@
-<fury-card fxFlex="auto">
+<sfa-card fxFlex="auto">
   <div class="header" fxLayout="column" fxLayout.gt-xs="row">
     <div (click)="setActiveOptions(property)" *ngFor="let property of options" [class.active]="isActive(property)"
          class="property" fxLayout="row" fxLayout.gt-xs="column"
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <fury-card-content class="card-content">
+  <sfa-card-content class="card-content">
     <canvas *ngIf="activeOptions?.data"
             [datasets]="activeOptions.data.datasets"
             [labels]="activeOptions.data.labels"
@@ -24,9 +24,9 @@
             baseChart
             chartType="line">
     </canvas>
-  </fury-card-content>
+  </sfa-card-content>
 
-  <fury-card-actions class="actions" fxLayout="row" fxLayoutAlign="space-between center">
+  <sfa-card-actions class="actions" fxLayout="row" fxLayoutAlign="space-between center">
     <mat-form-field appearance="standard" class="select">
       <mat-select [formControl]="timeframe">
         <mat-option value="last7">Last 7 Days</mat-option>
@@ -40,5 +40,5 @@
     <button color="primary" mat-button type="button">
       AUDIENCE OVERVIEW
     </button>
-  </fury-card-actions>
-</fury-card>
+  </sfa-card-actions>
+</sfa-card>

@@ -29,11 +29,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     const { url, method, headers, body } = request;
 
     // wrap in delayed observable to simulate server api call
-    return of(null)
-      .pipe(mergeMap(handleRoute))
-      .pipe(materialize()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-      .pipe(delay(500))
-      .pipe(dematerialize());
+    return (
+      of(null)
+        .pipe(mergeMap(handleRoute))
+        // tslint:disable-next-line: max-line-length
+        .pipe(materialize()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
+        .pipe(delay(500))
+        .pipe(dematerialize())
+    );
 
     function handleRoute() {
       switch (true) {
@@ -54,7 +57,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       const user = users.find(
         (x) => x.username === username && x.password === password
       );
-      if (!user) return error('Username or password is incorrect');
+      if (!user) {
+        return error('Username or password is incorrect');
+      }
       return ok({
         // id: user.id,
         // username: user.username,
@@ -65,12 +70,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function getUsers() {
-      if (!isLoggedIn()) return unauthorized();
+      if (!isLoggedIn()) {
+        return unauthorized();
+      }
       return ok(users);
     }
 
     // helper functions
 
+    // tslint:disable-next-line: no-shadowed-variable
     function ok(body?) {
       return of(new HttpResponse({ status: 200, body }));
     }

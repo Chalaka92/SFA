@@ -27,7 +27,14 @@ namespace Application.Districts
             {
                 var districts = await _context.Districts.ToListAsync();
                 var returnDistricts = _mapper.Map<List<District>, List<DistrictDto>>(districts);
+                if (returnDistricts == null)
+                    return null;
 
+                returnDistricts.ForEach(async x =>
+                {
+                    var s = await _context.Provinces.FindAsync(x.ProvinceId);
+                    x.ProvinceName = (await _context.Provinces.FindAsync(x.ProvinceId)).Name;
+                });
                 return returnDistricts;
             }
         }

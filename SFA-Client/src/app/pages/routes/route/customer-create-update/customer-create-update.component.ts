@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Customer } from './customer.model';
 
 @Component({
-  selector: 'fury-customer-create-update',
+  selector: 'sfa-customer-create-update',
   templateUrl: './customer-create-update.component.html',
   styleUrls: ['./customer-create-update.component.scss']
 })

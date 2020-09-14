@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'fury-area',
+  selector: 'sfa-area',
   templateUrl: './area.component.html',
   styleUrls: ['./area.component.scss']
 })

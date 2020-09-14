@@ -8,7 +8,7 @@ import sortBy from 'lodash-es/sortBy';
 import { BehaviorSubject } from 'rxjs';
 import { SidenavItem } from './sidenav-item/sidenav-item.interface';
 import { filter, map, takeUntil } from 'rxjs/operators';
-import { componentDestroyed } from '../../../@fury/shared/component-destroyed';
+import { componentDestroyed } from '../../../@sfa/shared/component-destroyed';
 import { MediaObserver } from '@angular/flex-layout';
 
 @Injectable()

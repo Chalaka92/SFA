@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'fury-blank',
+  selector: 'sfa-blank',
   templateUrl: './blank.component.html',
   styleUrls: ['./blank.component.scss']
 })

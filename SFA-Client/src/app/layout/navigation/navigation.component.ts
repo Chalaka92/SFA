@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
-  selector: 'fury-navigation',
+  selector: 'sfa-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })

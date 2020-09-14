@@ -17,8 +17,8 @@ $theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 $dark-theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 @include angular-material-theme($theme);
 
-.fury-default {
-  @import '../@fury/styles/themes/default';
+.sfa-default {
+  @import '../@sfa/styles/themes/default';
 
   background: $theme-background;
   color: $theme-text;
@@ -26,8 +26,8 @@ $dark-theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   @import './layout/config-panel/config-panel.component.theme';
 }
 
-.fury-light {
-  @import '../@fury/styles/themes/light';
+.sfa-light {
+  @import '../@sfa/styles/themes/light';
 
   background: $theme-background;
   color: $theme-text;
@@ -35,10 +35,10 @@ $dark-theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   @import './layout/config-panel/config-panel.component.theme';
 }
 
-.fury-dark {
+.sfa-dark {
   @include angular-material-color($dark-theme);
 
-  @import '../@fury/styles/themes/dark';
+  @import '../@sfa/styles/themes/dark';
 
   background: $theme-background;
   color: $theme-text;
@@ -46,8 +46,8 @@ $dark-theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   @import './layout/config-panel/config-panel.component.theme';
 }
 
-.fury-flat {
-  @import '../@fury/styles/themes/flat';
+.sfa-flat {
+  @import '../@sfa/styles/themes/flat';
 
   background: $theme-background;
   color: $theme-text;

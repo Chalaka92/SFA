@@ -1,0 +1,14 @@
+.sfa-card {
+  background: $theme-card;
+  color: $theme-text;
+
+  @include mat-elevation($elevation);
+
+  .sfa-card-header-subheading {
+    color: $theme-secondary-text;
+  }
+
+  .sfa-card-actions {
+    border-top: 1px solid $theme-divider;
+  }
+}

@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { SidebarDirective } from '../../@fury/shared/sidebar/sidebar.directive';
+import { SidebarDirective } from '../../@sfa/shared/sidebar/sidebar.directive';
 import { SidenavService } from './sidenav/sidenav.service';
 import { filter, map, startWith } from 'rxjs/operators';
-import { ThemeService } from '../../@fury/services/theme.service';
+import { ThemeService } from '../../@sfa/services/theme.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { checkRouterChildsData } from '../../@fury/utils/check-router-childs-data';
+import { checkRouterChildsData } from '../../@sfa/utils/check-router-childs-data';
 
 @Component({
-  selector: 'fury-layout',
+  selector: 'sfa-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })

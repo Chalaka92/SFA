@@ -1,4 +1,4 @@
-<div (furyClickOutside)="onClickOutside()" class="toolbar-notifications"
+<div (sfaClickOutside)="onClickOutside()" class="toolbar-notifications"
      fxFlex="grow" fxLayout="row" fxLayoutAlign="start center">
   <button (click)="toggleDropdown()" [class.open]="isOpen" class="button"
           fxFlex="grow" mat-button type="button">
@@ -8,24 +8,24 @@
   </button>
 
   <div [class.open]="isOpen" class="dropdown">
-    <fury-card>
-      <fury-card-header class="dropdown-header">
-        <fury-card-header-heading>
+    <sfa-card>
+      <sfa-card-header class="dropdown-header">
+        <sfa-card-header-heading>
           Notifications
-        </fury-card-header-heading>
-        <fury-card-header-subheading>
+        </sfa-card-header-heading>
+        <sfa-card-header-subheading>
           You have {{ notifications.length }} new notifications.
-        </fury-card-header-subheading>
+        </sfa-card-header-subheading>
 
-        <fury-card-header-actions>
+        <sfa-card-header-actions>
           <button mat-icon-button type="button">
             <mat-icon class="icon">settings</mat-icon>
           </button>
-        </fury-card-header-actions>
-      </fury-card-header>
+        </sfa-card-header-actions>
+      </sfa-card-header>
 
-      <fury-card-content class="dropdown-card-content">
-        <fury-scrollbar class="dropdown-content">
+      <sfa-card-content class="dropdown-card-content">
+        <sfa-scrollbar class="dropdown-content">
           <div fxLayout="column">
             <ng-container *ngFor="let notification of notifications; let last = last">
               <div (click)="markAsRead(notification)"
@@ -49,13 +49,13 @@
           <div *ngIf="notifications.length === 0" [@listFade] class="empty">
             All fine! No notifications right now.
           </div>
-        </fury-scrollbar>
-      </fury-card-content>
+        </sfa-scrollbar>
+      </sfa-card-content>
 
 
-      <fury-card-actions (click)="markAllAsRead()" class="dropdown-footer" matRipple>
+      <sfa-card-actions (click)="markAllAsRead()" class="dropdown-footer" matRipple>
         Mark all as read
-      </fury-card-actions>
-    </fury-card>
+      </sfa-card-actions>
+    </sfa-card>
   </div>
 </div>

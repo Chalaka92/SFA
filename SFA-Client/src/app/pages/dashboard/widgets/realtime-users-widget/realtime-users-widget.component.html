@@ -1,11 +1,11 @@
-<fury-card class="realtime-users-widget">
-  <fury-card-header class="header" fxLayout="column">
-    <fury-card-header-heading>Active Users right now</fury-card-header-heading>
+<sfa-card class="realtime-users-widget">
+  <sfa-card-header class="header" fxLayout="column">
+    <sfa-card-header-heading>Active Users right now</sfa-card-header-heading>
 
     <div class="value">{{ currentUsers }}</div>
-  </fury-card-header>
+  </sfa-card-header>
 
-  <fury-card-content>
+  <sfa-card-content>
     <div class="section">
       <div class="heading">Page views per minute</div>
       <div class="canvas-content">
@@ -15,11 +15,11 @@
 
     <div class="section">
       <div class="heading">Top Active Pages</div>
-      <fury-scrollbar class="pages">
+      <sfa-scrollbar class="pages">
         <div class="page" *ngFor="let page of pages$ | async">
           {{ page.page }}
         </div>
-      </fury-scrollbar>
+      </sfa-scrollbar>
     </div>
-  </fury-card-content>
-</fury-card>
+  </sfa-card-content>
+</sfa-card>

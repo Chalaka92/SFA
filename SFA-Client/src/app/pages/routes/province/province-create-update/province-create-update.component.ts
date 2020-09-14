@@ -4,13 +4,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Province } from '@app/_models/province';
 
 @Component({
-  selector: 'fury-province-create-update',
+  selector: 'sfa-province-create-update',
   templateUrl: './province-create-update.component.html',
   styleUrls: ['./province-create-update.component.scss'],
 })
 export class ProvinceCreateUpdateComponent implements OnInit {
-  static id = 100;
-
   form: FormGroup;
   mode: 'create' | 'update' = 'create';
 
@@ -28,7 +26,6 @@ export class ProvinceCreateUpdateComponent implements OnInit {
     }
 
     this.form = this.fb.group({
-      id: [ProvinceCreateUpdateComponent.id++],
       name: [this.defaults.name || ''],
     });
   }

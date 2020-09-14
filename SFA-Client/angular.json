@@ -2,13 +2,13 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "defaultProject": "fury",
+  "defaultProject": "sfa",
   "projects": {
-    "fury": {
+    "sfa": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "fury",
+      "prefix": "sfa",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -109,18 +109,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fury:build"
+            "browserTarget": "sfa:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "fury:build:production"
+              "browserTarget": "sfa:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fury:build"
+            "browserTarget": "sfa:build"
           }
         },
         "test": {
@@ -149,7 +149,7 @@
         }
       }
     },
-    "fury-e2e": {
+    "sfa-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -157,7 +157,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./e2e/protractor.conf.js",
-            "devServerTarget": "fury:serve"
+            "devServerTarget": "sfa:serve"
           }
         },
         "lint": {

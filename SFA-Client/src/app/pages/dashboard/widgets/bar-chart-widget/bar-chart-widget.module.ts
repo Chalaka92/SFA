@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { LoadingOverlayModule } from '../../../../../@fury/shared/loading-overlay/loading-overlay.module';
-import { MaterialModule } from '../../../../../@fury/shared/material-components.module';
+import { LoadingOverlayModule } from '../../../../../@sfa/shared/loading-overlay/loading-overlay.module';
+import { MaterialModule } from '../../../../../@sfa/shared/material-components.module';
 import { BarChartWidgetComponent } from './bar-chart-widget.component';
-import { FuryCardModule } from '../../../../../@fury/shared/card/card.module';
+import { SFACardModule } from '../../../../../@sfa/shared/card/card.module';
 import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { ChartsModule } from 'ng2-charts';
     LoadingOverlayModule,
 
     // Chart Widget Style
-    FuryCardModule,
+    SFACardModule,
     ChartsModule
   ],
   declarations: [BarChartWidgetComponent],

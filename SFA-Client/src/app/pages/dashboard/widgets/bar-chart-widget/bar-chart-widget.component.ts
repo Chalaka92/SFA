@@ -2,12 +2,12 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as Chart from 'chart.js';
 import { ChartData, ChartOptions } from 'chart.js';
 import defaultsDeep from 'lodash-es/defaultsDeep';
-import { defaultChartOptions } from '../../../../../@fury/shared/chart-widget/chart-widget-defaults';
+import { defaultChartOptions } from '../../../../../@sfa/shared/chart-widget/chart-widget-defaults';
 import { BarChartWidgetOptions } from './bar-chart-widget-options.interface';
 import { UserService } from '@app/_services/user.service';
 
 @Component({
-  selector: 'fury-bar-chart-widget',
+  selector: 'sfa-bar-chart-widget',
   templateUrl: './bar-chart-widget.component.html',
   styleUrls: ['./bar-chart-widget.component.scss'],
 })
@@ -49,11 +49,6 @@ export class BarChartWidgetComponent {
   isLoading: boolean;
 
   constructor(private userService: UserService) {}
-
-  getAllValues() {
-    console.log('hsgdshdj');
-    this.userService.getAllValues();
-  }
 
   reload() {
     this.isLoading = true;

@@ -3,11 +3,11 @@ import * as Chart from 'chart.js';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import defaultsDeep from 'lodash-es/defaultsDeep';
 import { Observable } from 'rxjs';
-import { defaultChartOptions } from '../../../../../@fury/shared/chart-widget/chart-widget-defaults';
+import { defaultChartOptions } from '../../../../../@sfa/shared/chart-widget/chart-widget-defaults';
 import { RealtimeUsersWidgetData, RealtimeUsersWidgetPages } from './realtime-users-widget.interface';
 
 @Component({
-  selector: 'fury-realtime-users-widget',
+  selector: 'sfa-realtime-users-widget',
   templateUrl: './realtime-users-widget.component.html',
   styleUrls: ['./realtime-users-widget.component.scss']
 })

@@ -1,17 +1,17 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Renderer2 } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
-import { ThemeService } from '../@fury/services/theme.service';
+import { ThemeService } from '../@sfa/services/theme.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
-import { SplashScreenService } from '../@fury/services/splash-screen.service';
+import { SplashScreenService } from '../@sfa/services/splash-screen.service';
 import { User } from './_models/user';
 import { AuthService } from './_services/auth.service';
 import { SidenavService } from './layout/sidenav/sidenav.service';
 
 @Component({
-  selector: 'fury-root',
+  selector: 'sfa-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SidenavItem } from '../../sidenav/sidenav-item/sidenav-item.interface';
 
 @Component({
-  selector: 'fury-navigation-item',
+  selector: 'sfa-navigation-item',
   templateUrl: './navigation-item.component.html',
   styleUrls: ['./navigation-item.component.scss']
 })

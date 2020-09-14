@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FuryCardModule } from '../../../../../@fury/shared/card/card.module';
-import { LoadingOverlayModule } from '../../../../../@fury/shared/loading-overlay/loading-overlay.module';
-import { MaterialModule } from '../../../../../@fury/shared/material-components.module';
+import { SFACardModule } from '../../../../../@sfa/shared/card/card.module';
+import { LoadingOverlayModule } from '../../../../../@sfa/shared/loading-overlay/loading-overlay.module';
+import { MaterialModule } from '../../../../../@sfa/shared/material-components.module';
 import { AudienceOverviewWidgetComponent } from './audience-overview-widget.component';
 import { ChartsModule } from 'ng2-charts';
 
@@ -15,7 +15,7 @@ import { ChartsModule } from 'ng2-charts';
 
     // Core
     LoadingOverlayModule,
-    FuryCardModule,
+    SFACardModule,
     ChartsModule,
   ],
   declarations: [AudienceOverviewWidgetComponent],

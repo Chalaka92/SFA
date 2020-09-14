@@ -8,6 +8,7 @@ namespace Application.Districts
         public int Id { get; set; }
         public int ProvinceId { get; set; }
         public string Name { get; set; }
+        public string ProvinceName { get; set; }
         public virtual ICollection<AreaDto> Areas { get; set; }
     }
 }

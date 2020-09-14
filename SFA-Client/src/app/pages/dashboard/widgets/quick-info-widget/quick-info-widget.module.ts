@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '../../../../../@fury/shared/material-components.module';
+import { MaterialModule } from '../../../../../@sfa/shared/material-components.module';
 import { QuickInfoWidgetComponent } from './quick-info-widget.component';
 
 @NgModule({

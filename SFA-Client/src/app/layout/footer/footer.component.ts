@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ThemeService } from '../../../@fury/services/theme.service';
+import { ThemeService } from '../../../@sfa/services/theme.service';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'fury-footer',
+  selector: 'sfa-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })

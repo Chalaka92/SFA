@@ -1,3 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./@fury/styles/core";
-@import "./app/app.theme";
+@import '@sfa/styles/core';
+@import './app/app.theme';
+
+.notif-success {
+  color: #155724 !important; // green
+  background-color: #d4edda !important;
+  border-color: #c3e6cb !important;
+  font-weight: bold !important;
+  .mat-simple-snackbar-action {
+    color: #155724 !important;
+    font-weight: bold !important;
+  }
+}
