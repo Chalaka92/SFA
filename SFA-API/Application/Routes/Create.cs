@@ -32,10 +32,6 @@ namespace Application.Routes
             public CommandValidator()
             {
                 RuleFor(x => x.Name).NotEmpty();
-                RuleFor(x => x.StartLatitude).NotEmpty();
-                RuleFor(x => x.StartLongitude).NotEmpty();
-                RuleFor(x => x.EndLongitude).NotEmpty();
-                RuleFor(x => x.EndLatitude).NotEmpty();
             }
         }
 
@@ -56,9 +52,9 @@ namespace Application.Routes
 
                 var routeCode = "rtu" + area.AreaCode + "001";
 
-                if (await _context.Routes.AnyAsync())
+                if (await _context.Routes.AnyAsync(x => x.AreaId == request.AreaId))
                 {
-                    routeCode = "rtu" + area.AreaCode + (_context.Routes.AsEnumerable().Where(x => x.RouteCode.Substring(0, x.RouteCode.Length - 4) == "rtu" + area.AreaCode)
+                    routeCode = "rtu" + area.AreaCode + (_context.Routes.AsEnumerable().Where(x => x.RouteCode.Substring(0, x.RouteCode.Length - 3) == "rtu" + area.AreaCode)
                         .Max(x => Convert.ToInt32(x.RouteCode.Substring(x.RouteCode.Length - 3, 3))) + 1).ToString("D3");
                 }
                 route.RouteCode = routeCode;

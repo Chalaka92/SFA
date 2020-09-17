@@ -41,7 +41,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     private authenticationService: AuthService
   ) {
-    this.username = this.authenticationService.currentUserValue.displayName;
+    if (this.authenticationService.currentUserValue) {
+      this.username = this.authenticationService.currentUserValue.displayName;
+    }
   }
 
   ngOnInit() {

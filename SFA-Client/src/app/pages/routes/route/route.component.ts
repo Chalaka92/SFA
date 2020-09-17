@@ -1,23 +1,22 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  OnDestroy,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
 import { fadeInRightAnimation } from '../../../../@sfa/animations/fade-in-right.animation';
-import { ReplaySubject, Observable, of } from 'rxjs';
 import { ListColumn } from '../../../../@sfa/shared/list/list-column.model';
-import { Customer } from './customer-create-update/customer.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { ALL_IN_ONE_TABLE_DEMO_DATA } from './all-in-one-table.demo';
-import { filter } from 'rxjs/operators';
-import { CustomerCreateUpdateComponent } from './customer-create-update/customer-create-update.component';
+import { Route } from '@app/_models/route';
+import { Area } from '@app/_models/area';
+import { Province } from '@app/_models/province';
+import { RouteService } from './route.service';
+import { AreaService } from '../area/area.service';
+import { ProvinceService } from '../province/province.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouteCreateUpdateComponent } from './route-create-update/route-create-update.component';
+import { ConfirmDialogComponent } from '@app/common/confirm-dialog/confirm-dialog.component';
+import { District } from '@app/_models/district';
+import { DistrictService } from '../district/district.service';
 
 @Component({
   selector: 'sfa-route',
@@ -25,60 +24,60 @@ import { CustomerCreateUpdateComponent } from './customer-create-update/customer
   styleUrls: ['./route.component.scss'],
   animations: [fadeInUpAnimation, fadeInRightAnimation],
 })
-export class RouteComponent implements OnInit, AfterViewInit, OnDestroy {
-  /**
-   * Simulating a service with HTTP that returns Observables
-   * You probably want to remove this and do all requests in a service with HTTP
-   */
-  subject$: ReplaySubject<Customer[]> = new ReplaySubject<Customer[]>(1);
-  data$: Observable<Customer[]> = this.subject$.asObservable();
-  customers: Customer[];
+export class RouteComponent implements OnInit, OnDestroy {
+  routes: Route[];
+  displayRoutes: Route[];
+  areas: Area[];
+  provinces: Province[];
+  districts: District[];
+  selectedAreaId: any | 0;
 
   @Input()
   columns: ListColumn[] = [
-    { name: 'Checkbox', property: 'checkbox', visible: false },
-    { name: 'Image', property: 'image', visible: true },
+    { name: '#Seq', property: 'index', visible: true },
+    { name: 'Id', property: 'id', visible: false, isModelProperty: true },
     { name: 'Name', property: 'name', visible: true, isModelProperty: true },
     {
-      name: 'First Name',
-      property: 'firstName',
-      visible: false,
-      isModelProperty: true,
-    },
-    {
-      name: 'Last Name',
-      property: 'lastName',
-      visible: false,
-      isModelProperty: true,
-    },
-    {
-      name: 'Street',
-      property: 'street',
+      name: 'Route Code',
+      property: 'routeCode',
       visible: true,
       isModelProperty: true,
     },
     {
-      name: 'Zipcode',
-      property: 'zipcode',
+      name: 'Store Count',
+      property: 'storeCount',
       visible: true,
       isModelProperty: true,
     },
-    { name: 'City', property: 'city', visible: true, isModelProperty: true },
+
     {
-      name: 'Phone',
-      property: 'phoneNumber',
+      name: 'Area',
+      property: 'areaName',
       visible: true,
       isModelProperty: true,
     },
     { name: 'Actions', property: 'actions', visible: true },
   ] as ListColumn[];
-  pageSize = 10;
-  dataSource: MatTableDataSource<Customer> | null;
+  dataSource: MatTableDataSource<Route> | null;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private routeService: RouteService,
+    private areaService: AreaService,
+    private provinceService: ProvinceService,
+    private districtService: DistrictService,
+    private snackbar: MatSnackBar
+  ) {}
+
+  ngOnInit() {
+    this.getAllProvinces();
+    this.getAllDistricts();
+    this.getAllAreas();
+    this.getAllRoutes();
+  }
 
   get visibleColumns() {
     return this.columns
@@ -90,86 +89,130 @@ export class RouteComponent implements OnInit, AfterViewInit, OnDestroy {
    * Example on how to get data and pass it to the table - usually you would want a dedicated service with a HTTP request for this
    * We are simulating this request here.
    */
-  getData() {
-    return of(
-      ALL_IN_ONE_TABLE_DEMO_DATA.map((customer) => new Customer(customer))
-    );
-  }
-
-  ngOnInit() {
-    this.getData().subscribe((customers) => {
-      this.subject$.next(customers);
-    });
-
-    this.dataSource = new MatTableDataSource();
-
-    this.data$.pipe(filter((data) => !!data)).subscribe((customers) => {
-      this.customers = customers;
-      this.dataSource.data = customers;
+  getAllProvinces() {
+    this.provinceService.getAllProvinces().subscribe((response) => {
+      if (response) {
+        this.provinces = response;
+      }
     });
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  getAllDistricts() {
+    this.districtService.getAllDistricts().subscribe((response) => {
+      if (response) {
+        this.districts = response;
+      }
+    });
   }
 
-  createCustomer() {
+  getAllAreas() {
+    this.areaService.getAllAreas().subscribe((response) => {
+      if (response) {
+        this.areas = response;
+      }
+    });
+  }
+
+  getAllRoutes() {
+    this.routeService.getAllRoutes().subscribe((response) => {
+      if (response) {
+        this.routes = response;
+        this.displayRoutes = response;
+        this.dataSource = new MatTableDataSource();
+        this.dataSource.data = this.displayRoutes;
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
+  }
+
+  createRoute() {
+    const dialogData = {
+      provinces: this.provinces,
+      areas: this.areas,
+      districts: this.districts,
+    };
     this.dialog
-      .open(CustomerCreateUpdateComponent)
+      .open(RouteCreateUpdateComponent, {
+        data: dialogData,
+      })
       .afterClosed()
-      .subscribe((customer: Customer) => {
+      .subscribe((route: Route) => {
         /**
-         * Customer is the updated customer (if the user pressed Save - otherwise it's null)
+         * Route is the updated route (if the user pressed Save - otherwise it's null)
          */
-        if (customer) {
-          /**
-           * Here we are updating our local array.
-           * You would probably make an HTTP request here.
-           */
-          this.customers.unshift(new Customer(customer));
-          this.subject$.next(this.customers);
+        if (route) {
+          this.routeService.createRoute(route).subscribe(() => {
+            this.getAllRoutes();
+            this.snackbar.open('Creation Successful', 'x', {
+              duration: 3000,
+              panelClass: 'notif-success',
+            });
+          });
+          this.routes.unshift(new Route(route));
         }
       });
   }
 
-  updateCustomer(customer) {
+  updateRoute(route) {
+    const dialogData = {
+      provinces: this.provinces,
+      areas: this.areas,
+      route: route,
+      districts: this.districts,
+    };
+    console.log(dialogData);
     this.dialog
-      .open(CustomerCreateUpdateComponent, {
-        data: customer,
+      .open(RouteCreateUpdateComponent, {
+        data: dialogData,
       })
       .afterClosed()
       // tslint:disable-next-line: no-shadowed-variable
-      .subscribe((customer) => {
+      .subscribe((route) => {
         /**
-         * Customer is the updated customer (if the user pressed Save - otherwise it's null)
+         * Route is the updated route (if the user pressed Save - otherwise it's null)
          */
-        if (customer) {
-          /**
-           * Here we are updating our local array.
-           * You would probably make an HTTP request here.
-           */
-          const index = this.customers.findIndex(
-            (existingCustomer) => existingCustomer.id === customer.id
-          );
-          this.customers[index] = new Customer(customer);
-          this.subject$.next(this.customers);
+        if (route) {
+          this.routeService.updateRoute(route.id, route).subscribe(() => {
+            this.getAllRoutes();
+            this.snackbar.open('Update Successful', 'x', {
+              duration: 3000,
+              panelClass: 'notif-success',
+            });
+          });
         }
       });
   }
 
-  deleteCustomer(customer) {
-    /**
-     * Here we are updating our local array.
-     * You would probably make an HTTP request here.
-     */
-    this.customers.splice(
-      this.customers.findIndex(
-        (existingCustomer) => existingCustomer.id === customer.id
-      ),
-      1
-    );
-    this.subject$.next(this.customers);
+  deleteRoute(route) {
+    this.routeService.deleteRoute(route.id).subscribe(() => {
+      this.getAllRoutes();
+      this.snackbar.open('Deletion Successful', 'x', {
+        duration: 3000,
+        panelClass: 'notif-success',
+      });
+    });
+  }
+
+  filterByAreaId() {
+    if (this.selectedAreaId > 0) {
+      this.displayRoutes = this.routes.filter(
+        (x) => x.areaId === this.selectedAreaId
+      );
+      this.dataSource = new MatTableDataSource();
+      this.dataSource.data = this.displayRoutes;
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    } else {
+      this.displayRoutes = this.routes;
+      this.dataSource = new MatTableDataSource();
+      this.dataSource.data = this.displayRoutes;
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 
   onFilterChange(value) {
@@ -179,6 +222,29 @@ export class RouteComponent implements OnInit, AfterViewInit, OnDestroy {
     value = value.trim();
     value = value.toLowerCase();
     this.dataSource.filter = value;
+  }
+
+  confirmDialog(route): void {
+    const message = `Are you sure you want to delete this?`;
+
+    const dialogData = {
+      icon: 'delete',
+      title: 'Delete',
+      message: message,
+      icolor: 'warn',
+    };
+
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        maxWidth: '400px',
+        data: dialogData,
+      })
+      .afterClosed()
+      .subscribe((dialogResult) => {
+        if (dialogResult) {
+          this.deleteRoute(route);
+        }
+      });
   }
 
   ngOnDestroy() {}

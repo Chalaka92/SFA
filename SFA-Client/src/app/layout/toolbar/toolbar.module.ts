@@ -23,7 +23,7 @@ import { ToolbarComponent } from './toolbar.component';
     ScrollbarModule,
     FormsModule,
     ClickOutsideModule,
-    SFACardModule
+    SFACardModule,
   ],
   declarations: [
     ToolbarComponent,
@@ -33,9 +33,8 @@ import { ToolbarComponent } from './toolbar.component';
     ToolbarSearchBarComponent,
     ToolbarQuickpanelToggleComponent,
     ToolbarFullscreenToggleComponent,
-    ToolbarSidenavMobileToggleComponent
+    ToolbarSidenavMobileToggleComponent,
   ],
-  exports: [ToolbarComponent]
+  exports: [ToolbarComponent],
 })
-export class ToolbarModule {
-}
+export class ToolbarModule {}

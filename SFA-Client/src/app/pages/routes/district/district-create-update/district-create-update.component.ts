@@ -48,7 +48,7 @@ export class DistrictCreateUpdateComponent implements OnInit {
 
   updateDistrict() {
     const district = this.form.value;
-    district.id = this.defaults.id;
+    district.id = this.defaults.district.id;
 
     this.dialogRef.close(district);
   }

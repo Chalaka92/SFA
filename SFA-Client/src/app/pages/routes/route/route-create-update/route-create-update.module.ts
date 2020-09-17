@@ -1,14 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { CustomerCreateUpdateComponent } from './customer-create-update.component';
+import { MatButtonModule } from '@angular/material/button';
+import { RouteCreateUpdateComponent } from './route-create-update.component';
 
 @NgModule({
   imports: [
@@ -21,11 +21,10 @@ import { CustomerCreateUpdateComponent } from './customer-create-update.componen
     MatButtonModule,
     MatIconModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
   ],
-  declarations: [CustomerCreateUpdateComponent],
-  entryComponents: [CustomerCreateUpdateComponent],
-  exports: [CustomerCreateUpdateComponent]
+  declarations: [RouteCreateUpdateComponent],
+  entryComponents: [RouteCreateUpdateComponent],
+  exports: [RouteCreateUpdateComponent],
 })
-export class CustomerCreateUpdateModule {
-}
+export class RouteCreateUpdateModule {}

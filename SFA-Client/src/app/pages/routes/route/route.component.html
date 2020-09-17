@@ -6,50 +6,46 @@
       current="Route"
     ></sfa-breadcrumbs>
   </sfa-page-layout-header>
-
   <sfa-page-layout-content [@fadeInUp]>
     <sfa-list
-      name="Customers"
+      name="Routes"
       [columns]="columns"
       (filterChange)="onFilterChange($event)"
     >
       <div class="actions">
-        <button
-          class="create"
-          (click)="createCustomer()"
-          type="button"
-          mat-mini-fab
-          color="primary"
-        >
-          <mat-icon>add</mat-icon>
-        </button>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+          <mat-icon class="sfa-filter-input-icon">filter_alt</mat-icon>
+          <mat-form-field style="margin-right: 2em" appearance="standard">
+            <mat-select
+              placeholder="Area"
+              [(ngModel)]="selectedAreaId"
+              (ngModelChange)="filterByAreaId()"
+            >
+              <mat-option [value]="0">All Areas</mat-option>
+              <mat-option *ngFor="let area of areas" [value]="area.id">{{
+                area.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+          <button
+            class="create"
+            (click)="createRoute()"
+            type="button"
+            mat-mini-fab
+            color="primary"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
       </div>
 
       <table [dataSource]="dataSource" mat-table matSort>
-        <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="checkbox">
-          <th *matHeaderCellDef class="actions-cell" mat-header-cell>
-            <mat-checkbox
-              color="primary"
-              (click)="$event.stopPropagation()"
-            ></mat-checkbox>
-          </th>
-          <td *matCellDef="let row" class="actions-cell" mat-cell>
-            <mat-checkbox
-              color="primary"
-              (click)="$event.stopPropagation()"
-            ></mat-checkbox>
-          </td>
-        </ng-container>
-
-        <!-- Image Column -->
-        <ng-container matColumnDef="image">
-          <th *matHeaderCellDef class="image-cell" mat-header-cell></th>
-          <td *matCellDef="let row" class="image-cell" mat-cell>
-            <img src="http://i.pravatar.cc/30?u={{ row.name }}" />
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ paginator.pageSize * paginator.pageIndex + i + 1 }}
           </td>
         </ng-container>
 
@@ -78,39 +74,33 @@
           ></th>
           <td *matCellDef="let row" class="actions-cell" mat-cell>
             <button
-              type="button"
+              matTooltip="Edit"
+              (click)="updateRoute(row); $event.stopPropagation()"
               mat-icon-button
-              [matMenuTriggerFor]="actionsMenu"
-              (click)="$event.stopPropagation()"
             >
-              <mat-icon>more_horiz</mat-icon>
+              <mat-icon color="primary">edit</mat-icon>
             </button>
-
-            <mat-menu
-              #actionsMenu="matMenu"
-              yPosition="below"
-              xPosition="before"
+            <button
+              matTooltip="Delete"
+              (click)="$event.stopPropagation(); confirmDialog(row)"
+              mat-icon-button
             >
-              <button (click)="updateCustomer(row)" mat-menu-item>
-                <span>Modify</span>
-              </button>
-              <button (click)="deleteCustomer(row)" mat-menu-item>
-                <span>Delete</span>
-              </button>
-            </mat-menu>
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
           </td>
         </ng-container>
-
         <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
         <tr
-          (click)="updateCustomer(row)"
           *matRowDef="let row; columns: visibleColumns"
           class="clickable route-animations-elements"
           mat-row
         ></tr>
       </table>
 
-      <mat-paginator class="paginator" [pageSize]="pageSize"></mat-paginator>
+      <mat-paginator
+        class="paginator"
+        [pageSizeOptions]="[10, 15, 20, 50, 100]"
+      ></mat-paginator>
     </sfa-list>
   </sfa-page-layout-content>
 </sfa-page-layout>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
@@ -7,11 +7,14 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./toolbar-user.component.scss'],
 })
 export class ToolbarUserComponent implements OnInit {
+  @Output() openConfig = new EventEmitter();
   isOpen: boolean;
   username = '';
 
   constructor(private authService: AuthService) {
-    this.username = this.authService.currentUserValue.displayName;
+    if (this.authService.currentUserValue) {
+      this.username = this.authService.currentUserValue.displayName;
+    }
   }
 
   ngOnInit() {}

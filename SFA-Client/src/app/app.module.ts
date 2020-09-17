@@ -19,7 +19,6 @@ import {
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { fakeBackendProvider } from './_helpers/fake-backend';
-import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [

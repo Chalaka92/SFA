@@ -27,6 +27,17 @@ namespace Application.Routes
             {
                 var routes = await _context.Routes.ToListAsync();
                 var returnRoutes = _mapper.Map<List<Route>, List<RouteDto>>(routes);
+                if (returnRoutes == null)
+                    return null;
+
+                returnRoutes.ForEach(async x =>
+                {
+                    var area = await _context.Areas.FindAsync(x.AreaId);
+                    var district = await _context.Districts.FindAsync(area.DistrictId);
+                    x.AreaName = area.Name;
+                    x.DistrictId = area.DistrictId;
+                    x.ProvinceId = district.ProvinceId;
+                });
 
                 return returnRoutes;
             }

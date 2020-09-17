@@ -32,7 +32,6 @@ namespace Application.Districts
 
                 returnDistricts.ForEach(async x =>
                 {
-                    var s = await _context.Provinces.FindAsync(x.ProvinceId);
                     x.ProvinceName = (await _context.Provinces.FindAsync(x.ProvinceId)).Name;
                 });
                 return returnDistricts;

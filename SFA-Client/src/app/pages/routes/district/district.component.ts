@@ -28,7 +28,8 @@ export class DistrictComponent implements OnInit, OnDestroy {
 
   @Input()
   columns: ListColumn[] = [
-    { name: 'Id', property: 'id', visible: true, isModelProperty: true },
+    { name: '#Seq', property: 'index', visible: true },
+    { name: 'Id', property: 'id', visible: false, isModelProperty: true },
     { name: 'Name', property: 'name', visible: true, isModelProperty: true },
     {
       name: 'Province',

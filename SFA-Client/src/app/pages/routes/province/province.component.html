@@ -26,8 +26,12 @@
       </div>
 
       <table [dataSource]="dataSource" mat-table matSort>
-        <!--- Note that these columns can be defined in any order.
-                    The actual rendered columns are set as a property on the row definition" -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ paginator.pageSize * paginator.pageIndex + i + 1 }}
+          </td>
+        </ng-container>
 
         <!-- fullName Column -->
         <ng-container *ngFor="let column of columns">
@@ -54,7 +58,6 @@
           ></th>
           <td *matCellDef="let row" class="actions-cell" mat-cell>
             <button
-              id="edit_{{ row.id }}"
               matTooltip="Edit"
               (click)="updateProvince(row); $event.stopPropagation()"
               mat-icon-button
@@ -62,7 +65,6 @@
               <mat-icon color="primary">edit</mat-icon>
             </button>
             <button
-              id="delete_{{ row.id }}"
               matTooltip="Delete"
               (click)="confirmDialog(row); $event.stopPropagation()"
               mat-icon-button

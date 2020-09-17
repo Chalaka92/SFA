@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { SfaSharedModule } from 'src/@sfa/sfa-shared.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
     FlexLayoutModule,
     MatInputModule,
     MatIconModule,
+    SfaSharedModule,
   ],
   declarations: [ConfirmDialogComponent],
 })

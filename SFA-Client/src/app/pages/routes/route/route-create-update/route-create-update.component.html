@@ -1,0 +1,113 @@
+<div mat-dialog-title>Route</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutGap.gt-sm="24px"
+      *ngIf="form.value.routeCode"
+    >
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Route Code</mat-label>
+        <input type="text" formControlName="routeCode" matInput readonly />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Name</mat-label>
+        <input type="text" formControlName="name" matInput required />
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Store Count</mat-label>
+        <input type="number" formControlName="storeCount" matInput required />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Province</mat-label>
+        <mat-select
+          [disabled]="isUpdateMode()"
+          formControlName="provinceId"
+          (ngModelChange)="setSelectedProvince(form.value.provinceId)"
+        >
+          <mat-option
+            *ngFor="let province of provinces"
+            [value]="province.id"
+            >{{ province.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>District</mat-label>
+        <mat-select
+          [disabled]="isUpdateMode()"
+          formControlName="districtId"
+          (ngModelChange)="setSelectedDistrict(form.value.districtId)"
+        >
+          <mat-option
+            *ngFor="let district of districts"
+            [value]="district.id"
+            >{{ district.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Area</mat-label>
+        <mat-select
+          formControlName="areaId"
+          required
+          [disabled]="isUpdateMode()"
+        >
+          <mat-option *ngFor="let area of areas" [value]="area.id">{{
+            area.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Start Latitude</mat-label>
+        <input type="text" formControlName="startLatitude" matInput />
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Start Longitude</mat-label>
+        <input type="text" formControlName="startLongitude" matInput />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>End Latitude</mat-label>
+        <input type="text" formControlName="endLatitude" matInput />
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>End Longitude</mat-label>
+        <input type="text" formControlName="endLongitude" matInput />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Comment</mat-label>
+        <textarea formControlName="comment" matInput></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button
+      *ngIf="isCreateMode()"
+      mat-button
+      [disabled]="!form.valid"
+      color="primary"
+    >
+      CREATE
+    </button>
+    <button
+      *ngIf="isUpdateMode()"
+      mat-button
+      [disabled]="!form.valid || form.pristine"
+      color="primary"
+    >
+      UPDATE
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -20,6 +20,7 @@ const routes: Routes = [
             (m) => m.DashboardModule
           ),
         pathMatch: 'full',
+        canActivate: [AuthGuard],
       },
       {
         path: 'apps/dashboard',
