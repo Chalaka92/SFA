@@ -64,7 +64,7 @@ namespace Application.Stores
 
                 var storeCode = "str" + route.RouteCode + "01";
 
-                if (await _context.Shops.AnyAsync())
+                if (await _context.Stores.AnyAsync(x => x.RouteId == request.RouteId))
                 {
                     storeCode = "str" + route.RouteCode +
                      (_context.Stores.AsEnumerable().Where(x => x.StoreCode.Substring(0, x.StoreCode.Length - 3) == "str" + route.RouteCode)
@@ -78,21 +78,21 @@ namespace Application.Stores
                 var user = await _context.Stores.AddAsync(store);
 
                 //Address
-                store.StoreAddresses.ToList().ForEach(async x =>
+                request.StoreAddresses.ToList().ForEach(async x =>
                 {
                     x.StoreId = store.Id;
                     await _context.StoreAddresses.AddAsync(x);
                 });
 
                 //Email
-                store.StoreEmails.ToList().ForEach(async x =>
+                request.StoreEmails.ToList().ForEach(async x =>
                 {
                     x.StoreId = store.Id;
                     await _context.StoreEmails.AddAsync(x);
                 });
 
                 //Contact
-                store.StoreContacts.ToList().ForEach(async x =>
+                request.StoreContacts.ToList().ForEach(async x =>
                 {
                     x.StoreId = store.Id;
                     await _context.StoreContacts.AddAsync(x);

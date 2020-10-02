@@ -2,13 +2,13 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Renderer2 } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { ThemeService } from '../@sfa/services/theme.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
-import { SplashScreenService } from '../@sfa/services/splash-screen.service';
 import { User } from './_models/user';
 import { AuthService } from './_services/auth.service';
 import { SidenavService } from './layout/sidenav/sidenav.service';
+import { SplashScreenService } from 'src/@sfa/services/splash-screen.service';
 
 @Component({
   selector: 'sfa-root',
@@ -24,10 +24,9 @@ export class AppComponent {
     @Inject(DOCUMENT) private document: Document,
     private platform: Platform,
     private route: ActivatedRoute,
-    private splashScreenService: SplashScreenService,
-    private router: Router,
     private authenticationService: AuthService,
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService,
+    private splashScreen: SplashScreenService
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -69,9 +68,23 @@ export class AppComponent {
         pathMatchExact: true,
       },
       {
+        name: 'Users',
+        routeOrFunction: '/users',
+        icon: 'people',
+        position: 15,
+        pathMatchExact: true,
+      },
+      {
+        name: 'User Registration',
+        routeOrFunction: '/userregistration',
+        icon: 'people',
+        position: 20,
+        pathMatchExact: true,
+      },
+      {
         name: 'Routes',
         icon: 'map',
-        position: 15,
+        position: 25,
         subItems: [
           {
             name: 'Route',
@@ -94,6 +107,76 @@ export class AppComponent {
             position: 25,
           },
         ],
+      },
+      {
+        name: 'Shops',
+        icon: 'shop',
+        position: 25,
+        subItems: [
+          {
+            name: 'Shop Category',
+            routeOrFunction: '/shops/shopcategory',
+            position: 10,
+          },
+          {
+            name: 'Shop',
+            routeOrFunction: '/shops/shop',
+            position: 15,
+          },
+        ],
+      },
+      {
+        name: 'Statuses',
+        icon: 'pages',
+        position: 30,
+        subItems: [
+          {
+            name: 'Status Type',
+            routeOrFunction: '/statuses/statustype',
+            position: 10,
+          },
+          {
+            name: 'Status',
+            routeOrFunction: '/statuses/status',
+            position: 15,
+          },
+        ],
+      },
+      {
+        name: 'Stores',
+        routeOrFunction: '/stores',
+        icon: 'store',
+        position: 35,
+        pathMatchExact: true,
+      },
+      {
+        name: 'Items',
+        icon: 'format_paint',
+        position: 40,
+        subItems: [
+          {
+            name: 'Item Category',
+            routeOrFunction: '/items/itemcategory',
+            position: 10,
+          },
+          {
+            name: 'Item',
+            routeOrFunction: '/items/item',
+            position: 15,
+          },
+          {
+            name: 'Item Batch',
+            routeOrFunction: '/items/itembatch',
+            position: 20,
+          },
+        ],
+      },
+      {
+        name: 'Sales Reps',
+        routeOrFunction: '/salesreps',
+        icon: 'person',
+        position: 45,
+        pathMatchExact: true,
       },
     ]);
   }

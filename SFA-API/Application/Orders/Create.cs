@@ -60,7 +60,7 @@ namespace Application.Orders
                 var shop = await _context.Shops.FindAsync(request.ShopId);
                 var orderCode = "odr" + shop.ShopCode.Replace("shprtu", "") + "01";
 
-                if (await _context.Orders.AnyAsync())
+                if (await _context.Orders.AnyAsync(x => x.ShopId == request.ShopId))
                 {
                     orderCode = (_context.Orders.AsEnumerable().Where(x => x.OrderCode.Substring(0, x.OrderCode.Length - 3) == "odr" + shop.ShopCode.Replace("shprtu", ""))
                         .Max(x => Convert.ToInt32(x.OrderCode.Substring(x.OrderCode.Length - 2, 2))) + 1).ToString("D2");

@@ -5,11 +5,14 @@ import { Route } from '@app/_models/route';
 import { District } from '@app/_models/district';
 import { Province } from '@app/_models/province';
 import { Area } from '@app/_models/area';
+import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
+import { fadeInRightAnimation } from 'src/@sfa/animations/fade-in-right.animation';
 
 @Component({
   selector: 'sfa-route-create-update',
   templateUrl: './route-create-update.component.html',
   styleUrls: ['./route-create-update.component.scss'],
+  animations: [fadeInUpAnimation, fadeInRightAnimation],
 })
 export class RouteCreateUpdateComponent implements OnInit {
   form: FormGroup;
@@ -19,6 +22,10 @@ export class RouteCreateUpdateComponent implements OnInit {
   districts: District[];
   selectedProvince: Province;
   selectedDistrict: District;
+  mapData: any;
+
+  private _gap = 16;
+  gap = `${this._gap}px`;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public defaults: any,
@@ -39,6 +46,13 @@ export class RouteCreateUpdateComponent implements OnInit {
       this.selectedDistrict = this.selectedProvince.districts.filter(
         (x) => x.id === this.defaults.route.districtId
       )[0];
+
+      this.mapData = {
+        slat: this.defaults.route.startLatitude || null,
+        slng: this.defaults.route.startLongitude || null,
+        elat: this.defaults.route.endLatitude || null,
+        elng: this.defaults.route.endLongitude || null,
+      };
     } else {
       this.defaults.route = {} as Route;
       this.selectedProvince = {} as Province;
@@ -65,6 +79,12 @@ export class RouteCreateUpdateComponent implements OnInit {
     } else if (this.mode === 'update') {
       this.updateRoute();
     }
+  }
+
+  col(colAmount: number) {
+    return `1 1 calc(${100 / colAmount}% - ${
+      this._gap - this._gap / colAmount
+    }px)`;
   }
 
   createRoute() {

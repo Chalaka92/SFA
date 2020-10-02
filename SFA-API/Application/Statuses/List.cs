@@ -27,7 +27,13 @@ namespace Application.Statuses
             {
                 var statuses = await _context.Statuses.ToListAsync();
                 var returnStatuses = _mapper.Map<List<Status>, List<StatusDto>>(statuses);
+                if (returnStatuses == null)
+                    return null;
 
+                returnStatuses.ForEach(async x =>
+                {
+                    x.StatusTypeName = (await _context.StatusTypes.FindAsync(x.StatusTypeId)).Name;
+                });
                 return returnStatuses;
             }
         }

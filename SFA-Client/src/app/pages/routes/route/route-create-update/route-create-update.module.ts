@@ -9,6 +9,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { RouteCreateUpdateComponent } from './route-create-update.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MapsWidgetModule } from '../maps-widget/maps-widget.module';
+import { SFACardModule } from 'src/@sfa/shared/card/card.module';
 
 @NgModule({
   imports: [
@@ -22,6 +25,9 @@ import { RouteCreateUpdateComponent } from './route-create-update.component';
     MatIconModule,
     MatRadioModule,
     MatSelectModule,
+    MapsWidgetModule,
+    MatGridListModule,
+    SFACardModule,
   ],
   declarations: [RouteCreateUpdateComponent],
   entryComponents: [RouteCreateUpdateComponent],

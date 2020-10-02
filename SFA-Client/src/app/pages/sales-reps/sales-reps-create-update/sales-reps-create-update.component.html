@@ -1,0 +1,65 @@
+<div mat-dialog-title>Sales Rep</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutGap.gt-sm="24px"
+      *ngIf="form.value.salesRepCode"
+    >
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Sales Rep Code</mat-label>
+        <input type="text" formControlName="salesRepCode" matInput readonly />
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>User</mat-label>
+        <mat-select formControlName="userId">
+          <mat-option *ngFor="let user of users" [value]="user.id">{{
+            user.firstName + ' ' + user.lastName
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Assigned Area</mat-label>
+        <mat-select formControlName="assignedAreaId" required>
+          <mat-option *ngFor="let area of areas" [value]="area.id">{{
+            area.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Assigned Store</mat-label>
+        <mat-select formControlName="assignedStoreId" required>
+          <mat-option *ngFor="let store of stores" [value]="store.id">{{
+            store.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button
+      *ngIf="isCreateMode()"
+      mat-button
+      [disabled]="!form.valid"
+      color="primary"
+    >
+      CREATE
+    </button>
+    <button
+      *ngIf="isUpdateMode()"
+      mat-button
+      [disabled]="!form.valid || form.pristine"
+      color="primary"
+    >
+      UPDATE
+    </button>
+  </mat-dialog-actions>
+</form>

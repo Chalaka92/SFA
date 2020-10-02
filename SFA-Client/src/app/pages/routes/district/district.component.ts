@@ -7,12 +7,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '@app/common/confirm-dialog/confirm-dialog.component';
 import { District } from '@app/_models/district';
 import { Province } from '@app/_models/province';
+import { SfaService } from '@app/_services/sfa.service';
 import { fadeInRightAnimation } from 'src/@sfa/animations/fade-in-right.animation';
 import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
 import { ListColumn } from 'src/@sfa/shared/list/list-column.model';
 import { ProvinceService } from '../province/province.service';
 import { DistrictCreateUpdateComponent } from './district-create-update/district-create-update.component';
-import { DistrictService } from './district.service';
 
 @Component({
   selector: 'sfa-district',
@@ -46,7 +46,7 @@ export class DistrictComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private districtService: DistrictService,
+    private sfaService: SfaService,
     private provinceService: ProvinceService,
     private snackbar: MatSnackBar
   ) {}
@@ -70,7 +70,7 @@ export class DistrictComponent implements OnInit, OnDestroy {
   }
 
   getAllDistricts() {
-    this.districtService.getAllDistricts().subscribe((response) => {
+    this.sfaService._districtService.getAllDistricts().subscribe((response) => {
       if (response) {
         this.districts = response;
         this.displayDistricts = response;
@@ -100,9 +100,9 @@ export class DistrictComponent implements OnInit, OnDestroy {
          * District is the updated district (if the user pressed Save - otherwise it's null)
          */
         if (district) {
-          this.districtService
+          this.sfaService._districtService
             .createDistrict(district)
-            .subscribe((response) => {
+            .subscribe(() => {
               this.getAllDistricts();
               this.snackbar.open('Creation Successful', 'x', {
                 duration: 3000,
@@ -127,9 +127,9 @@ export class DistrictComponent implements OnInit, OnDestroy {
          * District is the updated district (if the user pressed Save - otherwise it's null)
          */
         if (district) {
-          this.districtService
+          this.sfaService._districtService
             .updateDistrict(district.id, district)
-            .subscribe((response) => {
+            .subscribe(() => {
               this.getAllDistricts();
               this.snackbar.open('Update Successful', 'x', {
                 duration: 3000,
@@ -141,13 +141,15 @@ export class DistrictComponent implements OnInit, OnDestroy {
   }
 
   deleteDistrict(district) {
-    this.districtService.deleteDistrict(district.id).subscribe((response) => {
-      this.getAllDistricts();
-      this.snackbar.open('Deletion Successful', 'x', {
-        duration: 3000,
-        panelClass: 'notif-success',
+    this.sfaService._districtService
+      .deleteDistrict(district.id)
+      .subscribe(() => {
+        this.getAllDistricts();
+        this.snackbar.open('Deletion Successful', 'x', {
+          duration: 3000,
+          panelClass: 'notif-success',
+        });
       });
-    });
   }
 
   filterByProvinceId() {

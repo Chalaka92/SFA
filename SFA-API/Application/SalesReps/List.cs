@@ -27,7 +27,18 @@ namespace Application.SalesReps
             {
                 var salesReps = await _context.SalesReps.ToListAsync();
                 var returnSalesReps = _mapper.Map<List<SalesRep>, List<SalesRepDto>>(salesReps);
+                if (returnSalesReps == null)
+                    return null;
 
+                returnSalesReps.ForEach(async x =>
+                {
+                    var user = await _context.UserDetails.FindAsync(x.UserId);
+                    var store = await _context.Stores.FindAsync(x.AssignedStoreId);
+                    var area = await _context.Areas.FindAsync(x.AssignedAreaId);
+                    x.UserName = user.FirstName + ' ' + user.LastName;
+                    x.AssignedStoreName = store.Name;
+                    x.AssignedAreaName = area.Name;
+                });
                 return returnSalesReps;
             }
         }

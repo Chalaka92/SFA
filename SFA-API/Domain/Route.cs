@@ -9,10 +9,10 @@ namespace Domain
         public int StoreCount { get; set; }
         public string Name { get; set; }
         public string RouteCode { get; set; }
-        public string StartLatitude { get; set; }
-        public string StartLongitude { get; set; }
-        public string EndLatitude { get; set; }
-        public string EndLongitude { get; set; }
+        public decimal StartLatitude { get; set; }
+        public decimal StartLongitude { get; set; }
+        public decimal EndLatitude { get; set; }
+        public decimal EndLongitude { get; set; }
         public string Comment { get; set; }
         public virtual Area Area { get; set; }
         public virtual ICollection<Shop> Shops { get; set; }

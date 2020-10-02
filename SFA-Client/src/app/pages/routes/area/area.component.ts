@@ -15,6 +15,7 @@ import { DistrictService } from '../district/district.service';
 import { AreaService } from './area.service';
 import { AreaCreateUpdateComponent } from './area-create-update/area-create-update.component';
 import { ProvinceService } from '../province/province.service';
+import { SfaService } from '@app/_services/sfa.service';
 
 @Component({
   selector: 'sfa-area',
@@ -55,9 +56,7 @@ export class AreaComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private areaService: AreaService,
-    private districtService: DistrictService,
-    private provinceService: ProvinceService,
+    private sfaService: SfaService,
     private snackbar: MatSnackBar
   ) {}
 
@@ -78,7 +77,7 @@ export class AreaComponent implements OnInit, OnDestroy {
    * We are simulating this request here.
    */
   getAllProvinces() {
-    this.provinceService.getAllProvinces().subscribe((response) => {
+    this.sfaService._provinceService.getAllProvinces().subscribe((response) => {
       if (response) {
         this.provinces = response;
       }
@@ -86,7 +85,7 @@ export class AreaComponent implements OnInit, OnDestroy {
   }
 
   getAllDistricts() {
-    this.districtService.getAllDistricts().subscribe((response) => {
+    this.sfaService._districtService.getAllDistricts().subscribe((response) => {
       if (response) {
         this.districts = response;
       }
@@ -94,7 +93,7 @@ export class AreaComponent implements OnInit, OnDestroy {
   }
 
   getAllAreas() {
-    this.areaService.getAllAreas().subscribe((response) => {
+    this.sfaService._areaService.getAllAreas().subscribe((response) => {
       if (response) {
         this.areas = response;
         this.displayAreas = response;
@@ -119,13 +118,15 @@ export class AreaComponent implements OnInit, OnDestroy {
          * Area is the updated area (if the user pressed Save - otherwise it's null)
          */
         if (area) {
-          this.areaService.createArea(area).subscribe((response) => {
-            this.getAllAreas();
-            this.snackbar.open('Creation Successful', 'x', {
-              duration: 3000,
-              panelClass: 'notif-success',
+          this.sfaService._areaService
+            .createArea(area)
+            .subscribe((response) => {
+              this.getAllAreas();
+              this.snackbar.open('Creation Successful', 'x', {
+                duration: 3000,
+                panelClass: 'notif-success',
+              });
             });
-          });
           this.areas.unshift(new Area(area));
         }
       });
@@ -149,19 +150,21 @@ export class AreaComponent implements OnInit, OnDestroy {
          * Area is the updated area (if the user pressed Save - otherwise it's null)
          */
         if (area) {
-          this.areaService.updateArea(area.id, area).subscribe((response) => {
-            this.getAllAreas();
-            this.snackbar.open('Update Successful', 'x', {
-              duration: 3000,
-              panelClass: 'notif-success',
+          this.sfaService._areaService
+            .updateArea(area.id, area)
+            .subscribe((response) => {
+              this.getAllAreas();
+              this.snackbar.open('Update Successful', 'x', {
+                duration: 3000,
+                panelClass: 'notif-success',
+              });
             });
-          });
         }
       });
   }
 
   deleteArea(area) {
-    this.areaService.deleteArea(area.id).subscribe((response) => {
+    this.sfaService._areaService.deleteArea(area.id).subscribe((response) => {
       this.getAllAreas();
       this.snackbar.open('Deletion Successful', 'x', {
         duration: 3000,

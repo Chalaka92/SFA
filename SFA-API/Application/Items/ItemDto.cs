@@ -11,5 +11,7 @@ namespace Application.Items
         public string ItemCode { get; set; }
         public string Comment { get; set; }
         public bool IsNew { get; set; }
+        public string CategoryName { get; set; }
+
     }
 }

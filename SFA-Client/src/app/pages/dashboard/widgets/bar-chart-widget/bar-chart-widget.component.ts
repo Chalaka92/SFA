@@ -4,7 +4,6 @@ import { ChartData, ChartOptions } from 'chart.js';
 import defaultsDeep from 'lodash-es/defaultsDeep';
 import { defaultChartOptions } from '../../../../../@sfa/shared/chart-widget/chart-widget-defaults';
 import { BarChartWidgetOptions } from './bar-chart-widget-options.interface';
-import { UserService } from '@app/_services/user.service';
 
 @Component({
   selector: 'sfa-bar-chart-widget',
@@ -48,7 +47,7 @@ export class BarChartWidgetComponent {
 
   isLoading: boolean;
 
-  constructor(private userService: UserService) {}
+  constructor() {}
 
   reload() {
     this.isLoading = true;

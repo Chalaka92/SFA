@@ -6,7 +6,6 @@ import { AudienceOverviewWidgetModule } from './widgets/audience-overview-widget
 import { BarChartWidgetModule } from './widgets/bar-chart-widget/bar-chart-widget.module';
 import { DonutChartWidgetModule } from './widgets/donut-chart-widget/donut-chart-widget.module';
 import { LineChartWidgetModule } from './widgets/line-chart-widget/line-chart-widget.module';
-import { MapsWidgetModule } from './widgets/maps-widget/maps-widget.module';
 import { MarketWidgetModule } from './widgets/market-widget/market-widget.module';
 import { QuickInfoWidgetModule } from './widgets/quick-info-widget/quick-info-widget.module';
 import { RealtimeUsersWidgetModule } from './widgets/realtime-users-widget/realtime-users-widget.module';
@@ -34,7 +33,6 @@ import { SfaSharedModule } from '../../../@sfa/sfa-shared.module';
     QuickInfoWidgetModule,
     RecentSalesWidgetModule,
     AdvancedPieChartWidgetModule,
-    MapsWidgetModule,
     MarketWidgetModule,
   ],
   declarations: [DashboardComponent],

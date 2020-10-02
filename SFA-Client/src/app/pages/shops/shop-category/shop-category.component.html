@@ -1,0 +1,95 @@
+<sfa-page-layout mode="card">
+  <sfa-page-layout-header>
+    <sfa-breadcrumbs
+      [@fadeInRight]
+      [crumbs]="['Shops']"
+      current="Shop Category"
+    ></sfa-breadcrumbs>
+  </sfa-page-layout-header>
+
+  <sfa-page-layout-content [@fadeInUp]>
+    <sfa-list
+      name="Shop Categories"
+      [columns]="columns"
+      (filterChange)="onFilterChange($event)"
+    >
+      <div class="actions">
+        <button
+          class="create"
+          (click)="createShopCategory()"
+          type="button"
+          mat-mini-fab
+          color="primary"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <table [dataSource]="dataSource" mat-table matSort>
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ paginator.pageSize * paginator.pageIndex + i + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- fullName Column -->
+        <ng-container *ngFor="let column of columns">
+          <ng-container
+            *ngIf="column.isModelProperty"
+            [matColumnDef]="column.property"
+          >
+            <th
+              *matHeaderCellDef
+              mat-header-cell
+              mat-sort-header
+              [class]="column.headerClass"
+            >
+              {{ column.name }}
+            </th>
+            <td *matCellDef="let row" mat-cell [class]="column.cellClass">
+              {{ row[column.property] }}
+            </td>
+          </ng-container>
+        </ng-container>
+
+        <!-- actions Column -->
+        <ng-container matColumnDef="actions">
+          <th
+            *matHeaderCellDef
+            class="actions-cell"
+            mat-header-cell
+            mat-sort-header
+          ></th>
+          <td *matCellDef="let row" class="actions-cell" mat-cell>
+            <button
+              matTooltip="Edit"
+              (click)="updateShopCategory(row); $event.stopPropagation()"
+              mat-icon-button
+            >
+              <mat-icon color="primary">edit</mat-icon>
+            </button>
+            <button
+              matTooltip="Delete"
+              (click)="confirmDialog(row); $event.stopPropagation()"
+              mat-icon-button
+            >
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+        <tr
+          *matRowDef="let row; columns: visibleColumns"
+          class="clickable route-animations-elements"
+          mat-row
+        ></tr>
+      </table>
+
+      <mat-paginator
+        class="paginator"
+        [pageSizeOptions]="[10, 15, 20, 50, 100]"
+      ></mat-paginator>
+    </sfa-list>
+  </sfa-page-layout-content>
+</sfa-page-layout>

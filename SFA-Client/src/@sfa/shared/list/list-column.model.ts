@@ -4,4 +4,7 @@ export class ListColumn {
   visible?: boolean;
   isModelProperty?: boolean;
   displayFn: any;
+  headerClass: any;
+  cellClass: any;
+  isList?: boolean;
 }

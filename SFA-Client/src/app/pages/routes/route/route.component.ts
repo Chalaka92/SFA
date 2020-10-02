@@ -17,6 +17,7 @@ import { RouteCreateUpdateComponent } from './route-create-update/route-create-u
 import { ConfirmDialogComponent } from '@app/common/confirm-dialog/confirm-dialog.component';
 import { District } from '@app/_models/district';
 import { DistrictService } from '../district/district.service';
+import { SfaService } from '@app/_services/sfa.service';
 
 @Component({
   selector: 'sfa-route',
@@ -65,10 +66,7 @@ export class RouteComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private routeService: RouteService,
-    private areaService: AreaService,
-    private provinceService: ProvinceService,
-    private districtService: DistrictService,
+    private sfaService: SfaService,
     private snackbar: MatSnackBar
   ) {}
 
@@ -90,7 +88,7 @@ export class RouteComponent implements OnInit, OnDestroy {
    * We are simulating this request here.
    */
   getAllProvinces() {
-    this.provinceService.getAllProvinces().subscribe((response) => {
+    this.sfaService._provinceService.getAllProvinces().subscribe((response) => {
       if (response) {
         this.provinces = response;
       }
@@ -98,7 +96,7 @@ export class RouteComponent implements OnInit, OnDestroy {
   }
 
   getAllDistricts() {
-    this.districtService.getAllDistricts().subscribe((response) => {
+    this.sfaService._districtService.getAllDistricts().subscribe((response) => {
       if (response) {
         this.districts = response;
       }
@@ -106,7 +104,7 @@ export class RouteComponent implements OnInit, OnDestroy {
   }
 
   getAllAreas() {
-    this.areaService.getAllAreas().subscribe((response) => {
+    this.sfaService._areaService.getAllAreas().subscribe((response) => {
       if (response) {
         this.areas = response;
       }
@@ -114,7 +112,7 @@ export class RouteComponent implements OnInit, OnDestroy {
   }
 
   getAllRoutes() {
-    this.routeService.getAllRoutes().subscribe((response) => {
+    this.sfaService._routeService.getAllRoutes().subscribe((response) => {
       if (response) {
         this.routes = response;
         this.displayRoutes = response;
@@ -143,7 +141,7 @@ export class RouteComponent implements OnInit, OnDestroy {
          * Route is the updated route (if the user pressed Save - otherwise it's null)
          */
         if (route) {
-          this.routeService.createRoute(route).subscribe(() => {
+          this.sfaService._routeService.createRoute(route).subscribe(() => {
             this.getAllRoutes();
             this.snackbar.open('Creation Successful', 'x', {
               duration: 3000,
@@ -162,7 +160,6 @@ export class RouteComponent implements OnInit, OnDestroy {
       route: route,
       districts: this.districts,
     };
-    console.log(dialogData);
     this.dialog
       .open(RouteCreateUpdateComponent, {
         data: dialogData,
@@ -174,19 +171,21 @@ export class RouteComponent implements OnInit, OnDestroy {
          * Route is the updated route (if the user pressed Save - otherwise it's null)
          */
         if (route) {
-          this.routeService.updateRoute(route.id, route).subscribe(() => {
-            this.getAllRoutes();
-            this.snackbar.open('Update Successful', 'x', {
-              duration: 3000,
-              panelClass: 'notif-success',
+          this.sfaService._routeService
+            .updateRoute(route.id, route)
+            .subscribe(() => {
+              this.getAllRoutes();
+              this.snackbar.open('Update Successful', 'x', {
+                duration: 3000,
+                panelClass: 'notif-success',
+              });
             });
-          });
         }
       });
   }
 
   deleteRoute(route) {
-    this.routeService.deleteRoute(route.id).subscribe(() => {
+    this.sfaService._routeService.deleteRoute(route.id).subscribe(() => {
       this.getAllRoutes();
       this.snackbar.open('Deletion Successful', 'x', {
         duration: 3000,

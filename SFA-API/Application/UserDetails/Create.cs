@@ -39,7 +39,6 @@ namespace Application.UserDetails
             {
                 RuleFor(x => x.LoginEmail).NotEmpty();
                 RuleFor(x => x.FirstName).NotEmpty();
-                RuleFor(x => x.MiddleName).NotEmpty();
                 RuleFor(x => x.LastName).NotEmpty();
                 RuleFor(x => x.NIC).NotEmpty();
                 RuleFor(x => x.Birthday).NotEmpty();
@@ -66,11 +65,11 @@ namespace Application.UserDetails
             {
                 var userDetail = _mapper.Map<Command, UserDetail>(request);
 
-                var userCode = "usr" + request.FirstName[0] + request.LastName[0] + request.RoleId + "0001";
+                var userCode = "usr" + request.FirstName[0].ToString().ToLower() + request.LastName[0].ToString().ToLower() + request.RoleId + "0001";
 
                 if (_context.UserDetails.Any())
                 {
-                    userCode = "usr" + request.FirstName[0] + request.LastName[0] + request.RoleId +
+                    userCode = "usr" + request.FirstName[0].ToString().ToLower() + request.LastName[0].ToString().ToLower() + request.RoleId +
                      (_context.UserDetails.AsEnumerable()
                                           .Max(x => Convert.ToInt32(x.UserCode.Substring(x.UserCode.Length - 4, 4))) + 1).ToString("D4");
                 }

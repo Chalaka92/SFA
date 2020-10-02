@@ -17,10 +17,10 @@ namespace Application.Routes
             public int AreaId { get; set; }
             public int StoreCount { get; set; }
             public string Name { get; set; }
-            public string StartLatitude { get; set; }
-            public string StartLongitude { get; set; }
-            public string EndLatitude { get; set; }
-            public string EndLongitude { get; set; }
+            public decimal StartLatitude { get; set; }
+            public decimal StartLongitude { get; set; }
+            public decimal EndLatitude { get; set; }
+            public decimal EndLongitude { get; set; }
             public string Comment { get; set; }
         }
 
@@ -50,10 +50,10 @@ namespace Application.Routes
                 route.Name = request.Name ?? route.Name;
                 route.AreaId = request.AreaId == 0 ? route.AreaId : request.AreaId;
                 route.StoreCount = request.StoreCount == 0 ? route.StoreCount : request.StoreCount;
-                route.StartLatitude = request.StartLatitude ?? route.StartLatitude;
-                route.StartLongitude = request.StartLongitude ?? route.StartLongitude;
-                route.EndLatitude = request.EndLatitude ?? route.EndLatitude;
-                route.EndLongitude = request.EndLongitude ?? route.EndLongitude;
+                route.StartLatitude = request.StartLatitude;
+                route.StartLongitude = request.StartLongitude;
+                route.EndLatitude = request.EndLatitude;
+                route.EndLongitude = request.EndLongitude;
                 route.Comment = request.Comment ?? route.Comment;
 
                 var success = await _context.SaveChangesAsync() > 0;

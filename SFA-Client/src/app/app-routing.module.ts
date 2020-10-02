@@ -60,6 +60,86 @@ const routes: Routes = [
           ),
         canActivate: [AuthGuard],
       },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./pages/users/users.module').then((m) => m.UsersModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'userregistration',
+        loadChildren: () =>
+          import('./pages/user-registration/user-registration.module').then(
+            (m) => m.UserRegistrationModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'shops/shop',
+        loadChildren: () =>
+          import('./pages/shops/shop/shop.module').then((m) => m.ShopModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'shops/shopcategory',
+        loadChildren: () =>
+          import('./pages/shops/shop-category/shop-category.module').then(
+            (m) => m.ShopCategoryModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'statuses/status',
+        loadChildren: () =>
+          import('./pages/statuses/status/status.module').then(
+            (m) => m.StatusModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'statuses/statustype',
+        loadChildren: () =>
+          import('./pages/statuses/status-type/status-type.module').then(
+            (m) => m.StatusTypeModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'stores',
+        loadChildren: () =>
+          import('./pages/stores/stores.module').then((m) => m.StoresModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'items/item',
+        loadChildren: () =>
+          import('./pages/items/item/item.module').then((m) => m.ItemModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'items/itemcategory',
+        loadChildren: () =>
+          import('./pages/items/item-category/item-category.module').then(
+            (m) => m.ItemCategoryModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'items/itembatch',
+        loadChildren: () =>
+          import('./pages/items/item-batch/item-batch.module').then(
+            (m) => m.ItemBatchModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'salesreps',
+        loadChildren: () =>
+          import('./pages/sales-reps/sales-reps.module').then(
+            (m) => m.SalesRepsModule
+          ),
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];

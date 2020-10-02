@@ -69,7 +69,7 @@ namespace Application.Shops
 
                 var shopCode = "shp" + route.RouteCode + "01";
 
-                if (await _context.Shops.AnyAsync())
+                if (await _context.Shops.AnyAsync(x => x.RouteId == request.RouteId))
                 {
                     shopCode = "shp" + route.RouteCode +
                      (_context.Shops.AsEnumerable().Where(x => x.ShopCode.Substring(0, x.ShopCode.Length - 3) == "shp" + route.RouteCode)

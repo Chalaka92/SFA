@@ -13,6 +13,10 @@ namespace Application.Shops
         public string ShopCode { get; set; }
         public string Name { get; set; }
         public string Comment { get; set; }
+        public string RouteName { get; set; }
+        public string ShopOwnerName { get; set; }
+        public string ShopCategoryName { get; set; }
+        public string DisplayAddress { get; set; }
         public decimal ArrearsAmount { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }

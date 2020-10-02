@@ -41,7 +41,12 @@ namespace Application.ItemCategories
             {
                 var itemCategory = _mapper.Map<Command, ItemCategory>(request);
 
-                itemCategory.ItemCategoryCode = "cat_" + request.Name.Split(' ').Select(s => s[0]);
+                var categoryLetters = "";
+                request.Name.Split(' ').ToList().ForEach(x =>
+                {
+                    categoryLetters += x[0];
+                });
+                itemCategory.ItemCategoryCode = "cat_" + categoryLetters.ToLower();
 
                 await _context.ItemCategories.AddAsync(itemCategory);
 

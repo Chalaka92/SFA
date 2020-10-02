@@ -1,14 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  Input,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
-import { ProvinceService } from './province.service';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import { Province } from '@app/_models/province';
-import { ReplaySubject, Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -19,6 +10,7 @@ import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
 import { fadeInRightAnimation } from 'src/@sfa/animations/fade-in-right.animation';
 import { ConfirmDialogComponent } from '@app/common/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SfaService } from '@app/_services/sfa.service';
 
 @Component({
   selector: 'sfa-province',
@@ -43,7 +35,7 @@ export class ProvinceComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private provinceService: ProvinceService,
+    private sfaService: SfaService,
     private snackbar: MatSnackBar
   ) {}
 
@@ -58,7 +50,7 @@ export class ProvinceComponent implements OnInit, OnDestroy {
    * We are simulating this request here.
    */
   getAllProvinces() {
-    this.provinceService.getAllProvinces().subscribe((response) => {
+    this.sfaService._provinceService.getAllProvinces().subscribe((response) => {
       if (response) {
         this.provinces = response;
         this.dataSource = new MatTableDataSource();
@@ -83,9 +75,9 @@ export class ProvinceComponent implements OnInit, OnDestroy {
          * Province is the updated province (if the user pressed Save - otherwise it's null)
          */
         if (province) {
-          this.provinceService
+          this.sfaService._provinceService
             .createProvince(province)
-            .subscribe((response) => {
+            .subscribe(() => {
               this.getAllProvinces();
               this.snackbar.open('Creation Successful', 'x', {
                 duration: 3000,
@@ -109,9 +101,9 @@ export class ProvinceComponent implements OnInit, OnDestroy {
          * Province is the updated province (if the user pressed Save - otherwise it's null)
          */
         if (province) {
-          this.provinceService
+          this.sfaService._provinceService
             .updateProvince(province.id, province)
-            .subscribe((response) => {
+            .subscribe(() => {
               this.getAllProvinces();
               this.snackbar.open('Update Successful', 'x', {
                 duration: 3000,
@@ -123,13 +115,15 @@ export class ProvinceComponent implements OnInit, OnDestroy {
   }
 
   deleteProvince(province) {
-    this.provinceService.deleteProvince(province.id).subscribe((response) => {
-      this.getAllProvinces();
-      this.snackbar.open('Deletion Successful', 'x', {
-        duration: 3000,
-        panelClass: 'notif-success',
+    this.sfaService._provinceService
+      .deleteProvince(province.id)
+      .subscribe(() => {
+        this.getAllProvinces();
+        this.snackbar.open('Deletion Successful', 'x', {
+          duration: 3000,
+          panelClass: 'notif-success',
+        });
       });
-    });
   }
 
   onFilterChange(value) {
@@ -144,7 +138,12 @@ export class ProvinceComponent implements OnInit, OnDestroy {
   confirmDialog(province): void {
     const message = `Are you sure you want to delete this?`;
 
-    const dialogData = { title: 'Confirm Action', message: message };
+    const dialogData = {
+      icon: 'delete',
+      title: 'Delete',
+      message: message,
+      icolor: 'warn',
+    };
 
     this.dialog
       .open(ConfirmDialogComponent, {

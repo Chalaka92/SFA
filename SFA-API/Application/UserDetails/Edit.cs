@@ -34,7 +34,6 @@ namespace Application.UserDetails
             public CommandValidator()
             {
                 RuleFor(x => x.FirstName).NotEmpty();
-                RuleFor(x => x.MiddleName).NotEmpty();
                 RuleFor(x => x.LastName).NotEmpty();
                 RuleFor(x => x.NIC).NotEmpty();
                 RuleFor(x => x.Birthday).NotEmpty();

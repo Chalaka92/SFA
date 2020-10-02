@@ -73,21 +73,21 @@ namespace Application.Shops
                 _context.ShopContacts.RemoveRange(_context.ShopContacts.Where(x => x.ShopId == shop.Id));
 
                 //Address
-                shop.ShopAddresses.ToList().ForEach(async x =>
+                request.ShopAddresses.ToList().ForEach(async x =>
                 {
                     x.ShopId = shop.Id;
                     await _context.ShopAddresses.AddAsync(x);
                 });
 
                 //Email
-                shop.ShopEmails.ToList().ForEach(async x =>
+                request.ShopEmails.ToList().ForEach(async x =>
                 {
                     x.ShopId = shop.Id;
                     await _context.ShopEmails.AddAsync(x);
                 });
 
                 //Contact
-                shop.ShopContacts.ToList().ForEach(async x =>
+                request.ShopContacts.ToList().ForEach(async x =>
                 {
                     x.ShopId = shop.Id;
                     await _context.ShopContacts.AddAsync(x);

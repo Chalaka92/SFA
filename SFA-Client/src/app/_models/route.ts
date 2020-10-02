@@ -6,10 +6,10 @@ export class Route {
   storeCount: number;
   name: string;
   routeCode: string;
-  startLatitude: string;
-  startLongitude: string;
-  endLatitude: string;
-  endLongitude: string;
+  startLatitude: number;
+  startLongitude: number;
+  endLatitude: number;
+  endLongitude: number;
   comment: string;
 
   constructor(route) {

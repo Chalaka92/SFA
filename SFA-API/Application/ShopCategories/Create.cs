@@ -50,7 +50,7 @@ namespace Application.ShopCategories
                 if (await _context.ShopCategories.AnyAsync())
                 {
                     shopCategoryCode = "scat_" + (_context.ShopCategories.AsEnumerable()
-                        .Max(x => Convert.ToInt32(x.ShopCategoryCode.Substring(x.ShopCategoryCode.Length - 2, 2))) + 1);
+                        .Max(x => Convert.ToInt32(x.ShopCategoryCode.Substring(x.ShopCategoryCode.Length - 2, 2))) + 1).ToString("D2");
                 }
                 shopCategory.ShopCategoryCode = shopCategoryCode;
 

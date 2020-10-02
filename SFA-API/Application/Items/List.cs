@@ -27,7 +27,14 @@ namespace Application.Items
             {
                 var items = await _context.Items.ToListAsync();
                 var returnItems = _mapper.Map<List<Item>, List<ItemDto>>(items);
+                if (returnItems == null)
+                    return null;
 
+                returnItems.ForEach(async x =>
+                {
+                    var itemCategory = await _context.ItemCategories.FindAsync(x.CategoryId);
+                    x.CategoryName = itemCategory.Name;
+                });
                 return returnItems;
             }
         }

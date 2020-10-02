@@ -15,7 +15,6 @@ import { RecentSalesWidgetOptions } from './widgets/recent-sales-widget/recent-s
 import { SalesSummaryWidgetOptions } from './widgets/sales-summary-widget/sales-summary-widget-options.interface';
 import { DashboardService } from './dashboard.service';
 import { ChartWidgetOptions } from '../../../@sfa/shared/chart-widget/chart-widget-options.interface';
-import { UserService } from '@app/_services/user.service';
 
 @Component({
   selector: 'sfa-dashboard',
@@ -122,8 +121,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private dashboardService: DashboardService,
-    private router: Router,
-    private userService: UserService
+    private router: Router
   ) {
     /**
      * Edge wrong drawing fix

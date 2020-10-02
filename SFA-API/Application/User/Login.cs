@@ -51,17 +51,18 @@ namespace Application.User
                 }
 
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
-                var userRoles = _userManager.GetRolesAsync(user);
+                var userRoles = await _userManager.GetRolesAsync(user);
 
                 if (result.Succeeded)
                 {
                     return new User
                     {
+                        Email = user.Email,
                         DisplayName = user.DisplayName,
                         Token = _jwtGenerator.CreateToken(user),
                         Username = user.UserName,
                         Image = null,
-                        Roles = userRoles.Result
+                        Roles = userRoles
                     };
                 }
 

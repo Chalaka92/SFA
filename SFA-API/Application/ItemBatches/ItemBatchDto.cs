@@ -8,7 +8,9 @@ namespace Application.ItemBatches
     {
         public int Id { get; set; }
         public int ItemId { get; set; }
+        public string ItemName { get; set; }
         public int ItemStatusId { get; set; }
+        public string ItemStatusName { get; set; }
         public int ItemCount { get; set; }
         public string ItemBatchCode { get; set; }
         public string Name { get; set; }

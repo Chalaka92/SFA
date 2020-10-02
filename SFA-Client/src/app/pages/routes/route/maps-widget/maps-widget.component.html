@@ -1,0 +1,26 @@
+<agm-map
+  [style.height]="height"
+  [latitude]="maplat"
+  [longitude]="maplng"
+  [styles]="styles"
+  [disableDefaultUI]="false"
+  [scrollwheel]="true"
+  [draggable]="false"
+  [zoom]="12"
+  gestureHandling="cooperative"
+>
+  <agm-marker
+    *ngIf="mapData"
+    [latitude]="mapData.slat"
+    [longitude]="mapData.slng"
+    [label]="'S'"
+  >
+  </agm-marker>
+  <agm-marker
+    *ngIf="mapData"
+    [latitude]="mapData.elat"
+    [longitude]="mapData.elng"
+    [label]="'E'"
+  >
+  </agm-marker>
+</agm-map>

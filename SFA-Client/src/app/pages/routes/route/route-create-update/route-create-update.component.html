@@ -68,21 +68,31 @@
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
       <mat-form-field fxFlex appearance="standard">
         <mat-label>Start Latitude</mat-label>
-        <input type="text" formControlName="startLatitude" matInput />
+        <input
+          type="number"
+          formControlName="startLatitude"
+          matInput
+          required
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="standard">
         <mat-label>Start Longitude</mat-label>
-        <input type="text" formControlName="startLongitude" matInput />
+        <input
+          type="number"
+          formControlName="startLongitude"
+          matInput
+          required
+        />
       </mat-form-field>
     </div>
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
       <mat-form-field fxFlex appearance="standard">
         <mat-label>End Latitude</mat-label>
-        <input type="text" formControlName="endLatitude" matInput />
+        <input type="number" formControlName="endLatitude" matInput required />
       </mat-form-field>
       <mat-form-field fxFlex appearance="standard">
         <mat-label>End Longitude</mat-label>
-        <input type="text" formControlName="endLongitude" matInput />
+        <input type="number" formControlName="endLongitude" matInput required />
       </mat-form-field>
     </div>
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
@@ -91,6 +101,14 @@
         <textarea formControlName="comment" matInput></textarea>
       </mat-form-field>
     </div>
+    <sfa-card class="advanced-forms route-animations-elements" [@fadeInUp]>
+      <div>
+        <sfa-maps-widget
+          class="route-animations-elements"
+          [mapData]="mapData"
+        ></sfa-maps-widget>
+      </div>
+    </sfa-card>
   </mat-dialog-content>
   <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
     <button

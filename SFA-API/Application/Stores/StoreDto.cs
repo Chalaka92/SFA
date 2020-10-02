@@ -11,6 +11,9 @@ namespace Application.Stores
         public string StoreCode { get; set; }
         public string Name { get; set; }
         public string Comment { get; set; }
+        public string StoreManagerName { get; set; }
+        public string RouteName { get; set; }
+        public string DisplayAddress { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public virtual ICollection<StoreAddressDto> StoreAddresses { get; set; }

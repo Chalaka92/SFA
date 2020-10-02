@@ -106,23 +106,23 @@ namespace Persistence
                     new District{ProvinceId=4, Name="Galle"},
                     new District{ProvinceId=5, Name="Gampaha"},
                     new District{ProvinceId=4, Name="Hambantota"},
-                    new District{ProvinceId=3, Name="Jaffna"},
+                    new District{ProvinceId=1, Name="Jaffna"},
                     new District{ProvinceId= 5,Name= "Kalutara"},
-                    new District{ProvinceId= 1,Name= "Kandy"},
+                    new District{ProvinceId= 3,Name= "Kandy"},
                     new District{ProvinceId= 9,Name= "Kegalle"},
-                    new District{ProvinceId= 3,Name= "Kilinochchi"},
+                    new District{ProvinceId= 1,Name= "Kilinochchi"},
                     new District{ProvinceId= 6,Name= "Kurunegala"},
-                    new District{ProvinceId= 3,Name= "Mannar"},
-                    new District{ProvinceId= 1,Name= "Matale"},
+                    new District{ProvinceId= 1,Name= "Mannar"},
+                    new District{ProvinceId= 3,Name= "Matale"},
                     new District{ProvinceId= 4,Name= "Matara"},
                     new District{ProvinceId= 8,Name= "Monaragala"},
-                    new District{ProvinceId= 3,Name= "Mullaitivu"},
-                    new District{ProvinceId= 1,Name= "Nuwara Eliya"},
+                    new District{ProvinceId= 1,Name= "Mullaitivu"},
+                    new District{ProvinceId= 3,Name= "Nuwara Eliya"},
                     new District{ProvinceId= 7,Name= "Polonnaruwa"},
                     new District{ProvinceId= 6,Name= "Puttalam"},
                     new District{ProvinceId= 9,Name= "Ratnapura"},
                     new District{ProvinceId= 2,Name= "Trincomalee"},
-                    new District{ProvinceId= 3,Name= "Vavuniya"}
+                    new District{ProvinceId= 1,Name= "Vavuniya"}
                 };
 
                 await context.Districts.AddRangeAsync(districts);

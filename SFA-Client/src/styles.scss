@@ -12,3 +12,45 @@
     font-weight: bold !important;
   }
 }
+
+.notif-error {
+  color: #f64336 !important;
+  background-color: #d4edda !important;
+  border-color: #c3e6cb !important;
+  font-weight: bold !important;
+  .mat-simple-snackbar-action {
+    color: #f64336 !important;
+    font-weight: bold !important;
+  }
+}
+
+.headerRightAlign {
+  // display: flex;
+  // justify-content: flex-end;
+  // padding: 18px;
+}
+
+.headerCenterAlign {
+  // display: flex;
+  // justify-content: center;
+  // padding: 18px;
+}
+
+.cellRightAlign {
+  text-align: right;
+}
+
+.cellCenterAlign {
+  text-align: center;
+}
+
+.textWrapper {
+  white-space: normal !important;
+  word-wrap: break-word;
+  max-width: 200px !important;
+}
+
+.logo-size {
+  width: auto;
+  height: 35px;
+}

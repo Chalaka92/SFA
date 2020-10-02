@@ -412,10 +412,10 @@ namespace Persistence.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EndLatitude")
+                    b.Property<decimal>("EndLatitude")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EndLongitude")
+                    b.Property<decimal>("EndLongitude")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -424,10 +424,10 @@ namespace Persistence.Migrations
                     b.Property<string>("RouteCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StartLatitude")
+                    b.Property<decimal>("StartLatitude")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StartLongitude")
+                    b.Property<decimal>("StartLongitude")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StoreCount")
@@ -559,10 +559,10 @@ namespace Persistence.Migrations
                     b.Property<int>("DistrictId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("LocationLatitude")
+                    b.Property<decimal>("LocationLatitude")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LocationLongitude")
+                    b.Property<decimal>("LocationLongitude")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProvinceId")
@@ -751,10 +751,10 @@ namespace Persistence.Migrations
                     b.Property<int>("DistrictId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("LocationLatitude")
+                    b.Property<decimal>("LocationLatitude")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LocationLongitude")
+                    b.Property<decimal>("LocationLongitude")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProvinceId")
@@ -891,10 +891,10 @@ namespace Persistence.Migrations
                     b.Property<int>("DistrictId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("LocationLatitude")
+                    b.Property<decimal>("LocationLatitude")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LocationLongitude")
+                    b.Property<decimal>("LocationLongitude")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProvinceId")
