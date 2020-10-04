@@ -27,7 +27,19 @@ namespace Application.SalesRepItemBatches
             {
                 var salesRepItemBatches = await _context.SalesRepItemBatches.ToListAsync();
                 var returnSalesRepItemBatches = _mapper.Map<List<SalesRepItemBatch>, List<SalesRepItemBatchDto>>(salesRepItemBatches);
+                if (returnSalesRepItemBatches == null)
+                    return null;
 
+                returnSalesRepItemBatches.ForEach(async x =>
+                {
+                    var itemBatch = await _context.ItemBatches.FindAsync(x.ItemBatchId);
+                    var salesRep = await _context.SalesReps.FindAsync(x.SalesRepId);
+                    var user = await _context.UserDetails.FindAsync(salesRep.UserId);
+                    var store = await _context.Stores.FindAsync(x.StoreId);
+                    x.SalesRepName = user.FirstName + " " + user.LastName;
+                    x.ItemBatchName = itemBatch.Name;
+                    x.StoreName = store.Name;
+                });
                 return returnSalesRepItemBatches;
             }
         }

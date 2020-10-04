@@ -1,0 +1,72 @@
+<div mat-dialog-title>Item Batch</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Store</mat-label>
+        <mat-select formControlName="storeId" required>
+          <mat-option *ngFor="let store of stores" [value]="store.id">{{
+            store.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Item Batch</mat-label>
+        <mat-select
+          formControlName="itemBatchId"
+          (ngModelChange)="setSelectedItemBatch(form.value.itemBatchId)"
+          required
+        >
+          <mat-option
+            *ngFor="let itemBatch of itemBatches"
+            [value]="itemBatch.id"
+            >{{ itemBatch.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Item Count</mat-label>
+        <input
+          type="number"
+          formControlName="itemCount"
+          matInput
+          required
+          max="{{
+            selectedItemBatch
+              ? isUpdateMode()
+                ? selectedItemBatch.itemCount +
+                  defaults.storeItemBatch.itemCount
+                : selectedItemBatch.itemCount
+              : 100
+          }}"
+        />
+        <mat-hint *ngIf="selectedItemBatch"
+          >{{ selectedItemBatch.itemCount }} items available</mat-hint
+        >
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button
+      *ngIf="isCreateMode()"
+      mat-button
+      [disabled]="!form.valid"
+      color="primary"
+    >
+      CREATE
+    </button>
+    <button
+      *ngIf="isUpdateMode()"
+      mat-button
+      [disabled]="!form.valid || form.pristine"
+      color="primary"
+    >
+      UPDATE
+    </button>
+  </mat-dialog-actions>
+</form>

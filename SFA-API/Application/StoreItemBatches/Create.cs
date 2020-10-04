@@ -47,6 +47,10 @@ namespace Application.StoreItemBatches
 
                 await _context.StoreItemBatches.AddAsync(storeItemBatch);
 
+                //Update Item Batch
+                var itemBatch = await _context.ItemBatches.Where(x => x.Id == request.ItemBatchId).FirstOrDefaultAsync();
+                itemBatch.ItemCount = itemBatch.ItemCount - request.ItemCount;
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

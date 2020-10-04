@@ -8,7 +8,9 @@ namespace Application.Orders
     {
         public int Id { get; set; }
         public int ShopId { get; set; }
+        public string ShopName { get; set; }
         public int SalesRepId { get; set; }
+        public string SalesRepName { get; set; }
         public string OrderCode { get; set; }
         public decimal TotalAmount { get; set; }
         public bool IsComplete { get; set; }

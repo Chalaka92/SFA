@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.SalesRepItemBatches
@@ -29,6 +31,10 @@ namespace Application.SalesRepItemBatches
 
                 if (salesRepItemBatch == null)
                     throw new RestException(HttpStatusCode.NotFound, new { salesRepItemBatch = "Not Found" });
+
+                //Update Item Batch
+                var storeItemBatch = await _context.StoreItemBatches.Where(x => x.ItemBatchId == salesRepItemBatch.ItemBatchId && x.StoreId == salesRepItemBatch.StoreId).FirstOrDefaultAsync();
+                storeItemBatch.ItemCount = storeItemBatch.ItemCount + salesRepItemBatch.ItemCount;
 
                 _context.Remove(salesRepItemBatch);
 

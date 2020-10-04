@@ -27,7 +27,16 @@ namespace Application.Orders
             {
                 var orders = await _context.Orders.ToListAsync();
                 var returnOrders = _mapper.Map<List<Order>, List<OrderDto>>(orders);
+                if (returnOrders == null)
+                    return null;
 
+                returnOrders.ForEach(async x =>
+                {
+                    var shop = await _context.Shops.FindAsync(x.ShopId);
+                    var user = await _context.UserDetails.FindAsync(x.SalesRepId);
+                    x.ShopName = shop.Name;
+                    x.SalesRepName = user.FirstName + ' ' + user.LastName;
+                });
                 return returnOrders;
             }
         }

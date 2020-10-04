@@ -11,11 +11,15 @@ import { ShopService } from '@app/pages/shops/shop/shop.service';
 import { ShopCategoryService } from '@app/pages/shops/shop-category/shop-category.service';
 import { StatusService } from '@app/pages/statuses/status/status.service';
 import { StatusTypeService } from '@app/pages/statuses/status-type/status-type.service';
-import { StoresService } from '@app/pages/stores/stores.service';
 import { ItemCategoryService } from '@app/pages/Items/item-category/item-category.service';
 import { ItemService } from '@app/pages/Items/item/item.service';
 import { ItemBatchService } from '@app/pages/Items/item-batch/item-batch.service';
-import { SalesRepsService } from '@app/pages/sales-reps/sales-reps.service';
+import { SalesRepService } from '@app/pages/sales-reps/sales-rep/sales-rep.service';
+import { OrdersService } from '@app/pages/orders/orders.service';
+import { StoreService } from '@app/pages/stores/store/store.service';
+import { StoreItemBatchService } from '@app/pages/stores/store-item-batch/store-item-batch.service';
+import { ShopItemBatchService } from '@app/pages/shops/shop-item-batch/shop-item-batch.service';
+import { SalesRepItemBatchService } from '@app/pages/sales-reps/sales-rep-item-batch/sales-rep-item-batch.service';
 
 @Injectable({ providedIn: 'root' })
 export class SfaService {
@@ -30,9 +34,13 @@ export class SfaService {
   _itemService: ItemService;
   _statusService: StatusService;
   _statusTypeService: StatusTypeService;
-  _storeService: StoresService;
+  _storeService: StoreService;
   _itemBatchService: ItemBatchService;
-  _salesRepService: SalesRepsService;
+  _salesRepService: SalesRepService;
+  _orderService: OrdersService;
+  _storeItemBatchService: StoreItemBatchService;
+  _shopItemBatchService: ShopItemBatchService;
+  _salesRepItemBatchService: SalesRepItemBatchService;
 
   constructor(
     private http: HttpClient,
@@ -47,9 +55,13 @@ export class SfaService {
     private itemService: ItemService,
     private statusService: StatusService,
     private statusTypeService: StatusTypeService,
-    private storeService: StoresService,
+    private storeService: StoreService,
     private itemBatchService: ItemBatchService,
-    private salesRepService: SalesRepsService
+    private salesRepService: SalesRepService,
+    private orderService: OrdersService,
+    private storeItemBatchService: StoreItemBatchService,
+    private shopItemBatchService: ShopItemBatchService,
+    private salesRepItemBatchService: SalesRepItemBatchService
   ) {
     this._provinceService = provinceService;
     this._districtService = districtService;
@@ -65,6 +77,10 @@ export class SfaService {
     this._storeService = storeService;
     this._itemBatchService = itemBatchService;
     this._salesRepService = salesRepService;
+    this._orderService = orderService;
+    this._storeItemBatchService = storeItemBatchService;
+    this._shopItemBatchService = shopItemBatchService;
+    this._salesRepItemBatchService = salesRepItemBatchService;
   }
 
   getAllRoles() {

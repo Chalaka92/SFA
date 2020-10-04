@@ -10,7 +10,7 @@ using Persistence;
 
 namespace Application.Routes
 {
-    public class ListByAreatId
+    public class ListByAreaId
     {
         public class Query : IRequest<List<RouteDto>>
         {

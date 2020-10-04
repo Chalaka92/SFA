@@ -1,0 +1,92 @@
+<div mat-dialog-title>Sales Rep Item Batch</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Sales Rep</mat-label>
+        <mat-select
+          formControlName="salesRepId"
+          required
+          (ngModelChange)="setSelectedSalesRep(form.value.salesRepId)"
+        >
+          <mat-option
+            *ngFor="let salesRep of salesReps"
+            [value]="salesRep.id"
+            >{{ salesRep.userName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Store</mat-label>
+        <mat-select
+          formControlName="storeId"
+          required
+          (ngModelChange)="setSelectedStore(form.value.storeId)"
+        >
+          <mat-option
+            *ngFor="let store of salesRepStores"
+            [value]="store.assignedStoreId"
+            >{{ store.assignedStoreName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Item Batch</mat-label>
+        <mat-select
+          formControlName="itemBatchId"
+          required
+          (ngModelChange)="setSelectedItemBatch(form.value.itemBatchId)"
+        >
+          <mat-option
+            *ngFor="let itemBatch of storeItemBatches"
+            [value]="itemBatch.itemBatchId"
+            >{{ itemBatch.itemBatchName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field fxFlex appearance="standard">
+        <mat-label>Item Count</mat-label>
+        <input
+          type="number"
+          formControlName="itemCount"
+          matInput
+          required
+          max="{{
+            selectedItemBatch
+              ? isUpdateMode()
+                ? selectedItemBatch.itemCount +
+                  defaults.salesRepItemBatch.itemCount
+                : selectedItemBatch.itemCount
+              : 100
+          }}"
+        />
+        <mat-hint *ngIf="selectedItemBatch"
+          >{{ selectedItemBatch.itemCount }} items available</mat-hint
+        >
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button
+      *ngIf="isCreateMode()"
+      mat-button
+      [disabled]="!form.valid"
+      color="primary"
+    >
+      CREATE
+    </button>
+    <button
+      *ngIf="isUpdateMode()"
+      mat-button
+      [disabled]="!form.valid || form.pristine"
+      color="primary"
+    >
+      UPDATE
+    </button>
+  </mat-dialog-actions>
+</form>

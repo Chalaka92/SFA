@@ -202,7 +202,7 @@ export class ItemBatchComponent implements OnInit, OnDestroy {
     this.sfaService._itemBatchService
       .deleteItemBatch(itemBatch.id)
       .subscribe((response) => {
-        this.getAllItems();
+        this.getAllItemBatches();
         this.snackbar.open('Deletion Successful', 'x', {
           duration: 3000,
           panelClass: 'notif-success',

@@ -15,6 +15,12 @@ namespace API.Controllers
             return await Mediator.Send(new List.Query());
         }
 
+        [HttpGet("ListByStoreId/{storeId}")]
+        public async Task<ActionResult<List<StoreItemBatchDto>>> ListByStoreId(int storeId)
+        {
+            return await Mediator.Send(new ListByStoreId.Query { StoreId = storeId });
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<StoreItemBatchDto>> Details(int id)
         {

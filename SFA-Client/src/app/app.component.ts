@@ -123,6 +123,11 @@ export class AppComponent {
             routeOrFunction: '/shops/shop',
             position: 15,
           },
+          {
+            name: 'Shop Item Batch',
+            routeOrFunction: '/shops/shopitembatch',
+            position: 20,
+          },
         ],
       },
       {
@@ -144,10 +149,20 @@ export class AppComponent {
       },
       {
         name: 'Stores',
-        routeOrFunction: '/stores',
-        icon: 'store',
+        icon: 'pages',
         position: 35,
-        pathMatchExact: true,
+        subItems: [
+          {
+            name: 'Store',
+            routeOrFunction: '/stores/store',
+            position: 10,
+          },
+          {
+            name: 'Store Item Batch',
+            routeOrFunction: '/stores/storeitembatch',
+            position: 15,
+          },
+        ],
       },
       {
         name: 'Items',
@@ -173,9 +188,26 @@ export class AppComponent {
       },
       {
         name: 'Sales Reps',
-        routeOrFunction: '/salesreps',
         icon: 'person',
         position: 45,
+        subItems: [
+          {
+            name: 'Sales Rep',
+            routeOrFunction: '/salesreps/salesrep',
+            position: 10,
+          },
+          {
+            name: 'Sales Rep Item Batch',
+            routeOrFunction: '/salesreps/salesrepitembatch',
+            position: 15,
+          },
+        ],
+      },
+      {
+        name: 'Orders',
+        routeOrFunction: '/orders',
+        icon: 'person',
+        position: 50,
         pathMatchExact: true,
       },
     ]);

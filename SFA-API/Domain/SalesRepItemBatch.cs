@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Domain
 {
     public class SalesRepItemBatch
@@ -6,6 +8,7 @@ namespace Domain
         public int SalesRepId { get; set; }
         public int ItemBatchId { get; set; }
         public int ItemCount { get; set; }
+        public int StoreId { get; set; }
         public virtual SalesRep SalesRep { get; set; }
         public virtual ItemBatch ItemBatch { get; set; }
     }

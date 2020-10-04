@@ -481,6 +481,9 @@ namespace Persistence.Migrations
                     b.Property<int>("SalesRepId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ItemBatchId");

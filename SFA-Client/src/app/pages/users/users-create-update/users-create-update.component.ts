@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { DistrictService } from '@app/pages/routes/district/district.service';
-import { ProvinceService } from '@app/pages/routes/province/province.service';
 import { District } from '@app/_models/district';
 import { Province } from '@app/_models/province';
 import { Role } from '@app/_models/role';
@@ -17,7 +15,6 @@ import { AuthService } from '@app/_services/auth.service';
 import { SfaService } from '@app/_services/sfa.service';
 import { fadeInRightAnimation } from 'src/@sfa/animations/fade-in-right.animation';
 import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
-import { UsersService } from '../users.service';
 
 @Component({
   selector: 'sfa-users-create-update',
@@ -141,7 +138,7 @@ export class UsersCreateUpdateComponent implements OnInit {
 
     if (userDetail) {
       this.sfaService._userService.createUserDetail(userDetail).subscribe(
-        (response) => {
+        () => {
           this.snackbar.open('User Creation Successful', 'x', {
             duration: 3000,
             panelClass: 'notif-success',
@@ -165,7 +162,7 @@ export class UsersCreateUpdateComponent implements OnInit {
     if (userDetail) {
       this.sfaService._userService
         .updateUserDetail(userDetail.id, userDetail)
-        .subscribe((response) => {
+        .subscribe(() => {
           this.snackbar.open('Update Successful', 'x', {
             duration: 3000,
             panelClass: 'notif-success',

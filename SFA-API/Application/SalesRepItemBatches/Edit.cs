@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.SalesRepItemBatches
@@ -17,6 +19,7 @@ namespace Application.SalesRepItemBatches
             public int SalesRepId { get; set; }
             public int ItemBatchId { get; set; }
             public int ItemCount { get; set; }
+            public int StoreId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -44,9 +47,14 @@ namespace Application.SalesRepItemBatches
                 if (salesRepItemBatch == null)
                     throw new RestException(HttpStatusCode.NotFound, new { salesRepItemBatch = "Not Found" });
 
+                //Update Store Item Batch
+                var storeItemBatch = await _context.StoreItemBatches.Where(x => x.ItemBatchId == request.ItemBatchId).FirstOrDefaultAsync();
+                storeItemBatch.ItemCount = (storeItemBatch.ItemCount + salesRepItemBatch.ItemCount) - request.ItemCount;
+
                 salesRepItemBatch.SalesRepId = request.SalesRepId == 0 ? salesRepItemBatch.SalesRepId : request.SalesRepId;
                 salesRepItemBatch.ItemBatchId = request.ItemBatchId == 0 ? salesRepItemBatch.ItemBatchId : request.ItemBatchId;
                 salesRepItemBatch.ItemCount = request.ItemCount == 0 ? salesRepItemBatch.ItemCount : request.ItemCount;
+                salesRepItemBatch.StoreId = request.StoreId == 0 ? salesRepItemBatch.StoreId : request.StoreId;
 
                 var success = await _context.SaveChangesAsync() > 0;
 

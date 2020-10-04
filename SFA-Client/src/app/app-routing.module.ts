@@ -89,6 +89,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'shops/shopitembatch',
+        loadChildren: () =>
+          import('./pages/shops/shop-item-batch/shop-item-batch.module').then(
+            (m) => m.ShopItemBatchModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'statuses/status',
         loadChildren: () =>
           import('./pages/statuses/status/status.module').then(
@@ -105,9 +113,19 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'stores',
+        path: 'stores/store',
         loadChildren: () =>
-          import('./pages/stores/stores.module').then((m) => m.StoresModule),
+          import('./pages/stores/store/store.module').then(
+            (m) => m.StoreModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'stores/storeitembatch',
+        loadChildren: () =>
+          import(
+            './pages/stores/store-item-batch/store-item-batch.module'
+          ).then((m) => m.StoreItemBatchModule),
         canActivate: [AuthGuard],
       },
       {
@@ -133,11 +151,25 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'salesreps',
+        path: 'salesreps/salesrep',
         loadChildren: () =>
-          import('./pages/sales-reps/sales-reps.module').then(
-            (m) => m.SalesRepsModule
+          import('./pages/sales-reps/sales-rep/sales-rep.module').then(
+            (m) => m.SalesRepModule
           ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'salesreps/salesrepitembatch',
+        loadChildren: () =>
+          import(
+            './pages/sales-reps/sales-rep-item-batch/sales-rep-item-batch.module'
+          ).then((m) => m.SalesRepItemBatchModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'orders',
+        loadChildren: () =>
+          import('./pages/orders/orders.module').then((m) => m.OrdersModule),
         canActivate: [AuthGuard],
       },
     ],

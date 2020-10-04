@@ -27,7 +27,16 @@ namespace Application.StoreItemBatches
             {
                 var storeItemBatches = await _context.StoreItemBatches.ToListAsync();
                 var returnStoreItemBatches = _mapper.Map<List<StoreItemBatch>, List<StoreItemBatchDto>>(storeItemBatches);
+                if (returnStoreItemBatches == null)
+                    return null;
 
+                returnStoreItemBatches.ForEach(async x =>
+                {
+                    var itemBatch = await _context.ItemBatches.FindAsync(x.ItemBatchId);
+                    var store = await _context.Stores.FindAsync(x.StoreId);
+                    x.StoreName = store.Name;
+                    x.ItemBatchName = itemBatch.Name;
+                });
                 return returnStoreItemBatches;
             }
         }
