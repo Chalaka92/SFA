@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace Application.Orders
             public string CanceledReason { get; set; }
             public bool IsSync { get; set; }
             public DateTime? SyncedDate { get; set; }
+            public virtual ICollection<OrderItemBatch> OrderItemBatches { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -68,6 +70,12 @@ namespace Application.Orders
                 order.OrderCode = orderCode;
 
                 await _context.Orders.AddAsync(order);
+
+                request.OrderItemBatches.ToList().ForEach(async x =>
+                {
+                    x.OrderId = order.Id;
+                    await _context.OrderItemBatches.AddAsync(x);
+                });
 
                 var success = await _context.SaveChangesAsync() > 0;
 

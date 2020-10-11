@@ -205,10 +205,20 @@ export class AppComponent {
       },
       {
         name: 'Orders',
-        routeOrFunction: '/orders',
-        icon: 'person',
+        icon: 'shopping_cart',
         position: 50,
-        pathMatchExact: true,
+        subItems: [
+          {
+            name: 'Order',
+            routeOrFunction: '/orders/order',
+            position: 10,
+          },
+          {
+            name: 'Order Item Batch',
+            routeOrFunction: '/orders/orderitembatch',
+            position: 15,
+          },
+        ],
       },
     ]);
   }

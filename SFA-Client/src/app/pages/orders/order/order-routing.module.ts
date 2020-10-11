@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/_helpers/auth.guard';
-import { OrdersComponent } from './orders.component';
+import { OrderComponent } from './order.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrdersComponent,
+    component: OrderComponent,
   },
   {
     path: '',
@@ -14,16 +14,16 @@ const routes: Routes = [
       {
         path: 'createUpdateOrder',
         loadChildren: () =>
-          import('./orders-create-update/orders-create-update.module').then(
-            (m) => m.OrdersCreateUpdateModule
+          import('./order-create-update/order-create-update.module').then(
+            (m) => m.OrderCreateUpdateModule
           ),
         canActivate: [AuthGuard],
       },
       {
         path: 'createUpdateOrder/:orderId',
         loadChildren: () =>
-          import('./orders-create-update/orders-create-update.module').then(
-            (m) => m.OrdersCreateUpdateModule
+          import('./order-create-update/order-create-update.module').then(
+            (m) => m.OrderCreateUpdateModule
           ),
         canActivate: [AuthGuard],
       },
@@ -35,4 +35,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class OrdersRoutingModule {}
+export class OrderRoutingModule {}

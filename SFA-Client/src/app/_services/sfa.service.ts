@@ -15,11 +15,12 @@ import { ItemCategoryService } from '@app/pages/Items/item-category/item-categor
 import { ItemService } from '@app/pages/Items/item/item.service';
 import { ItemBatchService } from '@app/pages/Items/item-batch/item-batch.service';
 import { SalesRepService } from '@app/pages/sales-reps/sales-rep/sales-rep.service';
-import { OrdersService } from '@app/pages/orders/orders.service';
 import { StoreService } from '@app/pages/stores/store/store.service';
 import { StoreItemBatchService } from '@app/pages/stores/store-item-batch/store-item-batch.service';
 import { ShopItemBatchService } from '@app/pages/shops/shop-item-batch/shop-item-batch.service';
 import { SalesRepItemBatchService } from '@app/pages/sales-reps/sales-rep-item-batch/sales-rep-item-batch.service';
+import { OrderItemBatchService } from '@app/pages/orders/order-item-batch/order-item-batch.service';
+import { OrderService } from '@app/pages/orders/order/order.service';
 
 @Injectable({ providedIn: 'root' })
 export class SfaService {
@@ -37,10 +38,11 @@ export class SfaService {
   _storeService: StoreService;
   _itemBatchService: ItemBatchService;
   _salesRepService: SalesRepService;
-  _orderService: OrdersService;
   _storeItemBatchService: StoreItemBatchService;
   _shopItemBatchService: ShopItemBatchService;
   _salesRepItemBatchService: SalesRepItemBatchService;
+  _orderItemBatchService: OrderItemBatchService;
+  _orderService: OrderService;
 
   constructor(
     private http: HttpClient,
@@ -58,10 +60,11 @@ export class SfaService {
     private storeService: StoreService,
     private itemBatchService: ItemBatchService,
     private salesRepService: SalesRepService,
-    private orderService: OrdersService,
+    private orderService: OrderService,
     private storeItemBatchService: StoreItemBatchService,
     private shopItemBatchService: ShopItemBatchService,
-    private salesRepItemBatchService: SalesRepItemBatchService
+    private salesRepItemBatchService: SalesRepItemBatchService,
+    private orderItemBatchService: OrderItemBatchService
   ) {
     this._provinceService = provinceService;
     this._districtService = districtService;
@@ -81,6 +84,7 @@ export class SfaService {
     this._storeItemBatchService = storeItemBatchService;
     this._shopItemBatchService = shopItemBatchService;
     this._salesRepItemBatchService = salesRepItemBatchService;
+    this._orderItemBatchService = orderItemBatchService;
   }
 
   getAllRoles() {

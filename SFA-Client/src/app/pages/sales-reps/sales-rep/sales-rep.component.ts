@@ -68,6 +68,10 @@ export class SalesRepComponent implements OnInit, OnDestroy {
       .map((column) => column.property);
   }
 
+  ngOnInit() {
+    this.getAllSalesReps();
+  }
+
   /**
    * Example on how to get data and pass it to the table - usually you would want a dedicated service with a HTTP request for this
    * We are simulating this request here.
@@ -83,10 +87,6 @@ export class SalesRepComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
       }
     });
-  }
-
-  ngOnInit() {
-    this.getAllSalesReps();
   }
 
   createSalesRep() {

@@ -167,9 +167,19 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'orders',
+        path: 'orders/order',
         loadChildren: () =>
-          import('./pages/orders/orders.module').then((m) => m.OrdersModule),
+          import('./pages/orders/order/order.module').then(
+            (m) => m.OrderModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'orders/orderitembatch',
+        loadChildren: () =>
+          import(
+            './pages/orders/order-item-batch/order-item-batch.module'
+          ).then((m) => m.OrderItemBatchModule),
         canActivate: [AuthGuard],
       },
     ],

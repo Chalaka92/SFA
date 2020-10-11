@@ -1,29 +1,31 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import { OrdersRoutingModule } from './orders-routing.module';
-import { OrdersComponent } from './orders.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { OrderRoutingModule } from './order-routing.module';
+import { OrderComponent } from './order.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from '@app/common/confirm-dialog/confirm-dialog.module';
 import { SfaSharedModule } from 'src/@sfa/sfa-shared.module';
 import { BreadcrumbsModule } from 'src/@sfa/shared/breadcrumbs/breadcrumbs.module';
 import { ListModule } from 'src/@sfa/shared/list/list.module';
 import { MaterialModule } from 'src/@sfa/shared/material-components.module';
-import { OrdersCreateUpdateModule } from './orders-create-update/orders-create-update.module';
+import { OrderCreateUpdateModule } from './order-create-update/order-create-update.module';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  declarations: [OrdersComponent],
+  declarations: [OrderComponent],
   imports: [
     CommonModule,
-    OrdersRoutingModule,
+    OrderRoutingModule,
     MaterialModule,
     SfaSharedModule,
     ListModule,
     ReactiveFormsModule,
     BreadcrumbsModule,
     ConfirmDialogModule,
-    OrdersCreateUpdateModule,
+    OrderCreateUpdateModule,
+    FormsModule,
+    MatGridListModule,
   ],
-  providers: [DatePipe],
 })
-export class OrdersModule {}
+export class OrderModule {}

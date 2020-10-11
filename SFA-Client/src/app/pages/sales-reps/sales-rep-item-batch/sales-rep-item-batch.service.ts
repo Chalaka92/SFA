@@ -15,6 +15,12 @@ export class SalesRepItemBatchService {
     );
   }
 
+  getAllSalesRepItemBatchesBySalesRepId(salesRepId: number) {
+    return this.http.get<SalesRepItemBatch[]>(
+      `${environment.apiUrl}/salesRepItemBatch/ListBySalesRepId/` + salesRepId
+    );
+  }
+
   createSalesRepItemBatch(request: SalesRepItemBatch) {
     return this.http.post(`${environment.apiUrl}/salesRepItemBatch`, request);
   }

@@ -1,3 +1,5 @@
+import { OrderItemBatch } from './orderItemBatch';
+
 export class Order {
   id: number;
   shopId: number;
@@ -19,6 +21,7 @@ export class Order {
   isSync: boolean;
   syncedDate: Date;
   loginEmail: string;
+  orderItemBatches: OrderItemBatch[];
 
   constructor(order) {
     this.id = order.id;
@@ -40,5 +43,6 @@ export class Order {
     this.canceledReason = order.canceledReason;
     this.isSync = order.isSync;
     this.syncedDate = order.syncedDate;
+    this.orderItemBatches = order.orderItemBatches;
   }
 }
