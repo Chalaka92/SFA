@@ -10,11 +10,11 @@ using Persistence;
 
 namespace Application.SalesReps
 {
-    public class ListBySalesRepId
+    public class ListByUserId
     {
         public class Query : IRequest<List<SalesRepDto>>
         {
-            public int SalesRepId { get; set; }
+            public int UserId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, List<SalesRepDto>>
@@ -29,7 +29,7 @@ namespace Application.SalesReps
 
             public async Task<List<SalesRepDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var salesReps = await _context.SalesReps.Where(x => x.Id == request.SalesRepId).ToListAsync();
+                var salesReps = await _context.SalesReps.Where(x => x.UserId == request.UserId).ToListAsync();
                 var returnSalesReps = _mapper.Map<List<SalesRep>, List<SalesRepDto>>(salesReps);
                 if (returnSalesReps == null)
                     return null;

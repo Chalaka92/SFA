@@ -54,6 +54,13 @@ export class UsersComponent implements OnInit, OnDestroy {
       isList: false,
     },
     {
+      name: 'User Code',
+      property: 'userCode',
+      visible: true,
+      isModelProperty: true,
+      isList: false,
+    },
+    {
       name: 'Birthday',
       property: 'birthday',
       visible: true,

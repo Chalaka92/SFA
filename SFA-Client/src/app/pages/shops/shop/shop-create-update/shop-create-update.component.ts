@@ -20,6 +20,7 @@ import { StatusService } from '@app/pages/statuses/status/status.service';
 import { Route } from '@app/_models/route';
 import { RouteService } from '@app/pages/routes/route/route.service';
 import { SfaService } from '@app/_services/sfa.service';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'sfa-shop-create-update',
@@ -90,8 +91,8 @@ export class ShopCreateUpdateComponent implements OnInit {
         address1: this.fb.control(x.address1),
         address2: this.fb.control(x.address2),
         address3: this.fb.control(x.address3),
-        districtId: this.fb.control(x.districtId),
-        provinceId: this.fb.control(x.provinceId),
+        districtId: this.fb.control(x.districtId || 0),
+        provinceId: this.fb.control(x.provinceId || 0),
         locationLatitude: this.fb.control(x.locationLatitude),
         locationLongitude: this.fb.control(x.locationLongitude),
       })
@@ -115,7 +116,7 @@ export class ShopCreateUpdateComponent implements OnInit {
     const addressFormArray = this.fb.array(addressFormGroups);
 
     this.form = this.fb.group({
-      routeId: [this.defaults.routeId || null],
+      routeId: [this.defaults.routeId || 0],
       shopOwnerId: [this.defaults.shopOwnerId || null],
       shopCategoryId: [this.defaults.shopCategoryId || null],
       statusId: [this.defaults.statusId || null],

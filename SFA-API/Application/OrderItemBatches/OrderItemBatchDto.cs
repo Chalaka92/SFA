@@ -5,7 +5,7 @@ namespace Application.OrderItemBatches
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int ItemBatchId { get; set; }
-        public string OrderItembatchCode { get; set; }
+        public string OrderItemBatchCode { get; set; }
         public string Name { get; set; }
         public int ItemCount { get; set; }
         public decimal SellingToShopOwnerAmount { get; set; }

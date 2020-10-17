@@ -18,7 +18,7 @@ namespace Application.Orders
         {
             public int Id { get; set; }
             public int ShopId { get; set; }
-            public int SalesRepId { get; set; }
+            public int UserId { get; set; }
             public string OrderCode { get; set; }
             public decimal TotalAmount { get; set; }
             public bool IsComplete { get; set; }
@@ -41,7 +41,7 @@ namespace Application.Orders
             public CommandValidator()
             {
                 RuleFor(x => x.ShopId).GreaterThan(0);
-                RuleFor(x => x.SalesRepId).GreaterThan(0);
+                RuleFor(x => x.UserId).GreaterThan(0);
                 RuleFor(x => x.TotalAmount).GreaterThan(0);
             }
         }
@@ -64,7 +64,7 @@ namespace Application.Orders
 
                 if (await _context.Orders.AnyAsync(x => x.ShopId == request.ShopId))
                 {
-                    orderCode = (_context.Orders.AsEnumerable().Where(x => x.OrderCode.Substring(0, x.OrderCode.Length - 3) == "odr" + shop.ShopCode.Replace("shprtu", ""))
+                    orderCode = "odr" + shop.ShopCode.Replace("shprtu", "") + (_context.Orders.AsEnumerable().Where(x => x.OrderCode.Substring(0, x.OrderCode.Length - 2) == "odr" + shop.ShopCode.Replace("shprtu", ""))
                         .Max(x => Convert.ToInt32(x.OrderCode.Substring(x.OrderCode.Length - 2, 2))) + 1).ToString("D2");
                 }
                 order.OrderCode = orderCode;
@@ -73,8 +73,17 @@ namespace Application.Orders
 
                 request.OrderItemBatches.ToList().ForEach(async x =>
                 {
+                    var order = await _context.Orders.FindAsync(x.OrderId);
+                    var itemBatch = await _context.ItemBatches.FindAsync(x.ItemBatchId);
+                    var orderItemBatchCode = order.OrderCode.Replace("odr", "") + itemBatch.ItemBatchCode.Replace("bch", "");
+
+                    x.OrderItemBatchCode = orderItemBatchCode;
                     x.OrderId = order.Id;
                     await _context.OrderItemBatches.AddAsync(x);
+
+                    //Update SalesRep Item Batch
+                    var salesRepItemBatch = await _context.SalesRepItemBatches.Where(y => y.ItemBatchId == x.ItemBatchId).FirstOrDefaultAsync();
+                    salesRepItemBatch.ItemCount = salesRepItemBatch.ItemCount - x.ItemCount;
                 });
 
                 var success = await _context.SaveChangesAsync() > 0;

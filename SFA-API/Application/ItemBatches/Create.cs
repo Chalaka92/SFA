@@ -55,9 +55,9 @@ namespace Application.ItemBatches
                 var item = await _context.Items.FindAsync(request.ItemId);
                 var itemBatchCode = "bch" + item.ItemCode.Replace("itmcat", "") + "001";
 
-                if (await _context.ItemBatches.AnyAsync())
+                if (await _context.ItemBatches.AnyAsync(x => x.ItemId == request.ItemId))
                 {
-                    itemBatchCode = (_context.ItemBatches.AsEnumerable().Where(x => x.ItemBatchCode.Substring(0, x.ItemBatchCode.Length - 4) == "bch" + item.ItemCode.Replace("itmcat", ""))
+                    itemBatchCode = "bch" + item.ItemCode.Replace("itmcat", "") + (_context.ItemBatches.AsEnumerable().Where(x => x.ItemBatchCode.Substring(0, x.ItemBatchCode.Length - 3) == "bch" + item.ItemCode.Replace("itmcat", ""))
                         .Max(x => Convert.ToInt32(x.ItemBatchCode.Substring(x.ItemBatchCode.Length - 3, 3))) + 1).ToString("D3");
                 }
                 itemBatch.ItemBatchCode = itemBatchCode;

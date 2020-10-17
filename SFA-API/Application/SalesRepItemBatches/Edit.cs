@@ -16,7 +16,7 @@ namespace Application.SalesRepItemBatches
         public class Command : IRequest
         {
             public int Id { get; set; }
-            public int SalesRepId { get; set; }
+            public int UserId { get; set; }
             public int ItemBatchId { get; set; }
             public int ItemCount { get; set; }
             public int StoreId { get; set; }
@@ -26,7 +26,7 @@ namespace Application.SalesRepItemBatches
         {
             public CommandValidator()
             {
-                RuleFor(x => x.SalesRepId).GreaterThan(0);
+                RuleFor(x => x.UserId).GreaterThan(0);
                 RuleFor(x => x.ItemBatchId).GreaterThan(0);
                 RuleFor(x => x.ItemCount).GreaterThan(0);
             }
@@ -51,7 +51,7 @@ namespace Application.SalesRepItemBatches
                 var storeItemBatch = await _context.StoreItemBatches.Where(x => x.ItemBatchId == request.ItemBatchId).FirstOrDefaultAsync();
                 storeItemBatch.ItemCount = (storeItemBatch.ItemCount + salesRepItemBatch.ItemCount) - request.ItemCount;
 
-                salesRepItemBatch.SalesRepId = request.SalesRepId == 0 ? salesRepItemBatch.SalesRepId : request.SalesRepId;
+                salesRepItemBatch.UserId = request.UserId == 0 ? salesRepItemBatch.UserId : request.UserId;
                 salesRepItemBatch.ItemBatchId = request.ItemBatchId == 0 ? salesRepItemBatch.ItemBatchId : request.ItemBatchId;
                 salesRepItemBatch.ItemCount = request.ItemCount == 0 ? salesRepItemBatch.ItemCount : request.ItemCount;
                 salesRepItemBatch.StoreId = request.StoreId == 0 ? salesRepItemBatch.StoreId : request.StoreId;

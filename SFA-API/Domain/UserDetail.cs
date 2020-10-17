@@ -19,8 +19,11 @@ namespace Domain
         public virtual ICollection<UserAddress> UserAddresses { get; set; }
         public virtual ICollection<UserEmail> UserEmails { get; set; }
         public virtual ICollection<UserContact> UserContacts { get; set; }
+        public virtual ICollection<SalesRepItemBatch> SalesRepItemBatches { get; set; }
         public virtual Shop Shop { get; set; }
         public virtual Store Store { get; set; }
-        public virtual SalesRep SalesRep { get; set; }
+        public virtual ICollection<SalesRep> SalesReps { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
     }
 }

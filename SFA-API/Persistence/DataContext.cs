@@ -110,10 +110,10 @@ namespace Persistence
             .WithOne(a => a.UserDetail)
             .HasForeignKey<Shop>(u => u.ShopOwnerId);
 
-            builder.Entity<Status>()
-            .HasOne(u => u.Shop)
-            .WithOne(a => a.Status)
-            .HasForeignKey<Shop>(u => u.StatusId);
+            builder.Entity<Shop>()
+            .HasOne(u => u.Status)
+            .WithMany(a => a.Shops)
+            .HasForeignKey(u => u.StatusId);
 
             builder.Entity<Shop>()
            .HasOne(u => u.ShopCategory)
@@ -150,20 +150,20 @@ namespace Persistence
            .WithMany(a => a.Items)
            .HasForeignKey(u => u.CategoryId);
 
-            builder.Entity<UserDetail>()
-            .HasOne(u => u.SalesRep)
-            .WithOne(a => a.UserDetail)
-            .HasForeignKey<SalesRep>(u => u.UserId);
+            builder.Entity<SalesRep>()
+            .HasOne(u => u.UserDetail)
+            .WithMany(a => a.SalesReps)
+            .HasForeignKey(u => u.UserId);
 
             builder.Entity<ItemBatch>()
            .HasOne(u => u.Item)
            .WithMany(a => a.ItemBatches)
            .HasForeignKey(u => u.ItemId);
 
-            builder.Entity<Status>()
-            .HasOne(u => u.ItemBatch)
-            .WithOne(a => a.Status)
-            .HasForeignKey<ItemBatch>(u => u.ItemStatusId);
+            builder.Entity<ItemBatch>()
+            .HasOne(u => u.Status)
+            .WithMany(a => a.ItemBatches)
+            .HasForeignKey(u => u.ItemStatusId);
 
             builder.Entity<Item>()
             .HasOne(u => u.Target)
@@ -181,9 +181,9 @@ namespace Persistence
            .HasForeignKey(u => u.ItemBatchId);
 
             builder.Entity<SalesRepItemBatch>()
-             .HasOne(u => u.SalesRep)
+             .HasOne(u => u.UserDetail)
              .WithMany(a => a.SalesRepItemBatches)
-             .HasForeignKey(u => u.SalesRepId);
+             .HasForeignKey(u => u.UserId);
 
             builder.Entity<SalesRepItemBatch>()
            .HasOne(u => u.ItemBatch)
@@ -216,9 +216,9 @@ namespace Persistence
               .HasForeignKey(u => u.ShopId);
 
             builder.Entity<Order>()
-            .HasOne(u => u.SalesRep)
+            .HasOne(u => u.UserDetail)
             .WithMany(a => a.Orders)
-            .HasForeignKey(u => u.SalesRepId);
+            .HasForeignKey(u => u.UserId);
 
         }
     }

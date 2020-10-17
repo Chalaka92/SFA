@@ -1,8 +1,10 @@
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ItemBatch } from '@app/_models/itemBatch';
 import { SalesRep } from '@app/_models/salesRep';
+import { SalesRepGroupByUserId } from '@app/_models/salesRepGroupByUserId';
 import { SalesRepItemBatch } from '@app/_models/salesRepItemBatch';
 import { Store } from '@app/_models/store';
 import { StoreItemBatch } from '@app/_models/storeItemBatch';
@@ -16,7 +18,7 @@ import { SfaService } from '@app/_services/sfa.service';
 export class SalesRepItemBatchCreateUpdateComponent implements OnInit {
   form: FormGroup;
   mode: 'create' | 'update' = 'create';
-  salesReps: SalesRep[];
+  salesRepsGroupByUserId: SalesRepGroupByUserId[];
   itemBatches: ItemBatch[];
   salesRepStores: SalesRep[];
   storeItemBatches: StoreItemBatch[];
@@ -29,14 +31,14 @@ export class SalesRepItemBatchCreateUpdateComponent implements OnInit {
     private fb: FormBuilder,
     private sfaService: SfaService
   ) {
-    this.salesReps = defaults.salesReps;
+    this.salesRepsGroupByUserId = defaults.salesRepsGroupByUserId;
     this.itemBatches = defaults.itemBatches;
   }
 
   ngOnInit(): void {
     if (this.defaults.salesRepItemBatch) {
       this.mode = 'update';
-      this.setSelectedSalesRep(this.defaults.salesRepItemBatch.salesRepId);
+      this.setSelectedSalesRep(this.defaults.salesRepItemBatch.userId);
       this.getAllStoreItemBatchesByStoreId(
         this.defaults.salesRepItemBatch.storeId
       );
@@ -45,7 +47,7 @@ export class SalesRepItemBatchCreateUpdateComponent implements OnInit {
     }
 
     this.form = this.fb.group({
-      salesRepId: [this.defaults.salesRepItemBatch.salesRepId || null],
+      userId: [this.defaults.salesRepItemBatch.userId || null],
       itemBatchId: [this.defaults.salesRepItemBatch.itemBatchId || null],
       itemCount: [this.defaults.salesRepItemBatch.itemCount || null],
       storeId: [this.defaults.salesRepItemBatch.storeId || null],
@@ -95,9 +97,9 @@ export class SalesRepItemBatchCreateUpdateComponent implements OnInit {
     )[0];
   }
 
-  setSelectedSalesRep(salesRepId: any) {
+  setSelectedSalesRep(userId: any) {
     this.sfaService._salesRepService
-      .getAllSalesRepsDetailsBySalesRepId(salesRepId)
+      .getAllSalesRepsDetailsByUserId(userId)
       .subscribe((response) => {
         if (response) {
           this.salesRepStores = response;

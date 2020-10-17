@@ -2,9 +2,9 @@ export class OrderItemBatch {
   id: number;
   orderId: number;
   itemBatchId: string;
-  orderItembatchCode: number;
+  orderItemBatchCode: number;
   name: string;
-  itemCount: string;
+  itemCount: number;
   sellingToShopOwnerAmount: number;
   shopOwnerProfitAmount: number;
   companyProfitAmount: number;
@@ -18,7 +18,7 @@ export class OrderItemBatch {
     this.id = orderItemBatch.id;
     this.orderId = orderItemBatch.orderId;
     this.itemBatchId = orderItemBatch.itemBatchId;
-    this.orderItembatchCode = orderItemBatch.orderItembatchCode;
+    this.orderItemBatchCode = orderItemBatch.orderItemBatchCode;
     this.name = orderItemBatch.name;
     this.itemCount = orderItemBatch.itemCount;
     this.sellingToShopOwnerAmount = orderItemBatch.sellingToShopOwnerAmount;

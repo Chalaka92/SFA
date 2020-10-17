@@ -71,15 +71,13 @@
                     <mat-form-field fxFlex appearance="standard">
                       <mat-label>Sales Rep</mat-label>
                       <mat-select
-                        formControlName="salesRepId"
-                        (ngModelChange)="
-                          getAllItemBatches(form.value.salesRepId)
-                        "
+                        formControlName="userId"
+                        (ngModelChange)="getAllItemBatches(form.value.userId)"
                         required
                       >
                         <mat-option
-                          *ngFor="let salesRep of salesReps"
-                          [value]="salesRep.id"
+                          *ngFor="let salesRep of salesRepsByGroupId"
+                          [value]="salesRep.userId"
                           >{{ salesRep.userName }}</mat-option
                         >
                       </mat-select>
@@ -184,6 +182,7 @@
                           type="number"
                           formControlName="sellingToShopOwnerAmount"
                           matInput
+                          required
                         />
                       </mat-form-field>
                     </div>
@@ -231,20 +230,6 @@
                         />
                       </mat-form-field>
                     </div>
-                    <mat-form-field
-                      class="sfa-flex-form-field"
-                      fxFlex.gt-sm
-                      appearance="standard"
-                    >
-                      <mat-label>Special Discount</mat-label>
-                      <mat-select
-                        formControlName="isSpecialDiscountHave"
-                        required
-                      >
-                        <mat-option [value]="0">No</mat-option>
-                        <mat-option [value]="1">Yes</mat-option>
-                      </mat-select>
-                    </mat-form-field>
                     <div
                       fxLayout="column"
                       fxLayout.gt-sm="row"
@@ -266,6 +251,15 @@
                           matInput
                         />
                       </mat-form-field>
+                    </div>
+                    <div
+                      fxLayout="column"
+                      fxLayout.gt-sm="row"
+                      fxLayoutGap.gt-sm="24px"
+                    >
+                      <mat-slide-toggle formControlName="isSpecialDiscountHave"
+                        >Special Discount</mat-slide-toggle
+                      >
                     </div>
                     <div fxLayoutAlign="end center">
                       <button
@@ -368,7 +362,9 @@
               <button
                 *ngIf="isUpdateMode()"
                 mat-button
-                [disabled]="form.invalid || form.pristine"
+                [disabled]="
+                  (form.invalid || form.pristine) && orderItemBatches.length > 0
+                "
                 color="primary"
                 mat-raised-button
               >

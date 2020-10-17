@@ -6,13 +6,13 @@
       <mat-form-field fxFlex appearance="standard">
         <mat-label>Sales Rep</mat-label>
         <mat-select
-          formControlName="salesRepId"
+          formControlName="userId"
           required
-          (ngModelChange)="setSelectedSalesRep(form.value.salesRepId)"
+          (ngModelChange)="setSelectedSalesRep(form.value.userId)"
         >
           <mat-option
-            *ngFor="let salesRep of salesReps"
-            [value]="salesRep.id"
+            *ngFor="let salesRep of salesRepsGroupByUserId"
+            [value]="salesRep.userId"
             >{{ salesRep.userName }}</mat-option
           >
         </mat-select>

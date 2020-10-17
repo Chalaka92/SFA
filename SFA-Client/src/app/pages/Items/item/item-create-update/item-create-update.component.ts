@@ -35,7 +35,7 @@ export class ItemCreateUpdateComponent implements OnInit {
       comment: [this.defaults.item.comment || null],
       categoryId: [this.defaults.item.categoryId || null],
       categoryName: [this.defaults.item.categoryName || null],
-      isNew: [this.defaults.item.isNew || null],
+      isNew: [this.defaults.item.isNew || false],
     });
   }
   save() {

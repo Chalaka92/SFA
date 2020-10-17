@@ -52,7 +52,7 @@ namespace Application.Items
                 if (await _context.Items.AnyAsync(x => x.CategoryId == request.CategoryId))
                 {
                     itemCode = "itm" + itemCategory.ItemCategoryCode +
-                     (_context.Items.AsEnumerable().Where(x => x.ItemCode.Substring(0, x.ItemCode.Length - 4) == "itm" + itemCategory.ItemCategoryCode)
+                     (_context.Items.AsEnumerable().Where(x => x.ItemCode.Substring(0, x.ItemCode.Length - 3) == "itm" + itemCategory.ItemCategoryCode)
                                     .Max(x => Convert.ToInt32(x.ItemCode.Substring(x.ItemCode.Length - 3, 3))) + 1).ToString("D3");
                 }
                 item.ItemCode = itemCode;

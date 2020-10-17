@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '@app/common/confirm-dialog/confirm-dialog.component';
 import { ItemBatch } from '@app/_models/itemBatch';
 import { SalesRep } from '@app/_models/salesRep';
+import { SalesRepGroupByUserId } from '@app/_models/salesRepGroupByUserId';
 import { SalesRepItemBatch } from '@app/_models/salesRepItemBatch';
 import { SfaService } from '@app/_services/sfa.service';
 import { fadeInRightAnimation } from 'src/@sfa/animations/fade-in-right.animation';
@@ -23,7 +24,7 @@ import { SalesRepItemBatchCreateUpdateComponent } from './sales-rep-item-batch-c
 })
 export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
   salesRepItemBatches: SalesRepItemBatch[];
-  salesReps: SalesRep[];
+  salesRepsGroupByUserId: SalesRepGroupByUserId[];
   itemBatches: ItemBatch[];
   displaySalesRepItemBatches: SalesRepItemBatch[];
   selectedSalesRepId: any | 0;
@@ -103,11 +104,13 @@ export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
   }
 
   getAllSalesReps() {
-    this.sfaService._salesRepService.getAllSalesReps().subscribe((response) => {
-      if (response) {
-        this.salesReps = response;
-      }
-    });
+    this.sfaService._salesRepService
+      .getAllSalesRepsGroupByUserId()
+      .subscribe((response) => {
+        if (response) {
+          this.salesRepsGroupByUserId = response;
+        }
+      });
   }
 
   getAllItemBatches() {
@@ -122,7 +125,7 @@ export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
 
   createSalesRepItemBatch() {
     const dialogData = {
-      salesReps: this.salesReps,
+      salesRepsGroupByUserId: this.salesRepsGroupByUserId,
       itemBatches: this.itemBatches,
     };
     this.dialog
@@ -153,7 +156,7 @@ export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
 
   updateSalesRepItemBatch(salesRepItemBatch) {
     const dialogData = {
-      salesReps: this.salesReps,
+      salesRepsGroupByUserId: this.salesRepsGroupByUserId,
       itemBatches: this.itemBatches,
       salesRepItemBatch: salesRepItemBatch,
     };
@@ -196,7 +199,7 @@ export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
   filterBySalesRepId() {
     if (this.selectedSalesRepId > 0) {
       this.displaySalesRepItemBatches = this.salesRepItemBatches.filter(
-        (x) => x.salesRepId === this.selectedSalesRepId
+        (x) => x.userId === this.selectedSalesRepId
       );
       this.dataSource = new MatTableDataSource();
       this.dataSource.data = this.displaySalesRepItemBatches;

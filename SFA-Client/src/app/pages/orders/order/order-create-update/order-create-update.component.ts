@@ -7,6 +7,7 @@ import { ItemBatch } from '@app/_models/itemBatch';
 import { Order } from '@app/_models/order';
 import { OrderItemBatch } from '@app/_models/orderItemBatch';
 import { SalesRep } from '@app/_models/salesRep';
+import { SalesRepGroupByUserId } from '@app/_models/salesRepGroupByUserId';
 import { SalesRepItemBatch } from '@app/_models/salesRepItemBatch';
 import { Shop } from '@app/_models/shop';
 import { AuthService } from '@app/_services/auth.service';
@@ -25,7 +26,7 @@ export class OrderCreateUpdateComponent implements OnInit {
   form: FormGroup;
 
   mode: 'create' | 'update' = 'create';
-  salesReps: SalesRep[];
+  salesRepsByGroupId: SalesRepGroupByUserId[];
   defaults: Order;
   orderId: number;
   shops: Shop[];
@@ -122,11 +123,10 @@ export class OrderCreateUpdateComponent implements OnInit {
         this.mode = 'update';
       } else {
         this.defaults = {} as Order;
-        this.orderItemBatch = {} as OrderItemBatch;
         this.buildForm();
+        this.orderItemBatches = [];
       }
     });
-    this.orderItemBatches = [];
   }
 
   get visibleColumns() {
@@ -136,6 +136,7 @@ export class OrderCreateUpdateComponent implements OnInit {
   }
 
   buildForm() {
+    this.orderItemBatch = {} as OrderItemBatch;
     const orderItemFormGroup = this.fb.group({
       itemBatchId: this.fb.control(this.orderItemBatch.itemBatchId || 0),
       name: this.fb.control(this.orderItemBatch.name),
@@ -144,33 +145,33 @@ export class OrderCreateUpdateComponent implements OnInit {
         this.orderItemBatch.sellingToShopOwnerAmount
       ),
       shopOwnerProfitAmount: this.fb.control(
-        this.orderItemBatch.shopOwnerProfitAmount
+        this.orderItemBatch.shopOwnerProfitAmount || 0
       ),
       companyProfitAmount: this.fb.control(
-        this.orderItemBatch.companyProfitAmount
+        this.orderItemBatch.companyProfitAmount || 0
       ),
       companyDiscountRate: this.fb.control(
-        this.orderItemBatch.companyDiscountRate
+        this.orderItemBatch.companyDiscountRate || 0
       ),
       shopOwnerDiscountRate: this.fb.control(
-        this.orderItemBatch.shopOwnerDiscountRate
+        this.orderItemBatch.shopOwnerDiscountRate || 0
       ),
       isSpecialDiscountHave: this.fb.control(
-        this.orderItemBatch.isSpecialDiscountHave
+        this.orderItemBatch.isSpecialDiscountHave || false
       ),
       customerFreeIssueQuantity: this.fb.control(
-        this.orderItemBatch.customerFreeIssueQuantity
+        this.orderItemBatch.customerFreeIssueQuantity || 0
       ),
       shopOwnerFreeIssueQuantity: this.fb.control(
-        this.orderItemBatch.shopOwnerFreeIssueQuantity
+        this.orderItemBatch.shopOwnerFreeIssueQuantity || 0
       ),
     });
 
     this.form = this.fb.group({
       shopId: [this.defaults.shopId || null],
-      salesRepId: [this.defaults.salesRepId || null],
+      userId: [this.defaults.userId || null],
       orderCode: [this.defaults.orderCode || null],
-      totalAmount: [this.defaults.totalAmount || 0],
+      totalAmount: [this.defaults.totalAmount || null],
       orderItemBatch: orderItemFormGroup,
     });
 
@@ -224,6 +225,7 @@ export class OrderCreateUpdateComponent implements OnInit {
     order.isEdit = true;
     order.editedDate = new Date();
     order.loginEmail = this.authService.currentUserValue.email;
+    order.orderItemBatches = this.orderItemBatches;
 
     if (order) {
       this.sfaService._orderService.updateOrder(order.id, order).subscribe(
@@ -249,6 +251,12 @@ export class OrderCreateUpdateComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.defaults = response;
+          this.getAllItemBatches(this.defaults.userId);
+
+          this.orderItemBatches = response.orderItemBatches;
+          this.dataSource = new MatTableDataSource();
+          this.dataSource.data = this.orderItemBatches;
+
           this.buildForm();
         }
       });
@@ -263,16 +271,18 @@ export class OrderCreateUpdateComponent implements OnInit {
   }
 
   getAllSalesReps() {
-    this.sfaService._salesRepService.getAllSalesReps().subscribe((response) => {
-      if (response) {
-        this.salesReps = response;
-      }
-    });
+    this.sfaService._salesRepService
+      .getAllSalesRepsGroupByUserId()
+      .subscribe((response) => {
+        if (response) {
+          this.salesRepsByGroupId = response;
+        }
+      });
   }
 
-  getAllItemBatches(salesRepId: any) {
+  getAllItemBatches(userId: any) {
     this.sfaService._salesRepItemBatchService
-      .getAllSalesRepItemBatchesBySalesRepId(salesRepId)
+      .getAllSalesRepItemBatchesByUserId(userId)
       .subscribe((response) => {
         if (response) {
           this.itemBatches = response;
@@ -285,9 +295,10 @@ export class OrderCreateUpdateComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.data = this.orderItemBatches;
 
-    const totalAmount =
-      this.form.value.totalAmount +
-      orderItemBatch.sellingToShopOwnerAmount * orderItemBatch.itemCount;
+    let totalAmount = 0;
+    this.orderItemBatches.forEach((x) => {
+      totalAmount += x.sellingToShopOwnerAmount * x.itemCount;
+    });
 
     this.form.patchValue({
       totalAmount: totalAmount,
@@ -299,9 +310,10 @@ export class OrderCreateUpdateComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.data = this.orderItemBatches;
 
-    const totalAmount =
-      this.form.value.totalAmount -
-      row.sellingToShopOwnerAmount * row.itemCount;
+    let totalAmount = 0;
+    this.orderItemBatches.forEach((x) => {
+      totalAmount += x.sellingToShopOwnerAmount * x.itemCount;
+    });
 
     this.form.patchValue({
       totalAmount: totalAmount,

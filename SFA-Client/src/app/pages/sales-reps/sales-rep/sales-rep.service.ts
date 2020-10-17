@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SalesRep } from '@app/_models/salesRep';
+import { SalesRepGroupByUserId } from '@app/_models/salesRepGroupByUserId';
 import { environment } from '@environments/environment';
 
 @Injectable({
@@ -13,9 +14,21 @@ export class SalesRepService {
     return this.http.get<SalesRep[]>(`${environment.apiUrl}/salesRep`);
   }
 
+  getAllSalesRepsGroupByUserId() {
+    return this.http.get<SalesRepGroupByUserId[]>(
+      `${environment.apiUrl}/salesRep/GroupByUserId`
+    );
+  }
+
   getAllSalesRepsDetailsBySalesRepId(salesRepId: number) {
     return this.http.get<SalesRep[]>(
       `${environment.apiUrl}/salesRep/ListBySalesRepId/` + salesRepId
+    );
+  }
+
+  getAllSalesRepsDetailsByUserId(userId: number) {
+    return this.http.get<SalesRep[]>(
+      `${environment.apiUrl}/salesRep/ListByUserId/` + userId
     );
   }
 

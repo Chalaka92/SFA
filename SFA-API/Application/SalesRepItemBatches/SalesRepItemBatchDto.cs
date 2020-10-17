@@ -3,7 +3,7 @@ namespace Application.SalesRepItemBatches
     public class SalesRepItemBatchDto
     {
         public int Id { get; set; }
-        public int SalesRepId { get; set; }
+        public int UserId { get; set; }
         public string SalesRepName { get; set; }
         public int ItemBatchId { get; set; }
         public string ItemBatchName { get; set; }

@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.OrderItemBatches
@@ -55,6 +57,10 @@ namespace Application.OrderItemBatches
                 if (orderItemBatch == null)
                     throw new RestException(HttpStatusCode.NotFound, new { orderItemBatch = "Not Found" });
 
+                //Update SalesRep Item Batch
+                var salesRepItemBatch = await _context.SalesRepItemBatches.Where(x => x.ItemBatchId == request.ItemBatchId).FirstOrDefaultAsync();
+                salesRepItemBatch.ItemCount = (orderItemBatch.ItemCount + salesRepItemBatch.ItemCount - request.ItemCount);
+
                 orderItemBatch.OrderId = request.OrderId == 0 ? orderItemBatch.OrderId : request.OrderId;
                 orderItemBatch.ItemBatchId = request.ItemBatchId == 0 ? orderItemBatch.ItemBatchId : request.ItemBatchId;
                 orderItemBatch.ItemCount = request.ItemCount == 0 ? orderItemBatch.ItemCount : request.ItemCount;
@@ -67,6 +73,7 @@ namespace Application.OrderItemBatches
                 orderItemBatch.IsSpecialDiscountHave = request.IsSpecialDiscountHave;
                 orderItemBatch.CustomerFreeIssueQuantity = request.CustomerFreeIssueQuantity;
                 orderItemBatch.ShopOwnerFreeIssueQuantity = request.ShopOwnerFreeIssueQuantity;
+
 
                 var success = await _context.SaveChangesAsync() > 0;
 

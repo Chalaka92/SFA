@@ -72,7 +72,7 @@ namespace Application.Shops
                 if (await _context.Shops.AnyAsync(x => x.RouteId == request.RouteId))
                 {
                     shopCode = "shp" + route.RouteCode +
-                     (_context.Shops.AsEnumerable().Where(x => x.ShopCode.Substring(0, x.ShopCode.Length - 3) == "shp" + route.RouteCode)
+                     (_context.Shops.AsEnumerable().Where(x => x.ShopCode.Substring(0, x.ShopCode.Length - 2) == "shp" + route.RouteCode)
                                           .Max(x => Convert.ToInt32(x.ShopCode.Substring(x.ShopCode.Length - 2, 2))) + 1).ToString("D2");
                 }
                 shop.ShopCode = shopCode;

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class InitialCreateWithLatLngTypeChange : Migration
+    public partial class InitialCreate20201015 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -571,9 +571,10 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    SalesRepId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     ItemBatchId = table.Column<int>(nullable: false),
-                    ItemCount = table.Column<int>(nullable: false)
+                    ItemCount = table.Column<int>(nullable: false),
+                    StoreId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -585,9 +586,9 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SalesRepItemBatches_SalesReps_SalesRepId",
-                        column: x => x.SalesRepId,
-                        principalTable: "SalesReps",
+                        name: "FK_SalesRepItemBatches_UserDetails_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserDetails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -676,7 +677,7 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ShopId = table.Column<int>(nullable: false),
-                    SalesRepId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     OrderCode = table.Column<string>(nullable: true),
                     TotalAmount = table.Column<decimal>(nullable: false),
                     IsComplete = table.Column<bool>(nullable: false),
@@ -696,15 +697,15 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_SalesReps_SalesRepId",
-                        column: x => x.SalesRepId,
-                        principalTable: "SalesReps",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Orders_Shops_ShopId",
                         column: x => x.ShopId,
                         principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_UserDetails_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserDetails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -987,8 +988,7 @@ namespace Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ItemBatches_ItemStatusId",
                 table: "ItemBatches",
-                column: "ItemStatusId",
-                unique: true);
+                column: "ItemStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_CategoryId",
@@ -1006,14 +1006,14 @@ namespace Persistence.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_SalesRepId",
-                table: "Orders",
-                column: "SalesRepId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_ShopId",
                 table: "Orders",
                 column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Routes_AreaId",
@@ -1026,15 +1026,14 @@ namespace Persistence.Migrations
                 column: "ItemBatchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesRepItemBatches_SalesRepId",
+                name: "IX_SalesRepItemBatches_UserId",
                 table: "SalesRepItemBatches",
-                column: "SalesRepId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SalesReps_UserId",
                 table: "SalesReps",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShopAddresses_ShopId",
@@ -1080,8 +1079,7 @@ namespace Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Shops_StatusId",
                 table: "Shops",
-                column: "StatusId",
-                unique: true);
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Statuses_StatusTypeId",
@@ -1179,6 +1177,9 @@ namespace Persistence.Migrations
                 name: "SalesRepItemBatches");
 
             migrationBuilder.DropTable(
+                name: "SalesReps");
+
+            migrationBuilder.DropTable(
                 name: "ShopAddresses");
 
             migrationBuilder.DropTable(
@@ -1234,9 +1235,6 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Stores");
-
-            migrationBuilder.DropTable(
-                name: "SalesReps");
 
             migrationBuilder.DropTable(
                 name: "Shops");

@@ -79,8 +79,8 @@ export class UsersCreateUpdateComponent implements OnInit {
         address1: this.fb.control(x.address1),
         address2: this.fb.control(x.address2),
         address3: this.fb.control(x.address3),
-        districtId: this.fb.control(x.districtId),
-        provinceId: this.fb.control(x.provinceId),
+        districtId: this.fb.control(x.districtId || 0),
+        provinceId: this.fb.control(x.provinceId || 0),
         locationLatitude: this.fb.control(x.locationLatitude),
         locationLongitude: this.fb.control(x.locationLongitude),
       })

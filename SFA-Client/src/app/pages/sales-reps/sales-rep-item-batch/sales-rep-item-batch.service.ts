@@ -15,9 +15,9 @@ export class SalesRepItemBatchService {
     );
   }
 
-  getAllSalesRepItemBatchesBySalesRepId(salesRepId: number) {
+  getAllSalesRepItemBatchesByUserId(userId: number) {
     return this.http.get<SalesRepItemBatch[]>(
-      `${environment.apiUrl}/salesRepItemBatch/ListBySalesRepId/` + salesRepId
+      `${environment.apiUrl}/salesRepItemBatch/ListByUserId/` + userId
     );
   }
 

@@ -15,7 +15,7 @@ namespace Application.SalesRepItemBatches
         public class Command : IRequest
         {
             public int Id { get; set; }
-            public int SalesRepId { get; set; }
+            public int UserId { get; set; }
             public int ItemBatchId { get; set; }
             public int ItemCount { get; set; }
             public int StoreId { get; set; }
@@ -25,7 +25,7 @@ namespace Application.SalesRepItemBatches
         {
             public CommandValidator()
             {
-                RuleFor(x => x.SalesRepId).GreaterThan(0);
+                RuleFor(x => x.UserId).GreaterThan(0);
                 RuleFor(x => x.ItemBatchId).GreaterThan(0);
                 RuleFor(x => x.ItemCount).GreaterThan(0);
             }

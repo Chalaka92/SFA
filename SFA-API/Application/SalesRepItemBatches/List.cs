@@ -33,8 +33,7 @@ namespace Application.SalesRepItemBatches
                 returnSalesRepItemBatches.ForEach(async x =>
                 {
                     var itemBatch = await _context.ItemBatches.FindAsync(x.ItemBatchId);
-                    var salesRep = await _context.SalesReps.FindAsync(x.SalesRepId);
-                    var user = await _context.UserDetails.FindAsync(salesRep.UserId);
+                    var user = await _context.UserDetails.FindAsync(x.UserId);
                     var store = await _context.Stores.FindAsync(x.StoreId);
                     x.SalesRepName = user.FirstName + " " + user.LastName;
                     x.ItemBatchName = itemBatch.Name;

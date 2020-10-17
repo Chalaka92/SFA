@@ -23,8 +23,8 @@
             >
               <mat-option [value]="0">All Sales Reps</mat-option>
               <mat-option
-                *ngFor="let salesRep of salesReps"
-                [value]="salesRep.id"
+                *ngFor="let salesRep of salesRepsGroupByUserId"
+                [value]="salesRep.userId"
                 >{{ salesRep.userName }}</mat-option
               >
             </mat-select>

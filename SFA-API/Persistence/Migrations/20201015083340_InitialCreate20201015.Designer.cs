@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201004075817_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201015083340_InitialCreate20201015")]
+    partial class InitialCreate20201015
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,8 +214,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.HasIndex("ItemStatusId")
-                        .IsUnique();
+                    b.HasIndex("ItemStatusId");
 
                     b.ToTable("ItemBatches");
                 });
@@ -279,9 +278,6 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("OrderedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("SalesRepId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ShopId")
                         .HasColumnType("INTEGER");
 
@@ -291,11 +287,14 @@ namespace Persistence.Migrations
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("SalesRepId");
-
                     b.HasIndex("ShopId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -462,8 +461,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("SalesReps");
                 });
@@ -480,17 +478,17 @@ namespace Persistence.Migrations
                     b.Property<int>("ItemCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SalesRepId")
+                    b.Property<int>("StoreId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("StoreId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ItemBatchId");
 
-                    b.HasIndex("SalesRepId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("SalesRepItemBatches");
                 });
@@ -540,8 +538,7 @@ namespace Persistence.Migrations
                     b.HasIndex("ShopOwnerId")
                         .IsUnique();
 
-                    b.HasIndex("StatusId")
-                        .IsUnique();
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Shops");
                 });
@@ -1201,23 +1198,23 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Status", "Status")
-                        .WithOne("ItemBatch")
-                        .HasForeignKey("Domain.ItemBatch", "ItemStatusId")
+                        .WithMany("ItemBatches")
+                        .HasForeignKey("ItemStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Order", b =>
                 {
-                    b.HasOne("Domain.SalesRep", "SalesRep")
-                        .WithMany("Orders")
-                        .HasForeignKey("SalesRepId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Shop", "Shop")
                         .WithMany("Orders")
                         .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.UserDetail", "UserDetail")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1249,8 +1246,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.SalesRep", b =>
                 {
                     b.HasOne("Domain.UserDetail", "UserDetail")
-                        .WithOne("SalesRep")
-                        .HasForeignKey("Domain.SalesRep", "UserId")
+                        .WithMany("SalesReps")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1263,9 +1260,9 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.SalesRep", "SalesRep")
+                    b.HasOne("Domain.UserDetail", "UserDetail")
                         .WithMany("SalesRepItemBatches")
-                        .HasForeignKey("SalesRepId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1291,8 +1288,8 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Status", "Status")
-                        .WithOne("Shop")
-                        .HasForeignKey("Domain.Shop", "StatusId")
+                        .WithMany("Shops")
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -33,7 +33,7 @@ namespace Application.Orders
                 returnOrders.ForEach(async x =>
                 {
                     var shop = await _context.Shops.FindAsync(x.ShopId);
-                    var user = await _context.UserDetails.FindAsync(x.SalesRepId);
+                    var user = await _context.UserDetails.FindAsync(x.UserId);
                     x.ShopName = shop.Name;
                     x.SalesRepName = user.FirstName + ' ' + user.LastName;
                 });

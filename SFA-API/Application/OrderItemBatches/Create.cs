@@ -55,6 +55,12 @@ namespace Application.OrderItemBatches
             {
                 var orderItemBatch = _mapper.Map<Command, OrderItemBatch>(request);
 
+                var order = await _context.Orders.FindAsync(request.OrderId);
+                var itemBatch = await _context.ItemBatches.FindAsync(request.ItemBatchId);
+                var orderItemBatchCode = order.OrderCode.Replace("odr", "") + itemBatch.ItemBatchCode.Replace("bch", "");
+
+                orderItemBatch.OrderItemBatchCode = orderItemBatchCode;
+
                 await _context.OrderItemBatches.AddAsync(orderItemBatch);
 
                 //Update SalesRep Item Batch

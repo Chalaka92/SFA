@@ -10,7 +10,5 @@ namespace Domain
         public int AssignedAreaId { get; set; }
         public int AssignedStoreId { get; set; }
         public virtual UserDetail UserDetail { get; set; }
-        public virtual ICollection<SalesRepItemBatch> SalesRepItemBatches { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }

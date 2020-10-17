@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -20,7 +21,7 @@ namespace Application.Orders
             public string LoginEmail { get; set; }
             public int Id { get; set; }
             public int ShopId { get; set; }
-            public int SalesRepId { get; set; }
+            public int UserId { get; set; }
             public string OrderCode { get; set; }
             public decimal TotalAmount { get; set; }
             public bool IsComplete { get; set; }
@@ -35,6 +36,8 @@ namespace Application.Orders
             public string CanceledReason { get; set; }
             public bool IsSync { get; set; }
             public DateTime? SyncedDate { get; set; }
+            public virtual ICollection<OrderItemBatch> OrderItemBatches { get; set; }
+
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -43,7 +46,7 @@ namespace Application.Orders
             {
                 RuleFor(x => x.LoginEmail).NotEmpty();
                 RuleFor(x => x.ShopId).GreaterThan(0);
-                RuleFor(x => x.SalesRepId).GreaterThan(0);
+                RuleFor(x => x.UserId).GreaterThan(0);
                 RuleFor(x => x.TotalAmount).GreaterThan(0);
             }
         }
@@ -61,14 +64,15 @@ namespace Application.Orders
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var order = await _context.Orders.FindAsync(request.Id);
-                var loggedUser = await _userManager.FindByEmailAsync(request.LoginEmail);
-                var userDetail = await _context.UserDetails.Where(x => x.LoggedUserId == loggedUser.Id).FirstOrDefaultAsync();
 
                 if (order == null)
                     throw new RestException(HttpStatusCode.NotFound, new { order = "Not Found" });
 
+                var loggedUser = await _userManager.FindByEmailAsync(request.LoginEmail);
+                var userDetail = await _context.UserDetails.FirstOrDefaultAsync((x => x.LoggedUserId == loggedUser.Id));
+
                 order.ShopId = request.ShopId == 0 ? order.ShopId : request.ShopId;
-                order.SalesRepId = request.SalesRepId == 0 ? order.SalesRepId : request.SalesRepId;
+                order.UserId = request.UserId == 0 ? order.UserId : request.UserId;
                 order.TotalAmount = request.TotalAmount;
                 order.IsComplete = request.IsComplete;
                 order.CompletedDate = request.CompletedDate;
@@ -87,6 +91,47 @@ namespace Application.Orders
                 }
                 order.IsSync = request.IsSync;
                 order.SyncedDate = request.SyncedDate;
+
+                var savedOrderItemBatches = await _context.OrderItemBatches.Where(y => y.OrderId == order.Id).ToListAsync();
+                savedOrderItemBatches.ForEach(x =>
+                {
+                    request.OrderItemBatches.ToList().ForEach(async y =>
+                    {
+                        if (y.Id != 0 && x.Id != y.Id)
+                        {
+                            if (await _context.OrderItemBatches.AnyAsync(a => a.Id == x.Id))
+                            {
+                                var salesRepItemBatch = await _context.SalesRepItemBatches.FirstOrDefaultAsync(y => y.ItemBatchId == x.ItemBatchId);
+                                salesRepItemBatch.ItemCount = salesRepItemBatch.ItemCount + x.ItemCount;
+                                _context.OrderItemBatches.Remove(x);
+                            }
+                        }
+                    });
+                });
+
+                request.OrderItemBatches.ToList().ForEach(async x =>
+               {
+                   var orderItemBatch = await _context.OrderItemBatches.FindAsync(x.Id);
+                   var salesRepItemBatch = await _context.SalesRepItemBatches.FirstOrDefaultAsync(y => y.ItemBatchId == x.ItemBatchId);
+                   var itemBatch = await _context.ItemBatches.FindAsync(x.ItemBatchId);
+                   var orderItemBatchCode = order.OrderCode.Replace("odr", "") + itemBatch.ItemBatchCode.Replace("bch", "");
+
+                   if (orderItemBatch != null)
+                   {
+                       //Update SalesRep Item Batch
+                       salesRepItemBatch.ItemCount = (orderItemBatch.ItemCount + salesRepItemBatch.ItemCount) - x.ItemCount;
+                       orderItemBatch.OrderItemBatchCode = orderItemBatchCode;
+                   }
+                   else
+                   {
+                       //Update SalesRep Item Batch
+                       salesRepItemBatch.ItemCount = salesRepItemBatch.ItemCount - x.ItemCount;
+                       x.OrderItemBatchCode = orderItemBatchCode;
+                       x.OrderId = order.Id;
+                       await _context.OrderItemBatches.AddAsync(x);
+                   }
+
+               });
 
                 var success = await _context.SaveChangesAsync() > 0;
 

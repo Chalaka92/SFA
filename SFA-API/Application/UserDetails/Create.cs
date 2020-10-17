@@ -101,17 +101,17 @@ namespace Application.UserDetails
                     await _context.UserContacts.AddAsync(x);
                 });
 
-                //Add to Sales Rep
-                if (((AccountRole)request.RoleId).ToString() == "SalesRep")
-                {
-                    var salesRep = new SalesRep
-                    {
-                        UserId = userDetail.Id,
-                        SalesRepCode = "sr" + userDetail.UserCode,
+                // //Add to Sales Rep
+                // if (((AccountRole)request.RoleId).ToString() == "SalesRep")
+                // {
+                //     var salesRep = new SalesRep
+                //     {
+                //         UserId = userDetail.Id,
+                //         SalesRepCode = "sr" + userDetail.UserCode,
 
-                    };
-                    await _context.SalesReps.AddAsync(salesRep);
-                }
+                //     };
+                //     await _context.SalesReps.AddAsync(salesRep);
+                // }
 
                 var success = await _context.SaveChangesAsync() > 0;
 

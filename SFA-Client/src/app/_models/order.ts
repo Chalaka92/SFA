@@ -4,7 +4,7 @@ export class Order {
   id: number;
   shopId: number;
   shopName: string;
-  salesRepId: number;
+  userId: number;
   salesRepName: string;
   orderCode: string;
   totalAmount: number;
@@ -27,7 +27,7 @@ export class Order {
     this.id = order.id;
     this.shopId = order.shopId;
     this.shopName = order.shopName;
-    this.salesRepId = order.salesRepId;
+    this.userId = order.userId;
     this.salesRepName = order.salesRepName;
     this.orderCode = order.orderCode;
     this.totalAmount = order.totalAmount;

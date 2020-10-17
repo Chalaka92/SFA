@@ -1,6 +1,6 @@
 export class SalesRepItemBatch {
   id: number;
-  salesRepId: number;
+  userId: number;
   salesRepName: string;
   itemBatchId: number;
   itemBatchName: string;
@@ -10,7 +10,7 @@ export class SalesRepItemBatch {
 
   constructor(salesRepItemBatch) {
     this.id = salesRepItemBatch.id;
-    this.salesRepId = salesRepItemBatch.salesRepId;
+    this.userId = salesRepItemBatch.userId;
     this.salesRepName = salesRepItemBatch.salesRepName;
     this.itemBatchId = salesRepItemBatch.itemBatchId;
     this.itemBatchName = salesRepItemBatch.itemBatchName;

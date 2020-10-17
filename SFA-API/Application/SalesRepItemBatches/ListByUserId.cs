@@ -10,11 +10,11 @@ using Persistence;
 
 namespace Application.SalesRepItemBatches
 {
-    public class ListBySalesRepId
+    public class ListByUserId
     {
         public class Query : IRequest<List<SalesRepItemBatchDto>>
         {
-            public int SalesRepId { get; set; }
+            public int UserId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, List<SalesRepItemBatchDto>>
@@ -29,7 +29,7 @@ namespace Application.SalesRepItemBatches
 
             public async Task<List<SalesRepItemBatchDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var salesRepItemBatches = await _context.SalesRepItemBatches.Where(x => x.SalesRepId == request.SalesRepId).ToListAsync();
+                var salesRepItemBatches = await _context.SalesRepItemBatches.Where(x => x.UserId == request.UserId).ToListAsync();
                 var returnSalesRepItemBatches = _mapper.Map<List<SalesRepItemBatch>, List<SalesRepItemBatchDto>>(salesRepItemBatches);
                 if (returnSalesRepItemBatches == null)
                     return null;
@@ -37,8 +37,7 @@ namespace Application.SalesRepItemBatches
                 returnSalesRepItemBatches.ForEach(async x =>
                 {
                     var itemBatch = await _context.ItemBatches.FindAsync(x.ItemBatchId);
-                    var salesRep = await _context.SalesReps.FindAsync(x.SalesRepId);
-                    var user = await _context.UserDetails.FindAsync(salesRep.UserId);
+                    var user = await _context.UserDetails.FindAsync(x.UserId);
                     var store = await _context.Stores.FindAsync(x.StoreId);
                     x.SalesRepName = user.FirstName + " " + user.LastName;
                     x.ItemBatchName = itemBatch.Name;

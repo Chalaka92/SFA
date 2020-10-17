@@ -7,7 +7,7 @@ namespace Domain
     {
         public int Id { get; set; }
         public int ShopId { get; set; }
-        public int SalesRepId { get; set; }
+        public int UserId { get; set; }
         public string OrderCode { get; set; }
         public decimal TotalAmount { get; set; }
         public bool IsComplete { get; set; }
@@ -24,6 +24,6 @@ namespace Domain
         public DateTime? SyncedDate { get; set; }
         public virtual ICollection<OrderItemBatch> OrderItemBatches { get; set; }
         public virtual Shop Shop { get; set; }
-        public virtual SalesRep SalesRep { get; set; }
+        public virtual UserDetail UserDetail { get; set; }
     }
 }
