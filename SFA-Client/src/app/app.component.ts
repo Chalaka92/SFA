@@ -109,28 +109,6 @@ export class AppComponent {
         ],
       },
       {
-        name: 'Shops',
-        icon: 'shop',
-        position: 25,
-        subItems: [
-          {
-            name: 'Shop Category',
-            routeOrFunction: '/shops/shopcategory',
-            position: 10,
-          },
-          {
-            name: 'Shop',
-            routeOrFunction: '/shops/shop',
-            position: 15,
-          },
-          {
-            name: 'Shop Item Batch',
-            routeOrFunction: '/shops/shopitembatch',
-            position: 20,
-          },
-        ],
-      },
-      {
         name: 'Statuses',
         icon: 'pages',
         position: 30,
@@ -148,26 +126,9 @@ export class AppComponent {
         ],
       },
       {
-        name: 'Stores',
-        icon: 'pages',
-        position: 35,
-        subItems: [
-          {
-            name: 'Store',
-            routeOrFunction: '/stores/store',
-            position: 10,
-          },
-          {
-            name: 'Store Item Batch',
-            routeOrFunction: '/stores/storeitembatch',
-            position: 15,
-          },
-        ],
-      },
-      {
         name: 'Items',
         icon: 'format_paint',
-        position: 40,
+        position: 35,
         subItems: [
           {
             name: 'Item Category',
@@ -187,9 +148,48 @@ export class AppComponent {
         ],
       },
       {
+        name: 'Stores',
+        icon: 'pages',
+        position: 40,
+        subItems: [
+          {
+            name: 'Store',
+            routeOrFunction: '/stores/store',
+            position: 10,
+          },
+          {
+            name: 'Store Item Batch',
+            routeOrFunction: '/stores/storeitembatch',
+            position: 15,
+          },
+        ],
+      },
+      {
+        name: 'Shops',
+        icon: 'shop',
+        position: 45,
+        subItems: [
+          {
+            name: 'Shop Category',
+            routeOrFunction: '/shops/shopcategory',
+            position: 10,
+          },
+          {
+            name: 'Shop',
+            routeOrFunction: '/shops/shop',
+            position: 15,
+          },
+          {
+            name: 'Shop Item Batch',
+            routeOrFunction: '/shops/shopitembatch',
+            position: 20,
+          },
+        ],
+      },
+      {
         name: 'Sales Reps',
         icon: 'person',
-        position: 45,
+        position: 50,
         subItems: [
           {
             name: 'Sales Rep',
@@ -206,7 +206,7 @@ export class AppComponent {
       {
         name: 'Orders',
         icon: 'shopping_cart',
-        position: 50,
+        position: 55,
         subItems: [
           {
             name: 'Order',

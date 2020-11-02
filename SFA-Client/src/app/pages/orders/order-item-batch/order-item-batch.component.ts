@@ -152,23 +152,41 @@ export class OrderItemBatchComponent implements OnInit, OnDestroy {
         data: dialogData,
       })
       .afterClosed()
-      .subscribe((orderItemBatch: OrderItemBatch) => {
-        /**
-         * Item is the updated item (if the user pressed Save - otherwise it's null)
-         */
-        if (orderItemBatch) {
-          this.sfaService._orderItemBatchService
-            .createOrderItemBatch(orderItemBatch)
-            .subscribe((response) => {
-              this.getAllOrderItemBatches();
-              this.snackbar.open('Creation Successful', 'x', {
-                duration: 3000,
-                panelClass: 'notif-success',
-              });
+      .subscribe(
+        (orderItemBatch: OrderItemBatch) => {
+          if (
+            this.orderItemBatches.filter(
+              (x) =>
+                x.itemBatchId === orderItemBatch.itemBatchId &&
+                x.orderId === orderItemBatch.orderId
+            ).length > 0
+          ) {
+            this.snackbar.open('Record already exist.', 'x', {
+              duration: 3000,
+              panelClass: 'notif-error',
             });
-          this.orderItemBatches.unshift(new OrderItemBatch(orderItemBatch));
+          } else {
+            if (orderItemBatch) {
+              this.sfaService._orderItemBatchService
+                .createOrderItemBatch(orderItemBatch)
+                .subscribe((response) => {
+                  this.getAllOrderItemBatches();
+                  this.snackbar.open('Creation Successful', 'x', {
+                    duration: 3000,
+                    panelClass: 'notif-success',
+                  });
+                });
+              this.orderItemBatches.unshift(new OrderItemBatch(orderItemBatch));
+            }
+          }
+        },
+        (error) => {
+          this.snackbar.open('Creation Failed', 'x', {
+            duration: 3000,
+            panelClass: 'notif-error',
+          });
         }
-      });
+      );
   }
 
   updateOrderItemBatch(orderItemBatch) {
@@ -182,22 +200,30 @@ export class OrderItemBatchComponent implements OnInit, OnDestroy {
       })
       .afterClosed()
       // tslint:disable-next-line: no-shadowed-variable
-      .subscribe((orderItemBatch) => {
-        /**
-         * Item is the updated item (if the user pressed Save - otherwise it's null)
-         */
-        if (orderItemBatch) {
-          this.sfaService._orderItemBatchService
-            .updateOrderItemBatch(orderItemBatch.id, orderItemBatch)
-            .subscribe((response) => {
-              this.getAllOrderItemBatches();
-              this.snackbar.open('Update Successful', 'x', {
-                duration: 3000,
-                panelClass: 'notif-success',
+      .subscribe(
+        (orderItemBatch) => {
+          /**
+           * Item is the updated item (if the user pressed Save - otherwise it's null)
+           */
+          if (orderItemBatch) {
+            this.sfaService._orderItemBatchService
+              .updateOrderItemBatch(orderItemBatch.id, orderItemBatch)
+              .subscribe((response) => {
+                this.getAllOrderItemBatches();
+                this.snackbar.open('Update Successful', 'x', {
+                  duration: 3000,
+                  panelClass: 'notif-success',
+                });
               });
-            });
+          }
+        },
+        (error) => {
+          this.snackbar.open('Update Failed', 'x', {
+            duration: 3000,
+            panelClass: 'notif-error',
+          });
         }
-      });
+      );
   }
 
   deleteOrderItemBatch(orderItemBatch) {

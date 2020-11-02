@@ -32,6 +32,10 @@ namespace Application.OrderItemBatches
 
                 _context.Remove(orderItemBatch);
 
+                //Update Order
+                var order = await _context.Orders.FindAsync(orderItemBatch.OrderId);
+                order.TotalAmount -= (orderItemBatch.SellingToShopOwnerAmount * orderItemBatch.ItemCount);
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

@@ -3,23 +3,23 @@
 @import './app/app.theme';
 
 .notif-success {
-  color: #155724 !important; // green
-  background-color: #d4edda !important;
-  border-color: #c3e6cb !important;
+  color: #fffffa !important; // green
+  background-color: #8bc475 !important;
+  border-color: #8bc475 !important;
   font-weight: bold !important;
   .mat-simple-snackbar-action {
-    color: #155724 !important;
+    color: #fffffa !important;
     font-weight: bold !important;
   }
 }
 
 .notif-error {
-  color: #f64336 !important;
-  background-color: #d4edda !important;
-  border-color: #c3e6cb !important;
+  color: #fffffa !important;
+  background-color: #ff7676 !important;
+  border-color: #ff7676 !important;
   font-weight: bold !important;
   .mat-simple-snackbar-action {
-    color: #f64336 !important;
+    color: #fffffa !important;
     font-weight: bold !important;
   }
 }

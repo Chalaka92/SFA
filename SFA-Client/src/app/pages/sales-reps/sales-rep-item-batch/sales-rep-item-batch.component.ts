@@ -25,7 +25,6 @@ import { SalesRepItemBatchCreateUpdateComponent } from './sales-rep-item-batch-c
 export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
   salesRepItemBatches: SalesRepItemBatch[];
   salesRepsGroupByUserId: SalesRepGroupByUserId[];
-  itemBatches: ItemBatch[];
   displaySalesRepItemBatches: SalesRepItemBatch[];
   selectedSalesRepId: any | 0;
 
@@ -73,7 +72,6 @@ export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getAllSalesRepItemBatches();
     this.getAllSalesReps();
-    this.getAllItemBatches();
   }
 
   get visibleColumns() {
@@ -113,51 +111,57 @@ export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
       });
   }
 
-  getAllItemBatches() {
-    this.sfaService._itemBatchService
-      .getAllItemBatches()
-      .subscribe((response) => {
-        if (response) {
-          this.itemBatches = response;
-        }
-      });
-  }
-
   createSalesRepItemBatch() {
     const dialogData = {
       salesRepsGroupByUserId: this.salesRepsGroupByUserId,
-      itemBatches: this.itemBatches,
     };
     this.dialog
       .open(SalesRepItemBatchCreateUpdateComponent, {
         data: dialogData,
       })
       .afterClosed()
-      .subscribe((salesRepItemBatch: SalesRepItemBatch) => {
-        /**
-         * Item is the updated item (if the user pressed Save - otherwise it's null)
-         */
-        if (salesRepItemBatch) {
-          this.sfaService._salesRepItemBatchService
-            .createSalesRepItemBatch(salesRepItemBatch)
-            .subscribe((response) => {
-              this.getAllSalesRepItemBatches();
-              this.snackbar.open('Creation Successful', 'x', {
-                duration: 3000,
-                panelClass: 'notif-success',
-              });
+      .subscribe(
+        (salesRepItemBatch: SalesRepItemBatch) => {
+          if (
+            this.salesRepItemBatches.filter(
+              (x) =>
+                x.itemBatchId === salesRepItemBatch.itemBatchId &&
+                x.userId === salesRepItemBatch.userId
+            ).length > 0
+          ) {
+            this.snackbar.open('Record already exist.', 'x', {
+              duration: 3000,
+              panelClass: 'notif-error',
             });
-          this.salesRepItemBatches.unshift(
-            new SalesRepItemBatch(salesRepItemBatch)
-          );
+          } else {
+            if (salesRepItemBatch) {
+              this.sfaService._salesRepItemBatchService
+                .createSalesRepItemBatch(salesRepItemBatch)
+                .subscribe((response) => {
+                  this.getAllSalesRepItemBatches();
+                  this.snackbar.open('Creation Successful', 'x', {
+                    duration: 3000,
+                    panelClass: 'notif-success',
+                  });
+                });
+              this.salesRepItemBatches.unshift(
+                new SalesRepItemBatch(salesRepItemBatch)
+              );
+            }
+          }
+        },
+        (error) => {
+          this.snackbar.open('Creation Failed', 'x', {
+            duration: 3000,
+            panelClass: 'notif-error',
+          });
         }
-      });
+      );
   }
 
   updateSalesRepItemBatch(salesRepItemBatch) {
     const dialogData = {
       salesRepsGroupByUserId: this.salesRepsGroupByUserId,
-      itemBatches: this.itemBatches,
       salesRepItemBatch: salesRepItemBatch,
     };
     this.dialog
@@ -166,22 +170,30 @@ export class SalesRepItemBatchComponent implements OnInit, OnDestroy {
       })
       .afterClosed()
       // tslint:disable-next-line: no-shadowed-variable
-      .subscribe((salesRepItemBatch) => {
-        /**
-         * Item is the updated item (if the user pressed Save - otherwise it's null)
-         */
-        if (salesRepItemBatch) {
-          this.sfaService._salesRepItemBatchService
-            .updateSalesRepItemBatch(salesRepItemBatch.id, salesRepItemBatch)
-            .subscribe((response) => {
-              this.getAllSalesRepItemBatches();
-              this.snackbar.open('Update Successful', 'x', {
-                duration: 3000,
-                panelClass: 'notif-success',
+      .subscribe(
+        (salesRepItemBatch) => {
+          /**
+           * Item is the updated item (if the user pressed Save - otherwise it's null)
+           */
+          if (salesRepItemBatch) {
+            this.sfaService._salesRepItemBatchService
+              .updateSalesRepItemBatch(salesRepItemBatch.id, salesRepItemBatch)
+              .subscribe((response) => {
+                this.getAllSalesRepItemBatches();
+                this.snackbar.open('Update Successful', 'x', {
+                  duration: 3000,
+                  panelClass: 'notif-success',
+                });
               });
-            });
+          }
+        },
+        (error) => {
+          this.snackbar.open('Update Failed', 'x', {
+            duration: 3000,
+            panelClass: 'notif-error',
+          });
         }
-      });
+      );
   }
 
   deleteSalesRepItemBatch(salesRepItemBatch) {

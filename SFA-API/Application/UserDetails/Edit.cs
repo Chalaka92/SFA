@@ -58,6 +58,9 @@ namespace Application.UserDetails
                 if (userDetail == null)
                     throw new RestException(HttpStatusCode.NotFound, new { userDetail = "Not Found" });
 
+                if (await _context.UserDetails.Where(x => x.NIC == request.NIC.Trim()).AnyAsync())
+                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "NIC already exists." });
+
                 userDetail.FirstName = request.FirstName ?? userDetail.FirstName;
                 userDetail.MiddleName = request.MiddleName ?? userDetail.MiddleName;
                 userDetail.LastName = request.LastName ?? userDetail.LastName;

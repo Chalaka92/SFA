@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '@app/common/confirm-dialog/confirm-dialog.component';
 import { Order } from '@app/_models/order';
 import { Shop } from '@app/_models/shop';
+import { AuthService } from '@app/_services/auth.service';
 import { SfaService } from '@app/_services/sfa.service';
 import { fadeInRightAnimation } from 'src/@sfa/animations/fade-in-right.animation';
 import { fadeInUpAnimation } from 'src/@sfa/animations/fade-in-up.animation';
@@ -85,7 +86,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     },
     {
       name: 'Edited By',
-      property: 'editedUserId',
+      property: 'editedUserName',
       visible: true,
       isModelProperty: true,
       isList: false,
@@ -99,7 +100,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     },
     {
       name: 'Cancel By',
-      property: 'canceledUserId',
+      property: 'canceledUserName',
       visible: true,
       isModelProperty: true,
       isList: false,
@@ -121,6 +122,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private sfaService: SfaService,
+    private authService: AuthService,
     private snackbar: MatSnackBar
   ) {}
 
@@ -161,7 +163,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteOrder(order) {
+  deleteOrder(order: { id: number }) {
     this.sfaService._orderService.deleteOrder(order.id).subscribe(
       () => {
         this.getAllOrders();
@@ -199,7 +201,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFilterChange(value) {
+  onFilterChange(value: string) {
     if (!this.dataSource) {
       return;
     }
@@ -208,7 +210,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.dataSource.filter = value;
   }
 
-  confirmDialog(order): void {
+  confirmDialog(order: any): void {
     const message = `Are you sure you want to delete this?`;
 
     const dialogData = {
@@ -227,6 +229,89 @@ export class OrderComponent implements OnInit, OnDestroy {
       .subscribe((dialogResult) => {
         if (dialogResult) {
           this.deleteOrder(order);
+        }
+      });
+  }
+
+  completeOrder(order: any): void {
+    const message = `Are you sure you want to complete this?`;
+
+    const dialogData = {
+      icon: 'check',
+      title: 'Complete',
+      message: message,
+      icolor: 'accent',
+    };
+
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        maxWidth: '400px',
+        data: dialogData,
+      })
+      .afterClosed()
+      .subscribe((dialogResult) => {
+        if (dialogResult) {
+          order.isComplete = true;
+          order.completedDate = new Date();
+          order.loginEmail = this.authService.currentUserValue.email;
+          this.sfaService._orderService
+            .completeOrder(order.id, order)
+            .subscribe(
+              () => {
+                this.getAllOrders();
+                this.snackbar.open('Completion Successful', 'x', {
+                  duration: 3000,
+                  panelClass: 'notif-success',
+                });
+              },
+              () => {
+                this.snackbar.open('Completion Failed', 'x', {
+                  duration: 3000,
+                  panelClass: 'notif-error',
+                });
+              }
+            );
+        }
+      });
+  }
+
+  cancelOrder(order: any): void {
+    const message = `Are you sure you want to complete this?`;
+
+    const dialogData = {
+      icon: 'cancel',
+      title: 'Cancel',
+      message: message,
+      icolor: 'default',
+    };
+
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        maxWidth: '400px',
+        data: dialogData,
+      })
+      .afterClosed()
+      .subscribe((dialogResult) => {
+        if (dialogResult) {
+          order.isCancel = true;
+          order.canceledDate = new Date();
+          order.canceledReason = '';
+          order.loginEmail = this.authService.currentUserValue.email;
+          this.sfaService._orderService.cancelOrder(order.id, order).subscribe(
+            () => {
+              this.getAllOrders();
+              this.snackbar.open('Cancellation Successful', 'x', {
+                duration: 3000,
+                panelClass: 'notif-success',
+              });
+            },
+            () => {
+              this.snackbar.open('Cancellation Failed', 'x', {
+                duration: 3000,
+                panelClass: 'notif-error',
+              });
+            }
+          );
         }
       });
   }

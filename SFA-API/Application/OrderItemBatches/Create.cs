@@ -67,6 +67,9 @@ namespace Application.OrderItemBatches
                 var salesRepItemBatch = await _context.SalesRepItemBatches.Where(x => x.ItemBatchId == request.ItemBatchId).FirstOrDefaultAsync();
                 salesRepItemBatch.ItemCount = salesRepItemBatch.ItemCount - request.ItemCount;
 
+                //Update Order
+                order.TotalAmount += (request.SellingToShopOwnerAmount * request.ItemCount);
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;

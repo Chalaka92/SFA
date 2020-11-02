@@ -14,9 +14,11 @@ export class Order {
   isEdit: boolean;
   editedDate: Date;
   editedUserId: number;
+  editedUserName: string;
   isCancel: boolean;
   canceledDate: Date;
   canceledUserId: number;
+  canceledUserName: string;
   canceledReason: string;
   isSync: boolean;
   syncedDate: Date;
@@ -44,5 +46,7 @@ export class Order {
     this.isSync = order.isSync;
     this.syncedDate = order.syncedDate;
     this.orderItemBatches = order.orderItemBatches;
+    this.editedUserName = order.editedUserName;
+    this.canceledUserName = order.canceledUserName;
   }
 }

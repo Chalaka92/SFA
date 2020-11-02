@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SalesRepItemBatch } from '@app/_models/salesRepItemBatch';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,13 +10,15 @@ import { environment } from '@environments/environment';
 export class SalesRepItemBatchService {
   constructor(private http: HttpClient) {}
 
-  getAllSalesRepItemBatches() {
+  getAllSalesRepItemBatches(): Observable<SalesRepItemBatch[]> {
     return this.http.get<SalesRepItemBatch[]>(
       `${environment.apiUrl}/salesRepItemBatch`
     );
   }
 
-  getAllSalesRepItemBatchesByUserId(userId: number) {
+  getAllSalesRepItemBatchesByUserId(
+    userId: number
+  ): Observable<SalesRepItemBatch[]> {
     return this.http.get<SalesRepItemBatch[]>(
       `${environment.apiUrl}/salesRepItemBatch/ListByUserId/` + userId
     );

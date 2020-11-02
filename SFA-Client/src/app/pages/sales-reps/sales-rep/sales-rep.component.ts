@@ -93,23 +93,44 @@ export class SalesRepComponent implements OnInit, OnDestroy {
     this.dialog
       .open(SalesRepCreateUpdateComponent, { width: '25%' })
       .afterClosed()
-      .subscribe((salesRep: SalesRep) => {
-        /**
-         * SalesRep is the updated salesRep (if the user pressed Save - otherwise it's null)
-         */
-        if (salesRep) {
-          this.sfaService._salesRepService
-            .createSalesRep(salesRep)
-            .subscribe(() => {
-              this.getAllSalesReps();
-              this.snackbar.open('Creation Successful', 'x', {
+      .subscribe(
+        (salesRep: SalesRep) => {
+          /**
+           * SalesRep is the updated salesRep (if the user pressed Save - otherwise it's null)
+           */
+          if (salesRep) {
+            if (
+              this.salesReps.filter(
+                (x) =>
+                  x.assignedStoreId === salesRep.assignedStoreId &&
+                  x.userId === salesRep.userId
+              ).length > 0
+            ) {
+              this.snackbar.open('Record already exist.', 'x', {
                 duration: 3000,
-                panelClass: 'notif-success',
+                panelClass: 'notif-error',
               });
-            });
-          this.salesReps.unshift(new SalesRep(salesRep));
+            } else {
+              this.sfaService._salesRepService
+                .createSalesRep(salesRep)
+                .subscribe(() => {
+                  this.getAllSalesReps();
+                  this.snackbar.open('Creation Successful.', 'x', {
+                    duration: 3000,
+                    panelClass: 'notif-success',
+                  });
+                });
+              this.salesReps.unshift(new SalesRep(salesRep));
+            }
+          }
+        },
+        () => {
+          this.snackbar.open('Creation failed.', 'x', {
+            duration: 3000,
+            panelClass: 'notif-error',
+          });
         }
-      });
+      );
   }
 
   updateSalesRep(salesRep) {
@@ -120,22 +141,30 @@ export class SalesRepComponent implements OnInit, OnDestroy {
       })
       .afterClosed()
       // tslint:disable-next-line: no-shadowed-variable
-      .subscribe((salesRep) => {
-        /**
-         * SalesRep is the updated salesRep (if the user pressed Save - otherwise it's null)
-         */
-        if (salesRep) {
-          this.sfaService._salesRepService
-            .updateSalesRep(salesRep.id, salesRep)
-            .subscribe(() => {
-              this.getAllSalesReps();
-              this.snackbar.open('Update Successful', 'x', {
-                duration: 3000,
-                panelClass: 'notif-success',
+      .subscribe(
+        (salesRep) => {
+          /**
+           * SalesRep is the updated salesRep (if the user pressed Save - otherwise it's null)
+           */
+          if (salesRep) {
+            this.sfaService._salesRepService
+              .updateSalesRep(salesRep.id, salesRep)
+              .subscribe(() => {
+                this.getAllSalesReps();
+                this.snackbar.open('Update Successful', 'x', {
+                  duration: 3000,
+                  panelClass: 'notif-success',
+                });
               });
-            });
+          }
+        },
+        () => {
+          this.snackbar.open('Update failed.', 'x', {
+            duration: 3000,
+            panelClass: 'notif-error',
+          });
         }
-      });
+      );
   }
 
   deleteSalesRep(salesRep) {

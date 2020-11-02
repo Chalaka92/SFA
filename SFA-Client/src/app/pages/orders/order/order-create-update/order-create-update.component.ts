@@ -291,18 +291,29 @@ export class OrderCreateUpdateComponent implements OnInit {
   }
 
   AddOrderItemBatch(orderItemBatch: any) {
-    this.orderItemBatches.push(orderItemBatch);
-    this.dataSource = new MatTableDataSource();
-    this.dataSource.data = this.orderItemBatches;
+    if (
+      this.orderItemBatches.filter(
+        (x) => x.itemBatchId === orderItemBatch.itemBatchId
+      ).length > 0
+    ) {
+      this.snackbar.open('Item batch already exist.', 'x', {
+        duration: 3000,
+        panelClass: 'notif-error',
+      });
+    } else {
+      this.orderItemBatches.push(orderItemBatch);
+      this.dataSource = new MatTableDataSource();
+      this.dataSource.data = this.orderItemBatches;
 
-    let totalAmount = 0;
-    this.orderItemBatches.forEach((x) => {
-      totalAmount += x.sellingToShopOwnerAmount * x.itemCount;
-    });
+      let totalAmount = 0;
+      this.orderItemBatches.forEach((x) => {
+        totalAmount += x.sellingToShopOwnerAmount * x.itemCount;
+      });
 
-    this.form.patchValue({
-      totalAmount: totalAmount,
-    });
+      this.form.patchValue({
+        totalAmount: totalAmount,
+      });
+    }
   }
 
   removeOrderItemBatch(rowIndex: any, row: any) {

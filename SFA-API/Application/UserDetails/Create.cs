@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using Application.User;
 using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.UserDetails
@@ -63,6 +66,9 @@ namespace Application.UserDetails
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                if (await _context.UserDetails.Where(x => x.NIC == request.NIC.Trim()).AnyAsync())
+                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "User already exists (NIC)." });
+
                 var userDetail = _mapper.Map<Command, UserDetail>(request);
 
                 var userCode = "usr" + request.FirstName[0].ToString().ToLower() + request.LastName[0].ToString().ToLower() + request.RoleId + "0001";

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Item } from '@app/_models/item';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from '@environments/environment';
 export class ItemService {
   constructor(private http: HttpClient) {}
 
-  getAllItems() {
+  getAllItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${environment.apiUrl}/item`);
   }
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderItemBatch } from '@app/_models/orderItemBatch';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from '@environments/environment';
 export class OrderItemBatchService {
   constructor(private http: HttpClient) {}
 
-  getAllOrderItemBatches() {
+  getAllOrderItemBatches(): Observable<OrderItemBatch[]> {
     return this.http.get<OrderItemBatch[]>(
       `${environment.apiUrl}/orderItemBatch`
     );

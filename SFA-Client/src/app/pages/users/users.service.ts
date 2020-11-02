@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserDetail } from '@app/_models/userDetails';
 import { UserRegister } from '@app/_models/userRegister';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +11,11 @@ import { environment } from '@environments/environment';
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  getAllUserDetails() {
+  getAllUserDetails(): Observable<UserDetail[]> {
     return this.http.get<UserDetail[]>(`${environment.apiUrl}/userDetail`);
   }
 
-  getSingleUserDetails(id: number) {
+  getSingleUserDetails(id: number): Observable<UserDetail> {
     return this.http.get<UserDetail>(`${environment.apiUrl}/userDetail/` + id);
   }
 

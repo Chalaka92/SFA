@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ShopItemBatch } from '@app/_models/shopItemBatch';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from '@environments/environment';
 export class ShopItemBatchService {
   constructor(private http: HttpClient) {}
 
-  getAllShopItemBatches() {
+  getAllShopItemBatches(): Observable<ShopItemBatch[]> {
     return this.http.get<ShopItemBatch[]>(
       `${environment.apiUrl}/shopItemBatch`
     );

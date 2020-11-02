@@ -32,7 +32,6 @@ export class SalesRepItemBatchCreateUpdateComponent implements OnInit {
     private sfaService: SfaService
   ) {
     this.salesRepsGroupByUserId = defaults.salesRepsGroupByUserId;
-    this.itemBatches = defaults.itemBatches;
   }
 
   ngOnInit(): void {

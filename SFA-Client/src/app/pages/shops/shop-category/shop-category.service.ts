@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ShopCategory } from '@app/_models/shopCategory';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from '@environments/environment';
 export class ShopCategoryService {
   constructor(private http: HttpClient) {}
 
-  getAllShopCategories() {
+  getAllShopCategories(): Observable<ShopCategory[]> {
     return this.http.get<ShopCategory[]>(`${environment.apiUrl}/shopCategory`);
   }
 

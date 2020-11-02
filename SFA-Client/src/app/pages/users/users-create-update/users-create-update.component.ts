@@ -162,12 +162,21 @@ export class UsersCreateUpdateComponent implements OnInit {
     if (userDetail) {
       this.sfaService._userService
         .updateUserDetail(userDetail.id, userDetail)
-        .subscribe(() => {
-          this.snackbar.open('Update Successful', 'x', {
-            duration: 3000,
-            panelClass: 'notif-success',
-          });
-        });
+        .subscribe(
+          () => {
+            this.snackbar.open('Update Successful', 'x', {
+              duration: 3000,
+              panelClass: 'notif-success',
+            });
+          },
+          (error) => {
+            console.log(error);
+            this.snackbar.open('Update Failed', 'x', {
+              duration: 3000,
+              panelClass: 'notif-error',
+            });
+          }
+        );
     }
   }
 

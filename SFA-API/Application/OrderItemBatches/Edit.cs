@@ -74,6 +74,10 @@ namespace Application.OrderItemBatches
                 orderItemBatch.CustomerFreeIssueQuantity = request.CustomerFreeIssueQuantity;
                 orderItemBatch.ShopOwnerFreeIssueQuantity = request.ShopOwnerFreeIssueQuantity;
 
+                //Update Order
+                var order = await _context.Orders.FindAsync(orderItemBatch.OrderId);
+                var alterTotalAmount = (request.SellingToShopOwnerAmount * request.ItemCount) - (orderItemBatch.SellingToShopOwnerAmount * orderItemBatch.ItemCount); ;
+                order.TotalAmount += alterTotalAmount;
 
                 var success = await _context.SaveChangesAsync() > 0;
 

@@ -34,8 +34,18 @@ namespace Application.Orders
                 {
                     var shop = await _context.Shops.FindAsync(x.ShopId);
                     var user = await _context.UserDetails.FindAsync(x.UserId);
+                    var editUser = await _context.UserDetails.FindAsync(x.EditedUserId);
+                    var cancelUser = await _context.UserDetails.FindAsync(x.CanceledUserId);
                     x.ShopName = shop.Name;
                     x.SalesRepName = user.FirstName + ' ' + user.LastName;
+                    if (cancelUser != null)
+                    {
+                        x.CanceledUserName = cancelUser.FirstName;
+                    }
+                    if (editUser != null)
+                    {
+                        x.EditedUserName = editUser.FirstName;
+                    }
                 });
                 return returnOrders;
             }

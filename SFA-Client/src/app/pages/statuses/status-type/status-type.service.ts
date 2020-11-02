@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StatusType } from '@app/_models/statusType';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from '@environments/environment';
 export class StatusTypeService {
   constructor(private http: HttpClient) {}
 
-  getAllStatusTypes() {
+  getAllStatusTypes(): Observable<StatusType[]> {
     return this.http.get<StatusType[]>(`${environment.apiUrl}/statusType`);
   }
 

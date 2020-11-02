@@ -78,9 +78,26 @@
               matTooltip="Edit"
               [routerLink]="['createUpdateOrder', row.id]"
               (click)="$event.stopPropagation()"
+              [disabled]="row.isComplete || row.isCancel"
               mat-icon-button
             >
               <mat-icon color="primary">edit</mat-icon>
+            </button>
+            <button
+              matTooltip="Complete"
+              (click)="completeOrder(row); $event.stopPropagation()"
+              mat-icon-button
+              [disabled]="row.isComplete || row.isCancel"
+            >
+              <mat-icon color="accent">check</mat-icon>
+            </button>
+            <button
+              matTooltip="Cancel"
+              (click)="cancelOrder(row); $event.stopPropagation()"
+              mat-icon-button
+              [disabled]="row.isComplete || row.isCancel"
+            >
+              <mat-icon>cancel</mat-icon>
             </button>
             <button
               matTooltip="Delete"

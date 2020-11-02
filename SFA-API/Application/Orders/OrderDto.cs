@@ -19,9 +19,11 @@ namespace Application.Orders
         public bool IsEdit { get; set; }
         public DateTime? EditedDate { get; set; }
         public int EditedUserId { get; set; }
+        public string EditedUserName { get; set; }
         public bool IsCancel { get; set; }
         public DateTime? CanceledDate { get; set; }
         public int CanceledUserId { get; set; }
+        public string CanceledUserName { get; set; }
         public string CanceledReason { get; set; }
         public bool IsSync { get; set; }
         public DateTime? SyncedDate { get; set; }

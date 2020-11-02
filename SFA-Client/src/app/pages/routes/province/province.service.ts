@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { Province } from '@app/_models/province';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProvinceService {
   constructor(private http: HttpClient) {}
 
-  getAllProvinces() {
+  getAllProvinces(): Observable<Province[]> {
     return this.http.get<Province[]>(`${environment.apiUrl}/province`);
   }
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StoreItemBatch } from '@app/_models/storeItemBatch';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,19 +10,19 @@ import { environment } from '@environments/environment';
 export class StoreItemBatchService {
   constructor(private http: HttpClient) {}
 
-  getAllStoreItemBatches() {
+  getAllStoreItemBatches(): Observable<StoreItemBatch[]> {
     return this.http.get<StoreItemBatch[]>(
       `${environment.apiUrl}/storeItemBatch`
     );
   }
 
-  getAllStoreItemBatchesByStoreId(storeId: any) {
+  getAllStoreItemBatchesByStoreId(storeId: any): Observable<StoreItemBatch[]> {
     return this.http.get<StoreItemBatch[]>(
       `${environment.apiUrl}/storeItemBatch/ListByStoreId/` + storeId
     );
   }
 
-  getSingleStoreItemBatch(id: number) {
+  getSingleStoreItemBatch(id: number): Observable<StoreItemBatch> {
     return this.http.get<StoreItemBatch>(
       `${environment.apiUrl}/storeItemBatch/` + id
     );
